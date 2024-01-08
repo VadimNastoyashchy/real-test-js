@@ -3,10 +3,19 @@
   "version": "1.0.0",
   "description": "RealTestJS - another test js runner",
   "type": "module",
-  "bin": "./src/cli.mjs",
+  "bin": {
+    "real-test-js": "src/cli.mjs"
+  },
   "exports": {
     ".": "./src/runner.mjs"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "Vadym Nastoiashchyi",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VadimNastoyashchy/real-test-js.git"
+  }
 }
