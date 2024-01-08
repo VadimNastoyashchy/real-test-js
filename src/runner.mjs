@@ -1,12 +1,11 @@
 import path from 'path'
-import { getSpecName } from './args.mjs'
+import { getConfig } from './config.mjs'
 
-const args = process.argv // get arguments from command line
-const specName = getSpecName(args)
+const config = getConfig()
 
 export const run = async () => {
   try {
-    await import(path.resolve(process.cwd(), specName))
+    await import(path.resolve(process.cwd(), config.specFile))
   } catch (e) {
     console.error(e)
   }
