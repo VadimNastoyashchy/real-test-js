@@ -17,5 +17,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VadimNastoyashchy/real-test-js.git"
+  },
+  "publishConfig": {
+    "@VadimNastoyashchy:registry": "https://npm.pkg.github.com"
   }
 }
