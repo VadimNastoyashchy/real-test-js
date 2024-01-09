@@ -4,7 +4,7 @@ on:
     branches:
       - develop
 jobs:
- cypress-run:
+ tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
