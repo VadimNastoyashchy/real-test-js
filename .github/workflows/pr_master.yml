@@ -1,8 +1,8 @@
-name: GitHub Actions After Push Into Develop Branch
+name: GitHub Actions Pr to master
 on:
+  pull_request:
   push:
-    branches:
-      - develop
+    branches: master
 jobs:
  tests:
     runs-on: ubuntu-latest
