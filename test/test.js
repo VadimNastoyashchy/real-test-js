@@ -1,10 +1,14 @@
-import { it } from '../src/core.mjs'
+import { describe, it } from '../src/core.mjs'
 
-it('First pass test', () => {
-  console.log('Inside First pass test (it)')
+it('First it', () => {
+  console.log('Inside first it')
 })
 
-it('First fail test', () => {
-  console.log('Inside First fail test (it)')
+it('Second it', () => {
+  console.log('Inside second it')
   // throw new Error('Error fail test')
+})
+
+describe('First describe', () => {
+  console.log('Inside first describe')
 })
