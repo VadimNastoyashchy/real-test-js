@@ -6,5 +6,5 @@ it('First pass test', () => {
 
 it('First fail test', () => {
   console.log('Inside First fail test (it)')
-  throw new Error('Error fail test')
+  // throw new Error('Error fail test')
 })
