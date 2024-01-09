@@ -34,6 +34,7 @@ yarn add real-test-js --dev
 ```
 
 ## Write test:
+
 Use the it function to write test cases and the describe function to group them.
 
 ### `Example↓`
@@ -67,7 +68,21 @@ npx real-test-js --spec="test.js"
 
 Where **--spec=** your test file path
 
-## Configs
+## `Available CLI Options`
+
+To run with config file **--config=** CLI arg:
+
+```
+npx real-test-js --config="your_config_name.config.json"
+```
+
+To run with spec file **--spec=** CLI arg:
+
+```
+npx real-test-js --spec="test.js"
+```
+
+## `Configuration via config file`
 
 - `your_config_name.config.json` - config for Real Test JS (works as an engine)
 
@@ -81,16 +96,10 @@ test.config.json
 }
 ```
 
-## `Available Options`
+---
 
-To run with config file **--config=** CLI arg:
+| Option Name  | Required | Type   | Description           |
+| ------------ | -------- | ------ | --------------------- |
+| `"specFile"` | true     | string | path to the test file |
 
-```
-npx real-test-js --config="your_config_name.config.json"
-```
-
-To run with spec file **--spec=** CLI arg:
-
-```
-npx real-test-js --spec="test.js"
-```
+---
