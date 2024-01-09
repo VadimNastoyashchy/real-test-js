@@ -1,5 +1,11 @@
-<p align="center" style="font-size:10vw">RealTestJS
+<p align="center">
+  <a href="./logo/logo.png">
+    <picture>
+      <img alt="RealTestJS" src="./logo/logo.png">
+    </picture>    
+  </a>
 </p>
+
 <p align="center">
   <a href="./CHANGELOG.md">Changelog</a> 
 </p>
