@@ -7,25 +7,29 @@ const config = getConfig()
 
 let successes = 0
 const failures = []
-let currentDescribe = ''
+let describeStack = []
 
-const printFailure = (failure) => {
+const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))
   console.error(failure.error)
   console.error('')
 }
 
-const printFailures = () => {
+const printFailuresMsg = () => {
   if (failures.length > 0) {
     console.error('')
     console.error('Failures:')
     console.error('')
   }
-  failures.forEach(printFailure)
+  failures.forEach(printFailureMsg)
 }
 
-const fullTestDescription = ({ name, describeName }) =>
-  `<bold>${describeName}</bold> → <bold>${name}</bold>`
+const withoutLast = (arr) => arr.slice(0, -1)
+
+const fullTestDescription = ({ name, describeStack }) =>
+  [...describeStack, name].map((name) => `<bold>${name}</bold>`).join(' → ')
+
+const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
 
 // Runner entry point
 export const run = async () => {
@@ -34,7 +38,7 @@ export const run = async () => {
   } catch (e) {
     console.error(e)
   }
-  printFailures()
+  printFailuresMsg()
   console.log(
     applyColor(
       `Tests: <green>${successes} passed</green>, ` +
@@ -47,20 +51,16 @@ export const run = async () => {
 export const it = (name, body) => {
   try {
     body()
-    console.log(applyColor(`  <green>${TICK}</green> ${name}`))
+    console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
     successes++
   } catch (e) {
-    console.error(applyColor(`  <red>${CROSS}</red> ${name}`))
-    failures.push({
-      error: e,
-      name,
-      describeName: currentDescribe,
-    })
+    console.error(indent(applyColor(`  <red>${CROSS}</red> ${name}`)))
+    failures.push({ error: e, name, describeStack })
   }
 }
 
 export const describe = (name, body) => {
-  currentDescribe = name
+  describeStack = [...describeStack, name]
   body()
-  currentDescribe = undefined
+  describeStack = withoutLast(describeStack)
 }
