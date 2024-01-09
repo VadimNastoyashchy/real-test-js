@@ -1,7 +1,7 @@
 {
   "name": "real-test-js",
   "version": "2.1.1",
-  "description": "RealTestJS - another test js runner",
+  "description": "RealTestJS - Fast, easy and reliable testing for anything that runs in JS.",
   "type": "module",
   "bin": {
     "real-test-js": "src/cli.mjs"
@@ -19,11 +19,10 @@
     "type": "git",
     "url": "git+https://github.com/VadimNastoyashchy/real-test-js.git"
   },
-  "volta": {
-    "node": "20.9.0",
-    "npm": "10.1.0",
-    "yarn": "1.22.21"
+  "bugs": {
+    "url": "https://github.com/VadimNastoyashchy/real-test-js/issues"
   },
+  "homepage": "https://github.com/VadimNastoyashchy/real-test-js#readme",
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.1.0",
