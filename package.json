@@ -1,7 +1,7 @@
 {
   "name": "real-test-js",
-  "version": "2.1.1",
-  "description": "RealTestJS - Fast, easy and reliable testing for anything that runs in JS.",
+  "version": "1.0.5",
+  "description": "RealTestJS - another test js runner",
   "type": "module",
   "bin": {
     "real-test-js": "src/cli.mjs"
