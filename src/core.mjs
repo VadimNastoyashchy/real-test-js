@@ -4,24 +4,12 @@ import { color } from './colors.mjs'
 
 const config = getConfig()
 
-let anyFailures = false
 let successes = 0
 let failures = 0
 
 const exitCodes = {
   ok: 0,
   failures: 1
-}
-
-export const it = (name, body) => {
-  try {
-    body()
-    successes++
-  } catch (e) {
-    console.error(color(`<red>${name}</red>`))
-    console.error(e)
-    failures++
-  }
 }
 
 export const run = async () => {
@@ -36,4 +24,15 @@ export const run = async () => {
     )
   )
   process.exit(failures !== 0 ? exitCodes.failures : exitCodes.ok)
+}
+
+export const it = (name, body) => {
+  try {
+    body()
+    successes++
+  } catch (e) {
+    console.error(color(`  <red>✗</red> ${name}`))
+    console.error(e)
+    failures++
+  }
 }
