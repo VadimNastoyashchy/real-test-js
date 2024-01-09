@@ -18,6 +18,6 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Check Lint
-        run: npm checkLint
+        run: npx eslint "**/*.{js,mjs}" --ignore-pattern node_modules/
       - name: Test
         run: npm test
