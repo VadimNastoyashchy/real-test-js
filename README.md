@@ -40,14 +40,21 @@ yarn add real-test-js --dev
 test.js
 
 ```
-import { it } from 'real-test-js'
+import { describe, it } from '../src/core.mjs'
 
-it('First test', () => {
-  // your code
+it('First it', () => {
+  // you're code
 })
 
-it('Second test', () => {
-  // your code
+it('Second it', () => {
+  // you're code
+})
+
+describe('First describe', () => {
+  // you're code
+  it('First it inside first describe', () => {
+    // you're code
+  })
 })
 ```
 
