@@ -62,8 +62,13 @@ describe('Second describe', () => {
 
 ## Run test:
 
-```
+```bash
 npx real-test-js --spec="test.js"
+```
+or
+
+```bash
+yarn real-test-js --spec="test.js"
 ```
 
 Where **--spec=** your test file path
@@ -72,14 +77,13 @@ Where **--spec=** your test file path
 
 To run with config file **--config=** CLI arg:
 
-```
+```bash
 npx real-test-js --config="your_config_name.config.json"
 ```
+or
 
-To run with spec file **--spec=** CLI arg:
-
-```
-npx real-test-js --spec="test.js"
+```bash
+yarn real-test-js --config="your_config_name.config.json"
 ```
 
 ## `Configuration via config file`
