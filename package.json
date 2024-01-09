@@ -1,6 +1,6 @@
 {
   "name": "real-test-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "RealTestJS - another test js runner",
   "type": "module",
   "bin": {
