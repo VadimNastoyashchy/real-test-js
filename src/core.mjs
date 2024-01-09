@@ -42,10 +42,10 @@ export const run = async () => {
 export const it = (name, body) => {
   try {
     body()
-    console.log(applyColor(`  <green>${TICK}</green> ${name}`))
+    console.log(applyColor(`  <green>${TICK}</green> ${name}`))
     successes++
   } catch (e) {
-    console.error(applyColor(`  <red>${CROSS}</red> ${name}`))
+    console.error(applyColor(`  <red>${CROSS}</red> ${name}`))
     failures.push(e)
   }
 }
