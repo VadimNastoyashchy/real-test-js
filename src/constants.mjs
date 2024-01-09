@@ -8,3 +8,5 @@ export const ANSI_COLORS = {
 }
 
 export const ANSI_RESET = '\u001b[0m'
+export const TICK = '\u2713'
+export const CROSS = '\u2717'
