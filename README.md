@@ -1,6 +1,11 @@
-# `RealTestJS`
-
-# Next gen js test runner
+<p align="center" style="font-size:10vw">RealTestJS
+</p>
+<p align="center">
+  <a href="./CHANGELOG.md">Changelog</a> 
+</p>
+<p align="center">
+  Fast, easy and reliable testing for anything that runs in JS.
+</p>
 
 ## Getting started
 
@@ -8,12 +13,21 @@
 
 [Node.js](https://nodejs.org/en/download/) installed _globally_ only your system
 
-1. Install all the necessary dependency using npm :
+## Installing
 
+Install RealTestJS for Mac, Linux, or Windows:
+
+```bash
+npm install real-test-js --save-dev
 ```
-npm install
+
+or
+
+```bash
+yarn add real-test-js --dev
 ```
-### Run test:
+
+## Run test:
 
 ```
 npx real-test-js --spec="test.js"
@@ -21,13 +35,14 @@ npx real-test-js --spec="test.js"
 
 Where **--spec=** your test file path
 
-
 ## Configs
 
 - `your_config_name.config.json` - config for Real Test JS (works as an engine)
 
 ### `Example↓`
+
 test.config.json
+
 ```
 {
     "specFile": "your_folder/your_file.js"
