@@ -7,9 +7,11 @@ const config = getConfig()
 
 let successes = 0
 const failures = []
+let currentDescribe = ''
 
-const printFailure = (e) => {
-  console.error(e)
+const printFailure = (failure) => {
+  console.error(applyColor(fullTestDescription(failure)))
+  console.error(failure.error)
   console.error('')
 }
 
@@ -21,6 +23,9 @@ const printFailures = () => {
   }
   failures.forEach(printFailure)
 }
+
+const fullTestDescription = ({ name, describeName }) =>
+  `<bold>${describeName}</bold> → <bold>${name}</bold>`
 
 // Runner entry point
 export const run = async () => {
@@ -46,8 +51,17 @@ export const it = (name, body) => {
     successes++
   } catch (e) {
     console.error(applyColor(`  <red>${CROSS}</red> ${name}`))
-    failures.push(e)
+    failures.push({
+      error: e,
+      name,
+      describeName: currentDescribe,
+    })
   }
 }
 
-export const describe = (name, body) => body()
+export const describe = (name, body) => {
+  console.log(name)
+  currentDescribe = name
+  body()
+  currentDescribe = undefined
+}
