@@ -34,6 +34,7 @@ yarn add real-test-js --dev
 ```
 
 ## Write test:
+Use the it function to write test cases and the describe function to group them.
 
 ### `Example↓`
 
@@ -42,17 +43,17 @@ test.js
 ```
 import { describe, it } from '../src/core.mjs'
 
-it('First it', () => {
-  // you're code
-})
-
-it('Second it', () => {
-  // you're code
-})
-
 describe('First describe', () => {
   // you're code
   it('First it inside first describe', () => {
+    // you're code
+  })
+})
+
+
+describe('Second describe', () => {
+  // you're code
+  it('First it inside second describe', () => {
     // you're code
   })
 })
