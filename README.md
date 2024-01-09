@@ -9,7 +9,7 @@
 <p align="center">
   <a href="./CHANGELOG.md">Changelog</a> 
 </p>
-<p align="center">
+<p align="center" style="font-size:120%;">
   Fast, easy and reliable testing for anything that runs in JS.
 </p>
 
@@ -31,6 +31,24 @@ or
 
 ```bash
 yarn add real-test-js --dev
+```
+
+## Write test:
+
+### `Example↓`
+
+test.js
+
+```
+import { it } from 'real-test-js'
+
+it('First test', () => {
+  // your code
+})
+
+it('Second test', () => {
+  // your code
+})
 ```
 
 ## Run test:
