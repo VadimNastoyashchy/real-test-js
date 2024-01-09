@@ -7,7 +7,7 @@
     "real-test-js": "src/cli.mjs"
   },
   "exports": {
-    ".": "./src/runner.mjs"
+    ".": "./src/core.mjs"
   },
   "scripts": {
     "test": "src/cli.mjs --spec=\"test/test.js\"",

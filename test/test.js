@@ -1,4 +1,4 @@
-import { it } from '../src/runner.mjs'
+import { it } from '../src/core.mjs'
 
 it('First pass test', () => {
   console.log('Inside First pass test (it)')
