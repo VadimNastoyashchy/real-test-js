@@ -9,6 +9,14 @@ it('Second it', () => {
   // throw new Error('Error fail test')
 })
 
+it('Third it', () => {
+  console.log('Inside third it')
+})
+
 describe('First describe', () => {
   console.log('Inside first describe')
+  it('First it inside first describe', () => {
+    console.log('First it inside first describe')
+    // throw new Error('Error fail test')
+  })
 })
