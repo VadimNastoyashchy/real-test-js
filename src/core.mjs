@@ -60,7 +60,6 @@ export const it = (name, body) => {
 }
 
 export const describe = (name, body) => {
-  console.log(name)
   currentDescribe = name
   body()
   currentDescribe = undefined
