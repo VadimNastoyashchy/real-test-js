@@ -1,6 +1,26 @@
 # `RealTestJS`
 
-Next gen js test runner
+# Next gen js test runner
+
+## Getting started
+
+> Before you follow the steps below, make sure you have the
+
+[Node.js](https://nodejs.org/en/download/) installed _globally_ only your system
+
+1. Install all the necessary dependency using npm :
+
+```
+npm install
+```
+### Run test:
+
+```
+npx real-test-js --spec="test.js"
+```
+
+Where **--spec=** your test file path
+
 
 ## Configs
 
@@ -10,7 +30,7 @@ Next gen js test runner
 
 ```
 {
-    "specFile": "testFromConfig.js"
+    "specFile": "your_folder/your_file.js"
 }
 ```
 
