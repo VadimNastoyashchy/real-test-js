@@ -1,6 +1,7 @@
 import path from 'path'
 import { getConfig } from './config.mjs'
 import { color } from './colors.mjs'
+import { TICK, CROSS } from './constants.mjs'
 
 const config = getConfig()
 
@@ -9,7 +10,7 @@ let failures = 0
 
 const exitCodes = {
   ok: 0,
-  failures: 1
+  failures: 1,
 }
 
 export const run = async () => {
@@ -29,9 +30,10 @@ export const run = async () => {
 export const it = (name, body) => {
   try {
     body()
+    console.log(color(`  <green>${TICK}</green> ${name}`))
     successes++
   } catch (e) {
-    console.error(color(`  <red>✗</red> ${name}`))
+    console.log(color(`  <red>${CROSS}</red> ${name}`))
     console.error(e)
     failures++
   }
