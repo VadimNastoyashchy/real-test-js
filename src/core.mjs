@@ -32,8 +32,8 @@ export const run = async () => {
   printFailures()
   console.log(
     applyColor(
-      `<green>${successes}</green> tests passed, ` +
-        `<red>${failures.length}</red> tests failed.`
+      `Tests: <green>${successes} passed</green>, ` +
+        `<red>${failures.length} failed</red>.`
     )
   )
   process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
