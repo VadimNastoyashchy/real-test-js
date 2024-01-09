@@ -10,7 +10,8 @@
     ".": "./src/runner.mjs"
   },
   "scripts": {
-    "test": "src/cli.mjs --spec=\"test/test.js\""
+    "test": "src/cli.mjs --spec=\"test/test.js\"",
+    "checkLint": "npx eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/"
   },
   "author": "Vadym Nastoiashchyi",
   "license": "ISC",
