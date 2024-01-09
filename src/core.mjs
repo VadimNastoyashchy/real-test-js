@@ -1,38 +1,70 @@
 import path from 'path'
 import { getConfig } from './config.mjs'
-import { color } from './colors.mjs'
+import { applyColor } from './transform.mjs'
+import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
+import { timeStamp, printExecutionTime } from './support.mjs'
 
 const config = getConfig()
 
 let successes = 0
-let failures = 0
+const failures = []
+let describeStack = []
 
-const exitCodes = {
-  ok: 0,
-  failures: 1
-}
-
+// Runner entry point
 export const run = async () => {
+  const startTimeStamp = timeStamp()
   try {
     await import(path.resolve(process.cwd(), config.specFile))
   } catch (e) {
     console.error(e)
   }
+  const endTimeStamp = timeStamp()
+  printFailuresMsg()
   console.log(
-    color(
-      `Tests: <green>${successes} passed</green>, <red>${failures} failed</red>`
+    applyColor(
+      `Tests: <green>${successes} passed</green>, ` +
+        `<red>${failures.length} failed</red>.`
     )
   )
-  process.exit(failures !== 0 ? exitCodes.failures : exitCodes.ok)
+  printExecutionTime(startTimeStamp, endTimeStamp)
+  process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
+}
+
+export const describe = (name, body) => {
+  describeStack = [...describeStack, name]
+  body()
+  describeStack = withoutLast(describeStack)
 }
 
 export const it = (name, body) => {
   try {
     body()
+    console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
     successes++
   } catch (e) {
-    console.error(color(`  <red>✗</red> ${name}`))
-    console.error(e)
-    failures++
+    console.error(indent(applyColor(`  <red>${CROSS}</red> ${name}`)))
+    failures.push({ error: e, name, describeStack })
   }
 }
+
+const printFailureMsg = (failure) => {
+  console.error(applyColor(fullTestDescription(failure)))
+  console.error(failure.error)
+  console.error('')
+}
+
+const printFailuresMsg = () => {
+  if (failures.length > 0) {
+    console.error('')
+    console.error('Failures:')
+    console.error('')
+  }
+  failures.forEach(printFailureMsg)
+}
+
+const withoutLast = (arr) => arr.slice(0, -1)
+
+const fullTestDescription = ({ name, describeStack }) =>
+  [...describeStack, name].map((name) => `<bold>${name}</bold>`).join(' → ')
+
+const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
