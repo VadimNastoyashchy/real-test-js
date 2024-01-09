@@ -27,7 +27,7 @@ Where **--spec=** your test file path
 - `your_config_name.config.json` - config for Real Test JS (works as an engine)
 
 ### `Example↓`
-
+test.config.json
 ```
 {
     "specFile": "your_folder/your_file.js"
