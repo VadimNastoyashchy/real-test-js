@@ -1,0 +1,23 @@
+name: GitHub Actions After Push Into Develop Branch
+on:
+  push:
+    branches:
+      - develop
+jobs:
+ tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: develop
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+           node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Check Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
