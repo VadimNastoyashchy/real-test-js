@@ -10,7 +10,7 @@
     ".": "./src/runner.mjs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "src/cli.mjs --spec=\"test/test.js\""
   },
   "author": "Vadym Nastoiashchyi",
   "license": "ISC",
