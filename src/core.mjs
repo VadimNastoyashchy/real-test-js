@@ -2,6 +2,7 @@ import path from 'path'
 import { getConfig } from './config.mjs'
 import { applyColor } from './transform.mjs'
 import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
+import { timeStamp, printExecutionTime } from './support.mjs'
 
 const config = getConfig()
 
@@ -11,11 +12,13 @@ let describeStack = []
 
 // Runner entry point
 export const run = async () => {
+  const startTimeStamp = timeStamp()
   try {
     await import(path.resolve(process.cwd(), config.specFile))
   } catch (e) {
     console.error(e)
   }
+  const endTimeStamp = timeStamp()
   printFailuresMsg()
   console.log(
     applyColor(
@@ -23,6 +26,7 @@ export const run = async () => {
         `<red>${failures.length} failed</red>.`
     )
   )
+  printExecutionTime(startTimeStamp, endTimeStamp)
   process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
 }
 
