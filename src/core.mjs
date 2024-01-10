@@ -31,7 +31,7 @@ export const run = async () => {
 }
 
 export const describe = (name, body) => {
-  describeStack = [...describeStack, name]
+  describeStack = [...describeStack, { name }]
   body()
   describeStack = withoutLast(describeStack)
 }
@@ -65,6 +65,8 @@ const printFailuresMsg = () => {
 const withoutLast = (arr) => arr.slice(0, -1)
 
 const fullTestDescription = ({ name, describeStack }) =>
-  [...describeStack, name].map((name) => `<bold>${name}</bold>`).join(' → ')
+  [...describeStack, { name }]
+    .map(({ name }) => `<bold>${name}</bold>`)
+    .join(' → ')
 
 const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
