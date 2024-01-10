@@ -1,24 +1,28 @@
-import { describe, it } from '../src/core.mjs'
-
-it('First it', () => {
-  console.log('1')
-})
+import { describe, it, beforeEach, afterEach } from '../src/core.mjs'
 
 describe('First describe', () => {
-  console.log('2')
-  it('First it inside first describe', () => {
-    console.log('3')
-    // throw new Error('Error fail test')
+  let beforeCount = 0
+  beforeEach(() => {
+    console.log(`Before each ${++beforeCount}`)
   })
+  afterEach(() => {
+    console.log(`After each ${--beforeCount}`)
+  })
+  it('It #1', () => {})
+  it('It #2', () => {})
+  it('It #3', () => {})
 })
 
 describe('Second describe', () => {
-  console.log('4')
+  let beforeCount = 0
+  beforeEach(() => {
+    console.log(`Before each ${++beforeCount}`)
+  })
+  afterEach(() => {
+    console.log(`After each ${--beforeCount}`)
+  })
+  it('It #1.1', () => {})
   describe('Inside second describe > nested describe', () => {
-    console.log('5')
-    it('First it inside nested describe', () => {
-      console.log('6')
-      // throw new Error('Error fail test')
-    })
+    it('It #2.1', () => {})
   })
 })

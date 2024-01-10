@@ -30,15 +30,55 @@ export const run = async () => {
   process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
 }
 
+const last = (arr) => arr[arr.length - 1]
+
+const currentDescribe = () => last(describeStack)
+
+const withoutLast = (arr) => arr.slice(0, -1)
+
+const updateDescribe = (newProps) => {
+  const newDescribe = {
+    ...currentDescribe(),
+    ...newProps,
+  }
+  describeStack = [...withoutLast(describeStack), newDescribe]
+}
+
+export const beforeEach = (body) =>
+  updateDescribe({
+    befores: [...currentDescribe().befores, body],
+  })
+
+const invokeAll = (fnArray) => fnArray.forEach((fn) => fn())
+
+const invokeBefores = () =>
+  invokeAll(describeStack.flatMap((describe) => describe.befores))
+
+export const afterEach = (body) =>
+  updateDescribe({
+    afters: [...currentDescribe().afters, body],
+  })
+
+const invokeAfters = () =>
+  invokeAll(describeStack.flatMap((describe) => describe.afters))
+
+const makeDescribe = (name) => ({
+  name,
+  befores: [],
+  afters: [],
+})
+
 export const describe = (name, body) => {
-  describeStack = [...describeStack, name]
+  describeStack = [...describeStack, makeDescribe(name)]
   body()
   describeStack = withoutLast(describeStack)
 }
 
 export const it = (name, body) => {
   try {
+    invokeBefores()
     body()
+    invokeAfters()
     console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
     successes++
   } catch (e) {
@@ -46,6 +86,8 @@ export const it = (name, body) => {
     failures.push({ error: e, name, describeStack })
   }
 }
+
+const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
 
 const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))
@@ -62,9 +104,7 @@ const printFailuresMsg = () => {
   failures.forEach(printFailureMsg)
 }
 
-const withoutLast = (arr) => arr.slice(0, -1)
-
 const fullTestDescription = ({ name, describeStack }) =>
-  [...describeStack, name].map((name) => `<bold>${name}</bold>`).join(' → ')
-
-const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
+  [...describeStack, { name }]
+    .map(({ name }) => `<bold>${name}</bold>`)
+    .join(' → ')

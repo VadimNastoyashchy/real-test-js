@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Test hooks:
+  - `beforeEach(() => {})`
+  - `afterEach(() => {})`
+  This new functionality is applicable to (it) block.
+- Added project keywords.
+
+### Changed
+
+- Update readme file.
+
+### Fixed
+- Minor fixes.
+
 ## 1.1.0 - 2024-01-09
 
 ## 1.0.5 - 2024-01-09
