@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Update release workflow file with adding release option list.
+
 ## 1.2.0 - 2024-01-10
 ### Added
 - Test hooks:
