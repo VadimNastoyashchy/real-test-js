@@ -42,9 +42,15 @@ Use the it function to write test cases and the describe function to group them.
 test.js
 
 ```
-import { describe, it } from '../src/core.mjs'
+import { describe, it, beforeEach, afterEach} from '../src/core.mjs'
 
 describe('First describe', () => {
+  beforeEach(() => {
+    // you're code
+  })
+  afterEach(() => {
+    // you're code
+  })
   // you're code
   it('First it inside first describe', () => {
     // you're code
@@ -53,6 +59,12 @@ describe('First describe', () => {
 
 
 describe('Second describe', () => {
+  beforeEach(() => {
+    // you're code
+  })
+  afterEach(() => {
+    // you're code
+  })
   // you're code
   it('First it inside second describe', () => {
     // you're code
@@ -65,6 +77,7 @@ describe('Second describe', () => {
 ```bash
 npx real-test-js --spec="test.js"
 ```
+
 or
 
 ```bash
@@ -80,6 +93,7 @@ To run with config file **--config=** CLI arg:
 ```bash
 npx real-test-js --config="your_config_name.config.json"
 ```
+
 or
 
 ```bash
@@ -105,5 +119,18 @@ test.config.json
 | Option Name  | Required | Type   | Description           |
 | ------------ | -------- | ------ | --------------------- |
 | `"specFile"` | true     | string | path to the test file |
+
+---
+
+## `Test runner API`
+
+---
+
+| Option Name    | Description                                                                           |
+| -------------- | ------------------------------------------------------------------------------------- |
+| `"beforeEach"` | Command allows to define setup tasks at the beginning of every It block               |
+| `"afterEach"`  | Command allow to define teardown tasks at the end of every It block                   |
+| `"it"`         | `it` is where you perform individual tests                                            |
+| `"describe"`   | `describe` is for organizing and grouping tests. Describe can be nested in `describe` |
 
 ---
