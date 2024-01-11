@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- New features - Assertions
+- Added `expect()`
+- Added:
+  - `.toBeDefined()`
+  - `.toHaveLength()`
+  - `.toBeFalsy()`
+  - `.toBeTruthy()`
+  - `.toEqual()`
+  - `.notToEqual()`
+- Added assertion errors
+- Added runner errors
+
+### Changed
+- Updated core
+- Updated documentation
+
 ## 1.3.0 - 2024-01-11
 ### Added
 - Test hooks:

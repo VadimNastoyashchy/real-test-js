@@ -1,48 +1,38 @@
-import {
-  describe,
-  test,
-  beforeEach,
-  afterEach,
-  afterAll,
-  beforeAll,
-} from '../src/core.mjs'
+import { describe, test, expect } from '../src/core.mjs'
 
-describe('First describe', () => {
-  beforeAll(() => {
-    console.log('Before ALL 1')
+describe('Unit tests for assertions', () => {
+  test('Check assertion toBeDefined()', () => {
+    const number = 1
+    expect(number).toBeDefined()
   })
-  let afterAllCount = 0
 
-  afterAll(() => {
-    console.log(`After all ${++afterAllCount}`)
+  test('Check assertion toHaveLength()', () => {
+    const arr = [1, 2, 3]
+    expect(arr).toHaveLength(3)
   })
-  let beforeCount = 0
-  let afterCount = 0
-  beforeEach(() => {
-    console.log(`Before each ${++beforeCount}`)
-  })
-  afterEach(() => {
-    console.log(`After each ${++afterCount}`)
-  })
-  test('It #1', () => {})
-  test('It #2', () => {})
-  test('It #3', () => {})
-})
 
-describe('Second describe', () => {
-  beforeAll(() => {
-    console.log('Before ALL 2')
+  test('Check assertion toBeFalsy()', () => {
+    const flag = false
+    expect(flag).toBeFalsy()
   })
-  let beforeCount = 0
-  let afterCount = 0
-  beforeEach(() => {
-    console.log(`Before each ${++beforeCount}`)
+
+  test('Check assertion toBeTruthy()', () => {
+    const flag = true
+    expect(flag).toBeTruthy()
   })
-  afterEach(() => {
-    console.log(`After each ${++afterCount}`)
+
+  test('Check assertion toEqual()', () => {
+    expect(1).toEqual(1)
+    expect('test').toEqual('test')
+    expect(true).toEqual(true)
+    expect(false).toEqual(false)
   })
-  afterAll(() => {
-    console.log('After all 2')
+
+  test('Check assertion notToEqual()', () => {
+    expect(2).notToEqual(1)
+    expect('best').notToEqual('test')
+    expect(false).notToEqual(true)
+    expect({}).notToEqual({})
+    expect([]).notToEqual([])
   })
-  test('It #1.1', () => {})
 })
