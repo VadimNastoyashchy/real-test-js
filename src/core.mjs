@@ -34,13 +34,13 @@ export const run = async () => {
   process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
 }
 
-const makeDescribe = (name) => ({
+const createDescribe = (name) => ({
   name,
   beforeEach: [],
   afterEach: [],
 })
 
-const makeTest = (name) => ({
+const createTest = (name) => ({
   name,
   errors: [],
   describeStack,
@@ -105,14 +105,14 @@ const invokeAfterAll = () => {
 }
 
 export const describe = (name, body) => {
-  describeStack = [...describeStack, makeDescribe(name)]
+  describeStack = [...describeStack, createDescribe(name)]
   body()
   invokeAfterAll()
   describeStack = withoutLast(describeStack)
 }
 
 export const test = (name, body) => {
-  currentTest = makeTest(name)
+  currentTest = createTest(name)
   try {
     invokeBeforeAll()
     invokeBeforeEach()
@@ -167,7 +167,7 @@ const fullTestDescription = ({ name, describeStack }) =>
     .map(({ name }) => `<bold>${name}</bold>`)
     .join(' → ')
 
-const matcherHandler = (actual) => ({
+const assertionsHandler = (actual) => ({
   get:
     (_, name) =>
     (...args) => {
@@ -183,4 +183,4 @@ const matcherHandler = (actual) => ({
     },
 })
 
-export const expect = (actual) => new Proxy({}, matcherHandler(actual))
+export const expect = (actual) => new Proxy({}, assertionsHandler(actual))
