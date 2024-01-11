@@ -1,18 +1,19 @@
+import { AssertionError } from './assertionError.mjs'
 import { applyColor } from './transform.mjs'
 
 export const toBeDefined = (actual) => {
   if (actual === undefined) {
-    throw new Error('Expected undefined value to be defined')
+    throw new AssertionError('<actual> to be defined', {
+      actual,
+    })
   }
 }
 
 export const toHaveLength = (actual, expected) => {
   if (actual.length !== expected) {
-    throw new Error(
-      applyColor(
-        `Expected value to have length <bold>${expected}</bold>
-    but it was` + ` <bold>${actual.length}</bold>`
-      )
+    throw new AssertionError(
+      'value to have length <expected> but it was <actual>',
+      { actual: actual.length, expected }
     )
   }
 }
