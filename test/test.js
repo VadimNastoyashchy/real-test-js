@@ -10,4 +10,9 @@ describe('Unit tests for assertions', () => {
     const arr = [1, 2, 3]
     expect(arr).toHaveLength(3)
   })
+
+  test('Check assertion toBeFalsy()', () => {
+    const flag = false
+    expect(flag).toBeFalsy()
+  })
 })
