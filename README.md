@@ -152,12 +152,13 @@ Use `expect(actual_value)` with assertions:
 
 ---
 
-| Assert Name       | Description                                                                         |
-| ----------------- | ----------------------------------------------------------------------------------- |
-| `.toBeDefined()`  | Check actual value to be not undefined `expect(1).toBeDefined()`                    |
-| `.toHaveLength()` | Check actual array length to have expected value `expect(arr).toHaveLength(number)` |
-| `.toBeFalsy()`    | Check actual value to be false                                                      |
-| `.toBeTruthy()`   | Check actual value to be true                                                       |
-| `.toEqual()`      | Check actual and expected value the same (using ===) `expect(value).toEqual(value)` |
+| Assert Name       | Description                                                                                    |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| `.toBeDefined()`  | Check actual value to be not undefined `expect(1).toBeDefined()`                               |
+| `.toHaveLength()` | Check actual array length to have expected value `expect(arr).toHaveLength(number)`            |
+| `.toBeFalsy()`    | Check actual value to be false                                                                 |
+| `.toBeTruthy()`   | Check actual value to be true                                                                  |
+| `.toEqual()`      | Check actual and expected value the same (using ===) `expect(value).toEqual(value)`            |
+| `.notToEqual()`   | Check actual and expected value are not the same (using ===) `expect(value).notToEqual(value)` |
 
 ---

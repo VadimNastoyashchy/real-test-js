@@ -27,4 +27,12 @@ describe('Unit tests for assertions', () => {
     expect(true).toEqual(true)
     expect(false).toEqual(false)
   })
+
+  test('Check assertion notToEqual()', () => {
+    expect(2).notToEqual(1)
+    expect('best').notToEqual('test')
+    expect(false).notToEqual(true)
+    expect({}).notToEqual({})
+    expect([]).notToEqual([])
+  })
 })

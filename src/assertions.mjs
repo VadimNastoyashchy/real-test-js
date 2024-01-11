@@ -54,3 +54,12 @@ export const toEqual = (actual, expected) => {
     })
   }
 }
+
+export const notToEqual = (actual, expected) => {
+  if (actual === expected) {
+    throw new AssertionError('<expected> not to equal <actual>', {
+      actual,
+      expected,
+    })
+  }
+}
