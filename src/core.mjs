@@ -9,8 +9,11 @@ const config = getConfig()
 let successes = 0
 const failures = []
 let describeStack = []
+
 let hasBeforeAll = false
 let beforeAllStack = []
+let hasAfterAll = false
+let afterAllStack = []
 
 // Runner entry point
 export const run = async () => {
@@ -48,20 +51,26 @@ export const beforeEach = (body) =>
     beforeEach: [...currentDescribe().beforeEach, body],
   })
 
-export const beforeAll = (body) => {
-  beforeAllStack.push(body)
-  hasBeforeAll = true
-}
-
 export const afterEach = (body) =>
   updateDescribe({
     afterEach: [...currentDescribe().afterEach, body],
   })
 
-export const afterAll = (body) =>
-  updateDescribe({
-    afterAll: [...currentDescribe().afterAll, body],
-  })
+export const beforeAll = (body) => {
+  beforeAllStack.push(body)
+  hasBeforeAll = true
+}
+
+export const afterAll = (body) => {
+  afterAllStack.push(body)
+  hasAfterAll = true
+}
+
+const invokeBeforeEach = () =>
+  executeAll(describeStack.flatMap((describe) => describe.beforeEach))
+
+const invokeAfterEach = () =>
+  executeAll(describeStack.flatMap((describe) => describe.afterEach))
 
 const invokeBeforeAll = () => {
   if (hasBeforeAll) {
@@ -71,21 +80,18 @@ const invokeBeforeAll = () => {
   }
 }
 
-const invokeBeforeEach = () =>
-  executeAll(describeStack.flatMap((describe) => describe.beforeEach))
-
-const invokeAfterEach = () =>
-  executeAll(describeStack.flatMap((describe) => describe.afterEach))
-
-const invokeAfterAll = () =>
-  executeAll(describeStack.flatMap((describe) => describe.afterAll))
+const invokeAfterAll = () => {
+  if (hasAfterAll) {
+    executeAll(afterAllStack)
+    hasAfterAll = false
+    afterAllStack = []
+  }
+}
 
 const makeDescribe = (name) => ({
   name,
   beforeEach: [],
-  beforeAll: [],
   afterEach: [],
-  afterAll: [],
 })
 
 export const describe = (name, body) => {
