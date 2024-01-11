@@ -1,6 +1,11 @@
-import { describe, test, beforeEach, afterEach } from '../src/core.mjs'
+import { describe, test, beforeEach, afterEach, afterAll } from '../src/core.mjs'
 
 describe('First describe', () => {
+  let afterAllCount = 0
+
+  afterAll(() => {
+    console.log(`After all ${++afterAllCount}`)
+  })
   let beforeCount = 0
   let afterCount = 0
   beforeEach(() => {

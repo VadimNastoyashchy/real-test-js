@@ -39,33 +39,43 @@ const updateDescribe = (newProps) => {
   describeStack = [...withoutLast(describeStack), newDescribe]
 }
 
+const executeAll = (fnArray) => fnArray.forEach((fn) => fn())
+
 export const beforeEach = (body) =>
   updateDescribe({
     beforeEach: [...currentDescribe().beforeEach, body],
   })
-
-const invokeAll = (fnArray) => fnArray.forEach((fn) => fn())
-
-const invokeBeforeEach = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.beforeEach))
 
 export const afterEach = (body) =>
   updateDescribe({
     afterEach: [...currentDescribe().afterEach, body],
   })
 
+export const afterAll = (body) =>
+  updateDescribe({
+    afterAll: [...currentDescribe().afterAll, body],
+  })
+
+const invokeBeforeEach = () =>
+  executeAll(describeStack.flatMap((describe) => describe.beforeEach))
+
 const invokeAfterEach = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.afterEach))
+  executeAll(describeStack.flatMap((describe) => describe.afterEach))
+
+const invokeAfterAll = () =>
+  executeAll(describeStack.flatMap((describe) => describe.afterAll))
 
 const makeDescribe = (name) => ({
   name,
   beforeEach: [],
   afterEach: [],
+  afterAll: [],
 })
 
 export const describe = (name, body) => {
   describeStack = [...describeStack, makeDescribe(name)]
   body()
+  invokeAfterAll()
   describeStack = withoutLast(describeStack)
 }
 
