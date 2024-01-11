@@ -1,48 +1,13 @@
-import {
-  describe,
-  test,
-  beforeEach,
-  afterEach,
-  afterAll,
-  beforeAll,
-} from '../src/core.mjs'
+import { describe, test, expect } from '../src/core.mjs'
 
-describe('First describe', () => {
-  beforeAll(() => {
-    console.log('Before ALL 1')
+describe('Unit tests for assertions', () => {
+  test('Check assertion toBeDefined()', () => {
+    const number = 1
+    expect(number).toBeDefined()
   })
-  let afterAllCount = 0
 
-  afterAll(() => {
-    console.log(`After all ${++afterAllCount}`)
+  test('Check assertion toHaveLength()', () => {
+    const arr = [1, 2, 3]
+    expect(arr).toHaveLength(3)
   })
-  let beforeCount = 0
-  let afterCount = 0
-  beforeEach(() => {
-    console.log(`Before each ${++beforeCount}`)
-  })
-  afterEach(() => {
-    console.log(`After each ${++afterCount}`)
-  })
-  test('It #1', () => {})
-  test('It #2', () => {})
-  test('It #3', () => {})
-})
-
-describe('Second describe', () => {
-  beforeAll(() => {
-    console.log('Before ALL 2')
-  })
-  let beforeCount = 0
-  let afterCount = 0
-  beforeEach(() => {
-    console.log(`Before each ${++beforeCount}`)
-  })
-  afterEach(() => {
-    console.log(`After each ${++afterCount}`)
-  })
-  afterAll(() => {
-    console.log('After all 2')
-  })
-  test('It #1.1', () => {})
 })
