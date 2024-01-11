@@ -3,6 +3,7 @@ import { getConfig } from './config.mjs'
 import { applyColor } from './transform.mjs'
 import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
+import * as assertions from './assertions.mjs'
 
 const config = getConfig()
 
@@ -149,3 +150,11 @@ const fullTestDescription = ({ name, describeStack }) =>
   [...describeStack, { name }]
     .map(({ name }) => `<bold>${name}</bold>`)
     .join(' → ')
+
+const matcherHandler = (actual) => ({
+  get:
+    (_, name) =>
+    (...args) =>
+      assertions[name](actual, ...args),
+})
+export const expect = (actual) => new Proxy({}, matcherHandler(actual))
