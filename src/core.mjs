@@ -10,6 +10,11 @@ let successes = 0
 const failures = []
 let describeStack = []
 
+let hasBeforeAll = false
+let beforeAllStack = []
+let hasAfterAll = false
+let afterAllStack = []
+
 // Runner entry point
 export const run = async () => {
   const startTimeStamp = timeStamp()
@@ -20,21 +25,16 @@ export const run = async () => {
   }
   const endTimeStamp = timeStamp()
   printFailuresMsg()
-  console.log(
-    applyColor(
-      `Tests: <green>${successes} passed</green>, ` +
-        `<red>${failures.length} failed</red>.`
-    )
-  )
+  printTestResult()
   printExecutionTime(startTimeStamp, endTimeStamp)
   process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
 }
 
 const last = (arr) => arr[arr.length - 1]
 
-const currentDescribe = () => last(describeStack)
-
 const withoutLast = (arr) => arr.slice(0, -1)
+
+const currentDescribe = () => last(describeStack)
 
 const updateDescribe = (newProps) => {
   const newDescribe = {
@@ -44,46 +44,78 @@ const updateDescribe = (newProps) => {
   describeStack = [...withoutLast(describeStack), newDescribe]
 }
 
+const executeAll = (fnArray) => fnArray.forEach((fn) => fn())
+
 export const beforeEach = (body) =>
   updateDescribe({
-    befores: [...currentDescribe().befores, body],
+    beforeEach: [...currentDescribe().beforeEach, body],
   })
-
-const invokeAll = (fnArray) => fnArray.forEach((fn) => fn())
-
-const invokeBefores = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.befores))
 
 export const afterEach = (body) =>
   updateDescribe({
-    afters: [...currentDescribe().afters, body],
+    afterEach: [...currentDescribe().afterEach, body],
   })
 
-const invokeAfters = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.afters))
+export const beforeAll = (body) => {
+  beforeAllStack.push(body)
+  hasBeforeAll = true
+}
+
+export const afterAll = (body) => {
+  afterAllStack.push(body)
+  hasAfterAll = true
+}
+
+const invokeBeforeEach = () =>
+  executeAll(describeStack.flatMap((describe) => describe.beforeEach))
+
+const invokeAfterEach = () =>
+  executeAll(describeStack.flatMap((describe) => describe.afterEach))
+
+const invokeBeforeAll = () => {
+  if (hasBeforeAll) {
+    executeAll(beforeAllStack)
+    hasBeforeAll = false
+    beforeAllStack = []
+  }
+}
+
+const invokeAfterAll = () => {
+  if (hasAfterAll) {
+    executeAll(afterAllStack)
+    hasAfterAll = false
+    afterAllStack = []
+  }
+}
 
 const makeDescribe = (name) => ({
   name,
-  befores: [],
-  afters: [],
+  beforeEach: [],
+  afterEach: [],
 })
 
 export const describe = (name, body) => {
   describeStack = [...describeStack, makeDescribe(name)]
   body()
+  invokeAfterAll()
   describeStack = withoutLast(describeStack)
 }
 
-export const it = (name, body) => {
+export const test = (name, body) => {
   try {
-    invokeBefores()
+    invokeBeforeAll()
+    invokeBeforeEach()
     body()
-    invokeAfters()
     console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
     successes++
   } catch (e) {
     console.error(indent(applyColor(`  <red>${CROSS}</red> ${name}`)))
     failures.push({ error: e, name, describeStack })
+  }
+  try {
+    invokeAfterEach()
+  } catch (e) {
+    console.error(e)
   }
 }
 
@@ -102,6 +134,15 @@ const printFailuresMsg = () => {
     console.error('')
   }
   failures.forEach(printFailureMsg)
+}
+
+const printTestResult = () => {
+  console.log(
+    applyColor(
+      `Tests: <green>${successes} passed</green>, ` +
+        `<red>${failures.length} failed</red>.`
+    )
+  )
 }
 
 const fullTestDescription = ({ name, describeStack }) =>

@@ -1,28 +1,48 @@
-import { describe, it, beforeEach, afterEach } from '../src/core.mjs'
+import {
+  describe,
+  test,
+  beforeEach,
+  afterEach,
+  afterAll,
+  beforeAll,
+} from '../src/core.mjs'
 
 describe('First describe', () => {
+  beforeAll(() => {
+    console.log('Before ALL 1')
+  })
+  let afterAllCount = 0
+
+  afterAll(() => {
+    console.log(`After all ${++afterAllCount}`)
+  })
   let beforeCount = 0
+  let afterCount = 0
   beforeEach(() => {
     console.log(`Before each ${++beforeCount}`)
   })
   afterEach(() => {
-    console.log(`After each ${--beforeCount}`)
+    console.log(`After each ${++afterCount}`)
   })
-  it('It #1', () => {})
-  it('It #2', () => {})
-  it('It #3', () => {})
+  test('It #1', () => {})
+  test('It #2', () => {})
+  test('It #3', () => {})
 })
 
 describe('Second describe', () => {
+  beforeAll(() => {
+    console.log('Before ALL 2')
+  })
   let beforeCount = 0
+  let afterCount = 0
   beforeEach(() => {
     console.log(`Before each ${++beforeCount}`)
   })
   afterEach(() => {
-    console.log(`After each ${--beforeCount}`)
+    console.log(`After each ${++afterCount}`)
   })
-  it('It #1.1', () => {})
-  describe('Inside second describe > nested describe', () => {
-    it('It #2.1', () => {})
+  afterAll(() => {
+    console.log('After all 2')
   })
+  test('It #1.1', () => {})
 })

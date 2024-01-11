@@ -7,8 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Test hooks:
+  - `beforeAll(() => {})`
+  - `afterAll(() => {})`
+
 ### Changed
 - Update release workflow file with adding release option list.
+- Changed it() → test()
+
+### Fixed
+- Fixed afterEach() functionality.
 
 ## 1.2.0 - 2024-01-10
 ### Added
