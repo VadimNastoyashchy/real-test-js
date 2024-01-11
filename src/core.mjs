@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import path from 'path'
 import { getConfig } from './config.mjs'
-import { applyColor } from './transform.mjs'
+import { applyColor, executeAll, last, withoutLast } from './transform.mjs'
 import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
 import * as assertions from './assertions.mjs'
@@ -26,9 +26,7 @@ export const run = async () => {
   const startTimeStamp = timeStamp()
   if (config.specFile) {
     try {
-      console.log(
-        `Running spec file: ${path.resolve(process.cwd(), config.specFile)}`
-      )
+      printRunningSpecFile(path.resolve(process.cwd(), config.specFile))
       await import(path.resolve(process.cwd(), config.specFile))
     } catch (e) {
       console.error(e)
@@ -39,7 +37,7 @@ export const run = async () => {
     )
     for (const spec of specs) {
       try {
-        console.log(`Running spec file: ${path.resolve(process.cwd(), spec)}`)
+        printRunningSpecFile(path.resolve(process.cwd(), spec))
         await import(spec)
       } catch (e) {
         console.error(e)
@@ -68,10 +66,6 @@ const createTest = (name) => ({
   describeStack,
 })
 
-const last = (arr) => arr[arr.length - 1]
-
-const withoutLast = (arr) => arr.slice(0, -1)
-
 const currentDescribe = () => last(describeStack)
 
 const updateDescribe = (newProps) => {
@@ -81,8 +75,6 @@ const updateDescribe = (newProps) => {
   }
   describeStack = [...withoutLast(describeStack), newDescribe]
 }
-
-const executeAll = (fnArray) => fnArray.forEach((fn) => fn())
 
 export const beforeEach = (body) =>
   updateDescribe({
@@ -157,6 +149,10 @@ export const test = (name, body) => {
 }
 
 const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
+
+const printRunningSpecFile = (specFile) => {
+  console.log(`Running spec file: ${specFile}`)
+}
 
 const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))
