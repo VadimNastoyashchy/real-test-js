@@ -11,8 +11,8 @@ const failures = []
 let describeStack = []
 
 let hasBeforeAll = false
-let beforeAllStack = []
 let hasAfterAll = false
+let beforeAllStack = []
 let afterAllStack = []
 
 // Runner entry point
