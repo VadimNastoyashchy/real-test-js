@@ -10,7 +10,7 @@
     ".": "./src/core.mjs"
   },
   "scripts": {
-    "test": "src/cli.mjs --config=\"runner.config.json\"",
+    "test": "src/cli.mjs --spec-folder=\"test\"",
     "lint": "eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/"
   },
   "author": "Vadym Nastoiashchyi",
