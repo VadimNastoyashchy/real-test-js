@@ -27,9 +27,9 @@ export const run = async () => {
 
 const last = (arr) => arr[arr.length - 1]
 
-const currentDescribe = () => last(describeStack)
-
 const withoutLast = (arr) => arr.slice(0, -1)
+
+const currentDescribe = () => last(describeStack)
 
 const updateDescribe = (newProps) => {
   const newDescribe = {
@@ -41,26 +41,26 @@ const updateDescribe = (newProps) => {
 
 export const beforeEach = (body) =>
   updateDescribe({
-    befores: [...currentDescribe().befores, body],
+    beforeEach: [...currentDescribe().beforeEach, body],
   })
 
 const invokeAll = (fnArray) => fnArray.forEach((fn) => fn())
 
-const invokeBefores = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.befores))
+const invokeBeforeEach = () =>
+  invokeAll(describeStack.flatMap((describe) => describe.beforeEach))
 
 export const afterEach = (body) =>
   updateDescribe({
-    afters: [...currentDescribe().afters, body],
+    afterEach: [...currentDescribe().afterEach, body],
   })
 
-const invokeAfters = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.afters))
+const invokeAfterEach = () =>
+  invokeAll(describeStack.flatMap((describe) => describe.afterEach))
 
 const makeDescribe = (name) => ({
   name,
-  befores: [],
-  afters: [],
+  beforeEach: [],
+  afterEach: [],
 })
 
 export const describe = (name, body) => {
@@ -71,14 +71,18 @@ export const describe = (name, body) => {
 
 export const it = (name, body) => {
   try {
-    invokeBefores()
+    invokeBeforeEach()
     body()
-    invokeAfters()
     console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
     successes++
   } catch (e) {
     console.error(indent(applyColor(`  <red>${CROSS}</red> ${name}`)))
     failures.push({ error: e, name, describeStack })
+  }
+  try {
+    invokeAfterEach()
+  } catch (e) {
+    console.error(e)
   }
 }
 
