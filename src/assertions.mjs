@@ -26,10 +26,21 @@ export const toHaveLength = (actual, expected) => {
 
 export const toBeFalsy = (actual) => {
   if (typeof actual !== 'boolean') {
-    throw new RunnerError(`${actual} is not an expected boolean value`)
+    throw new RunnerError(`${actual} is not a boolean value`)
   }
   if (actual !== false) {
     throw new AssertionError('<actual> to be false', {
+      actual,
+    })
+  }
+}
+
+export const toBeTruthy = (actual) => {
+  if (typeof actual !== 'boolean') {
+    throw new RunnerError(`${actual} is not a boolean value`)
+  }
+  if (actual !== true) {
+    throw new AssertionError('<actual> to be true', {
       actual,
     })
   }

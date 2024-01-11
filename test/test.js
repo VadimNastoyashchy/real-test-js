@@ -15,4 +15,9 @@ describe('Unit tests for assertions', () => {
     const flag = false
     expect(flag).toBeFalsy()
   })
+
+  test('Check assertion toBeTruthy()', () => {
+    const flag = true
+    expect(flag).toBeTruthy()
+  })
 })
