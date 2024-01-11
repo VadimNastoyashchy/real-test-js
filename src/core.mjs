@@ -20,12 +20,7 @@ export const run = async () => {
   }
   const endTimeStamp = timeStamp()
   printFailuresMsg()
-  console.log(
-    applyColor(
-      `Tests: <green>${successes} passed</green>, ` +
-        `<red>${failures.length} failed</red>.`
-    )
-  )
+  printTestResult()
   printExecutionTime(startTimeStamp, endTimeStamp)
   process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
 }
@@ -102,6 +97,15 @@ const printFailuresMsg = () => {
     console.error('')
   }
   failures.forEach(printFailureMsg)
+}
+
+const printTestResult = () => {
+  console.log(
+    applyColor(
+      `Tests: <green>${successes} passed</green>, ` +
+        `<red>${failures.length} failed</red>.`
+    )
+  )
 }
 
 const fullTestDescription = ({ name, describeStack }) =>
