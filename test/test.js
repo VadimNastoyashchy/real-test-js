@@ -1,6 +1,16 @@
-import { describe, test, beforeEach, afterEach, afterAll } from '../src/core.mjs'
+import {
+  describe,
+  test,
+  beforeEach,
+  afterEach,
+  afterAll,
+  beforeAll,
+} from '../src/core.mjs'
 
 describe('First describe', () => {
+  beforeAll(() => {
+    console.log('Before ALL 1')
+  })
   let afterAllCount = 0
 
   afterAll(() => {
@@ -20,6 +30,9 @@ describe('First describe', () => {
 })
 
 describe('Second describe', () => {
+  beforeAll(() => {
+    console.log('Before ALL 2')
+  })
   let beforeCount = 0
   let afterCount = 0
   beforeEach(() => {
@@ -28,8 +41,8 @@ describe('Second describe', () => {
   afterEach(() => {
     console.log(`After each ${++afterCount}`)
   })
-  test('It #1.1', () => {})
-  describe('Inside second describe > nested describe', () => {
-    test('It #2.1', () => {})
+  afterAll(() => {
+    console.log('After all 2')
   })
+  test('It #1.1', () => {})
 })

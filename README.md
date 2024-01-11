@@ -132,6 +132,7 @@ test.config.json
 | `"describe"`   | `describe` is for organizing and grouping tests. Describe can be nested in `describe` |
 | `"beforeEach"` | Command allows to define setup tasks at the beginning of every It block               |
 | `"afterEach"`  | Command allow to define teardown tasks at the end of every It block                   |
+| `"beforeAll"`  | Command allow to define setup tasks at the beginning of describe block                |
 | `"afterAll"`   | Command allow to define teardown tasks at the end of describe block                   |
 
 ---
