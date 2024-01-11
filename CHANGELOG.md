@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `.toBeTruthy()`
   - `.toEqual()`
   - `.notToEqual()`
+- Added assertion errors
+- Added runner errors
 
 ### Changed
 - Updated core
