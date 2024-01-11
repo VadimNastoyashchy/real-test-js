@@ -119,6 +119,7 @@ const invokeAfterAll = () => {
 }
 
 export const describe = (name, body) => {
+  console.log(indent(name))
   describeStack = [...describeStack, createDescribe(name)]
   body()
   invokeAfterAll()
