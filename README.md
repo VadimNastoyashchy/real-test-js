@@ -112,15 +112,17 @@ test.config.json
 
 ```
 {
-    "specFile": "your_folder/your_file.js"
+    "specFile": "your_folder/your_file.js", //this has higher prior
+    "specFolder": "your_spec_folder"        // this will be skipped
 }
 ```
 
 ---
 
-| Option Name  | Required | Type   | Description           |
-| ------------ | -------- | ------ | --------------------- |
-| `"specFile"` | true     | string | path to the test file |
+| Option Name    | Required | Type   | Description             |
+| -------------- | -------- | ------ | ----------------------- |
+| `"specFile"`   | true     | string | path to the test file   |
+| `"specFolder"` | true     | string | path to the test folder |
 
 ---
 
