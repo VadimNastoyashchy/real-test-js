@@ -1,12 +1,15 @@
+/* eslint-disable indent */
 import path from 'path'
 import { getConfig } from './config.mjs'
 import { applyColor } from './transform.mjs'
 import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
 import * as assertions from './assertions.mjs'
+import { AssertionError } from './assertionError.mjs'
 
 const config = getConfig()
 
+let currentTest
 let successes = 0
 const failures = []
 let describeStack = []
@@ -30,6 +33,18 @@ export const run = async () => {
   printExecutionTime(startTimeStamp, endTimeStamp)
   process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
 }
+
+const makeDescribe = (name) => ({
+  name,
+  beforeEach: [],
+  afterEach: [],
+})
+
+const makeTest = (name) => ({
+  name,
+  errors: [],
+  describeStack,
+})
 
 const last = (arr) => arr[arr.length - 1]
 
@@ -89,12 +104,6 @@ const invokeAfterAll = () => {
   }
 }
 
-const makeDescribe = (name) => ({
-  name,
-  beforeEach: [],
-  afterEach: [],
-})
-
 export const describe = (name, body) => {
   describeStack = [...describeStack, makeDescribe(name)]
   body()
@@ -103,15 +112,20 @@ export const describe = (name, body) => {
 }
 
 export const test = (name, body) => {
+  currentTest = makeTest(name)
   try {
     invokeBeforeAll()
     invokeBeforeEach()
     body()
-    console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
-    successes++
   } catch (e) {
-    console.error(indent(applyColor(`  <red>${CROSS}</red> ${name}`)))
-    failures.push({ error: e, name, describeStack })
+    currentTest.errors.push(e)
+  }
+  if (currentTest.errors.length > 0) {
+    console.log(indent(applyColor(`  <red>${CROSS}</red> ${name}`)))
+    failures.push(currentTest)
+  } else {
+    successes++
+    console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
   }
   try {
     invokeAfterEach()
@@ -124,7 +138,9 @@ const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
 
 const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))
-  console.error(failure.error)
+  failure.errors.forEach((error) => {
+    console.error(error)
+  })
   console.error('')
 }
 
@@ -154,7 +170,17 @@ const fullTestDescription = ({ name, describeStack }) =>
 const matcherHandler = (actual) => ({
   get:
     (_, name) =>
-    (...args) =>
-      assertions[name](actual, ...args),
+    (...args) => {
+      try {
+        assertions[name](actual, ...args)
+      } catch (e) {
+        if (e instanceof AssertionError) {
+          currentTest.errors.push(e)
+        } else {
+          throw e
+        }
+      }
+    },
 })
+
 export const expect = (actual) => new Proxy({}, matcherHandler(actual))
