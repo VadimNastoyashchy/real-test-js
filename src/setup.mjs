@@ -9,10 +9,10 @@ const getCustomArgFromArgs = (args, customArgPrefix) => {
   return customArgValue
 }
 
-const readFileToJson = (args) => {
+const readConfigJSONFile = (args) => {
   if (getConfigName(args)) {
     const file = fs.readFileSync(
-      path.resolve(process.cwd(), `${getConfigName(args)}.config.json`)
+      path.resolve(process.cwd(), getConfigName(args))
     )
     return JSON.parse(file)
   }
@@ -28,6 +28,25 @@ export const getSpecName = (args) => {
   return getCustomArgFromArgs(args, customArgPrefix) || ''
 }
 
+export const getSpecFolder = (args) => {
+  const customArgPrefix = '--spec-folder='
+  return getCustomArgFromArgs(args, customArgPrefix) || ''
+}
+
+export const getSpecPattern = (args) => {
+  const customArgPrefix = '--spec-pattern='
+  return getCustomArgFromArgs(args, customArgPrefix) || ''
+}
+
 export const getConfigFile = (args) => {
-  return readFileToJson(args)
+  return readConfigJSONFile(args)
+}
+
+const getAllFileNames = function (dir) {
+  return fs.readdirSync(dir).filter((fn) => fn.endsWith('.js'))
+}
+
+export const getMultipleFilePath = (fileDir) => {
+  const fileNames = getAllFileNames(fileDir)
+  return fileNames.map((fileName) => path.join(fileDir, fileName))
 }

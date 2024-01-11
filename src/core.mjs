@@ -6,6 +6,8 @@ import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
 import * as assertions from './assertions.mjs'
 import { AssertionError } from './assertionError.mjs'
+import { getMultipleFilePath } from './setup.mjs'
+import { RunnerError } from './runnerError.mjs'
 
 const config = getConfig()
 
@@ -22,11 +24,31 @@ let afterAllStack = []
 // Runner entry point
 export const run = async () => {
   const startTimeStamp = timeStamp()
-  try {
-    await import(path.resolve(process.cwd(), config.specFile))
-  } catch (e) {
-    console.error(e)
+  if (config.specFile) {
+    try {
+      console.log(
+        `Running spec file: ${path.resolve(process.cwd(), config.specFile)}`
+      )
+      await import(path.resolve(process.cwd(), config.specFile))
+    } catch (e) {
+      console.error(e)
+    }
+  } else if (config.specFolder) {
+    const specs = getMultipleFilePath(
+      path.resolve(process.cwd(), config.specFolder)
+    )
+    for (const spec of specs) {
+      try {
+        console.log(`Running spec file: ${path.resolve(process.cwd(), spec)}`)
+        await import(spec)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  } else {
+    throw new RunnerError("Spec file/'s or spec folder should be provided")
   }
+
   const endTimeStamp = timeStamp()
   printFailuresMsg()
   printTestResult()
