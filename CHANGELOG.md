@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - New features - support multiple test files by providing test folder
 - Added config file `test.config.json`
+- Added printing describe name
 
 ## 1.4.0 - 2024-01-11
 ### Added
