@@ -42,7 +42,7 @@ Use the it function to write test cases and the describe function to group them.
 test.js
 
 ```
-import { describe, test, beforeEach, afterEach} from '../src/core.mjs'
+import { describe, test, beforeEach, afterEach, expect} from '../src/core.mjs'
 
 describe('First describe', () => {
   beforeEach(() => {
@@ -53,7 +53,8 @@ describe('First describe', () => {
   })
   // you're code
   test('First it inside first describe', () => {
-    // you're code
+    const number = 1
+    expect(number).toBeDefined()
   })
 })
 
@@ -67,7 +68,8 @@ describe('Second describe', () => {
   })
   // you're code
   test('First it inside second describe', () => {
-    // you're code
+    const arr = [1, 2, 3]
+    expect(arr).toHaveLength(3)
   })
 })
 ```
@@ -134,5 +136,25 @@ test.config.json
 | `"afterEach"`  | Command allow to define teardown tasks at the end of every It block                   |
 | `"beforeAll"`  | Command allow to define setup tasks at the beginning of describe block                |
 | `"afterAll"`   | Command allow to define teardown tasks at the end of describe block                   |
+
+---
+
+## `Assertions`
+
+Use `expect(actual_value)` with assertions:
+
+### `Example↓`
+
+```
+  const arr = [1, 2, 3]
+  expect(arr).toHaveLength(3)
+```
+
+---
+
+| Assert Name      | Description                                                                    |
+| ---------------- | ------------------------------------------------------------------------------ |
+| `"toBeDefined"`  | Check actual value to be not undefined `expect(1).toBeDefined()`               |
+| `"toHaveLength"` | Check actual array length to have expected value `expect(arr).toHaveLength(3)` |
 
 ---
