@@ -152,9 +152,10 @@ Use `expect(actual_value)` with assertions:
 
 ---
 
-| Assert Name      | Description                                                                    |
-| ---------------- | ------------------------------------------------------------------------------ |
-| `"toBeDefined"`  | Check actual value to be not undefined `expect(1).toBeDefined()`               |
-| `"toHaveLength"` | Check actual array length to have expected value `expect(arr).toHaveLength(3)` |
+| Assert Name       | Description                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| `.toBeDefined()`  | Check actual value to be not undefined `expect(1).toBeDefined()`                    |
+| `.toHaveLength()` | Check actual array length to have expected value `expect(arr).toHaveLength(number)` |
+| `.toBeFalsy()`    | Check actual value to be false                                                      |
 
 ---

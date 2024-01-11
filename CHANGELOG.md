@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New features - Assertions
 - Added `expect()`
 - Added:
-  - `toBeDefined()`
-  - `toHaveLength()`
+  - `.toBeDefined()`
+  - `.toHaveLength()`
+  - `.toBeFalsy()`
 
 ### Changed
 - Updated core
