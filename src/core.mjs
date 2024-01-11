@@ -9,6 +9,8 @@ const config = getConfig()
 let successes = 0
 const failures = []
 let describeStack = []
+let hasBeforeAll = false
+let beforeAllStack = []
 
 // Runner entry point
 export const run = async () => {
@@ -46,6 +48,11 @@ export const beforeEach = (body) =>
     beforeEach: [...currentDescribe().beforeEach, body],
   })
 
+export const beforeAll = (body) => {
+  beforeAllStack.push(body)
+  hasBeforeAll = true
+}
+
 export const afterEach = (body) =>
   updateDescribe({
     afterEach: [...currentDescribe().afterEach, body],
@@ -55,6 +62,14 @@ export const afterAll = (body) =>
   updateDescribe({
     afterAll: [...currentDescribe().afterAll, body],
   })
+
+const invokeBeforeAll = () => {
+  if (hasBeforeAll) {
+    executeAll(beforeAllStack)
+    hasBeforeAll = false
+    beforeAllStack = []
+  }
+}
 
 const invokeBeforeEach = () =>
   executeAll(describeStack.flatMap((describe) => describe.beforeEach))
@@ -68,6 +83,7 @@ const invokeAfterAll = () =>
 const makeDescribe = (name) => ({
   name,
   beforeEach: [],
+  beforeAll: [],
   afterEach: [],
   afterAll: [],
 })
@@ -81,6 +97,7 @@ export const describe = (name, body) => {
 
 export const test = (name, body) => {
   try {
+    invokeBeforeAll()
     invokeBeforeEach()
     body()
     console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
