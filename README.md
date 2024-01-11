@@ -42,7 +42,7 @@ Use the it function to write test cases and the describe function to group them.
 test.js
 
 ```
-import { describe, it, beforeEach, afterEach} from '../src/core.mjs'
+import { describe, test, beforeEach, afterEach} from '../src/core.mjs'
 
 describe('First describe', () => {
   beforeEach(() => {
@@ -52,7 +52,7 @@ describe('First describe', () => {
     // you're code
   })
   // you're code
-  it('First it inside first describe', () => {
+  test('First it inside first describe', () => {
     // you're code
   })
 })
@@ -66,7 +66,7 @@ describe('Second describe', () => {
     // you're code
   })
   // you're code
-  it('First it inside second describe', () => {
+  test('First it inside second describe', () => {
     // you're code
   })
 })
@@ -130,7 +130,7 @@ test.config.json
 | -------------- | ------------------------------------------------------------------------------------- |
 | `"beforeEach"` | Command allows to define setup tasks at the beginning of every It block               |
 | `"afterEach"`  | Command allow to define teardown tasks at the end of every It block                   |
-| `"it"`         | `it` is where you perform individual tests                                            |
+| `"test"`       | `test` is where you perform individual tests                                          |
 | `"describe"`   | `describe` is for organizing and grouping tests. Describe can be nested in `describe` |
 
 ---

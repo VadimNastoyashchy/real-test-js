@@ -69,7 +69,7 @@ export const describe = (name, body) => {
   describeStack = withoutLast(describeStack)
 }
 
-export const it = (name, body) => {
+export const test = (name, body) => {
   try {
     invokeBeforeEach()
     body()
