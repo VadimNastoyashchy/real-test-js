@@ -128,9 +128,10 @@ test.config.json
 
 | Option Name    | Description                                                                           |
 | -------------- | ------------------------------------------------------------------------------------- |
-| `"beforeEach"` | Command allows to define setup tasks at the beginning of every It block               |
-| `"afterEach"`  | Command allow to define teardown tasks at the end of every It block                   |
 | `"test"`       | `test` is where you perform individual tests                                          |
 | `"describe"`   | `describe` is for organizing and grouping tests. Describe can be nested in `describe` |
+| `"beforeEach"` | Command allows to define setup tasks at the beginning of every It block               |
+| `"afterEach"`  | Command allow to define teardown tasks at the end of every It block                   |
+| `"afterAll"`   | Command allow to define teardown tasks at the end of describe block                   |
 
 ---
