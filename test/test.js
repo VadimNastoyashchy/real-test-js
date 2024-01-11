@@ -20,4 +20,11 @@ describe('Unit tests for assertions', () => {
     const flag = true
     expect(flag).toBeTruthy()
   })
+
+  test('Check assertion toEqual()', () => {
+    expect(1).toEqual(1)
+    expect('test').toEqual('test')
+    expect(true).toEqual(true)
+    expect(false).toEqual(false)
+  })
 })

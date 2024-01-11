@@ -158,5 +158,6 @@ Use `expect(actual_value)` with assertions:
 | `.toHaveLength()` | Check actual array length to have expected value `expect(arr).toHaveLength(number)` |
 | `.toBeFalsy()`    | Check actual value to be false                                                      |
 | `.toBeTruthy()`   | Check actual value to be true                                                       |
+| `.toEqual()`      | Check actual and expected value the same (using ===) `expect(value).toEqual(value)` |
 
 ---

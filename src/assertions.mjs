@@ -45,3 +45,12 @@ export const toBeTruthy = (actual) => {
     })
   }
 }
+
+export const toEqual = (actual, expected) => {
+  if (actual !== expected) {
+    throw new AssertionError('<expected> to equal <actual>', {
+      actual,
+      expected,
+    })
+  }
+}
