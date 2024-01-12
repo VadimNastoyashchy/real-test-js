@@ -8,9 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- New features - support multiple test files by providing test folder
+
+- New features: 
+  - support multiple test files by providing test folder
+    `--spec-folder=\"test\"`
+
+  - new context options object `{}` as the second param for describe and tests func.
+    `test('description', {}, () => {})`
+
+  - new `{ skip: true }` option for skipping describe/test
+    `describe('description', { skip: true }, () => {})`
+    `test('description', { skip: true }, () => {})`
+
 - Added config file `test.config.json`
 - Added printing describe name
+
+### Changed
+- Updated documentation
+- Code optimization
 
 ## 1.4.0 - 2024-01-11
 ### Added

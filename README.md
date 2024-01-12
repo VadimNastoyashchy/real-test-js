@@ -42,7 +42,7 @@ Use the it function to write test cases and the describe function to group them.
 test.js
 
 ```
-import { describe, test, beforeEach, afterEach, expect} from '../src/core.mjs'
+import { describe, test, beforeEach, afterEach, expect} from 'real-test-js'
 
 describe('First describe', () => {
   beforeEach(() => {
@@ -162,5 +162,37 @@ Use `expect(actual_value)` with assertions:
 | `.toBeTruthy()`   | Check actual value to be true                                                                  |
 | `.toEqual()`      | Check actual and expected value the same (using ===) `expect(value).toEqual(value)`            |
 | `.notToEqual()`   | Check actual and expected value are not the same (using ===) `expect(value).notToEqual(value)` |
+
+---
+
+## `Context options`
+
+Use `{}` as the second param for describe and tests func.
+
+### `Example↓`
+
+```
+test('description', {}, () => {})
+```
+
+or
+
+```
+describe('description', {}, () => {})
+```
+
+### `Example↓`
+
+```
+  describe('description', { skip: true }, () => {})
+  //or
+  test('description', { skip: true }, () => {})
+```
+
+---
+
+| Option Name      | Description                                             |
+| ---------------- | ------------------------------------------------------- |
+| `{ skip: true }` | Option for skipping describe/test where it was provided |
 
 ---

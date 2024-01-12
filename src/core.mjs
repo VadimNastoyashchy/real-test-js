@@ -118,20 +118,32 @@ const invokeAfterAll = () => {
   }
 }
 
-export const describe = (name, body) => {
+export const describe = (name, optionsOrBody, body) => {
+  const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
+  const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
+  if (options.skip) {
+    printSkippedMsg(name)
+    return
+  }
   console.log(indent(name))
   describeStack = [...describeStack, createDescribe(name)]
-  body()
+  actualBody()
   invokeAfterAll()
   describeStack = withoutLast(describeStack)
 }
 
-export const test = (name, body) => {
+export const test = (name, optionsOrBody, body) => {
+  const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
+  const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
+  if (options.skip) {
+    printSkippedMsg(name)
+    return
+  }
   currentTest = createTest(name)
   try {
     invokeBeforeAll()
     invokeBeforeEach()
-    body()
+    actualBody()
   } catch (e) {
     currentTest.errors.push(e)
   }
@@ -150,6 +162,9 @@ export const test = (name, body) => {
 }
 
 const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
+
+const printSkippedMsg = (name) =>
+  console.log(applyColor(`<cyan>Skipped test:</cyan> ${name}`))
 
 const printRunningSpecFile = (specFile) => {
   console.log(`Running spec file: ${specFile}`)
