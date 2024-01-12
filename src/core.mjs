@@ -8,6 +8,7 @@ import * as assertions from './assertions.mjs'
 import { AssertionError } from './assertionError.mjs'
 import { getMultipleFilePath } from './setup.mjs'
 import { RunnerError } from './runnerError.mjs'
+import { createReport } from './reporters/reporter.mjs'
 
 const config = getConfig()
 
@@ -15,6 +16,7 @@ let currentTest
 let successes = 0
 const failures = []
 let describeStack = []
+const report = []
 
 let hasBeforeAll = false
 let hasAfterAll = false
@@ -51,6 +53,7 @@ export const run = async () => {
   printFailuresMsg()
   printTestResult()
   printExecutionTime(startTimeStamp, endTimeStamp)
+  createReport(report)
   process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
 }
 
@@ -159,6 +162,7 @@ export const test = (name, optionsOrBody, body) => {
   } catch (e) {
     console.error(e)
   }
+  report.push(currentTest)
 }
 
 const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`

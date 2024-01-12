@@ -6,18 +6,15 @@ const specFolder = getSpecFolder(args)
 const configFile = getConfigFile(args)
 
 const baseConfig = {
-  specFile: '',
-  specFolder: '',
-}
-
-const config = {
-  ...baseConfig,
-  ...configFile,
+  specFile: configFile?.specFile || specName,
+  specFolder: configFile?.specFolder || specFolder,
+  reporter: {
+    type: configFile?.reporter?.type,
+    folderName: configFile?.reporter?.folderName,
+    fileName: configFile?.reporter?.fileName || 'results',
+  },
 }
 
 export const getConfig = () => {
-  if (specName) config.specFile = specName
-  if (specFolder) config.specFolder = specFolder
-
-  return config
+  return baseConfig
 }

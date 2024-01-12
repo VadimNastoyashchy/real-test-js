@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- New features:
+  - reporter support
+    - json
+  
+  - new reporter options object in the config
+    reporter: {
+        type: "json",
+        folderName: "report",
+        fileName: "results",
+    },
+  
+
+### Changed
+- Updated documentation
+- Code optimization
+
 ## 1.5.0 - 2024-01-12
 ### Added
 - New features:

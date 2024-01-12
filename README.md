@@ -91,8 +91,13 @@ test.config.json
 
 ```
 {
-    "specFile": "your_folder/your_file.js", //this has higher prior
-    "specFolder": "your_spec_folder"        // this will be skipped
+    "specFile": "our_spec_folder/your_file.js",
+    "specFolder": "your_spec_folder",
+      reporter: {
+        type: "json",
+        folderName: "report",
+        fileName: "results",
+  },
 }
 ```
 
@@ -100,8 +105,20 @@ test.config.json
 
 | Option Name    | Required | Type   | Description             |
 | -------------- | -------- | ------ | ----------------------- |
-| `"specFile"`   | true     | string | path to the test file   |
+| `"specFile"`   | false    | string | path to the test file   |
 | `"specFolder"` | true     | string | path to the test folder |
+
+---
+
+### `Reporter options`
+
+---
+
+| Option Name    | Required | Type   | Description                                  |
+| -------------- | -------- | ------ | -------------------------------------------- |
+| `"type"`       | false    | string | reporter type. Now available: "json", "html" |
+| `"folderName"` | false    | string | define reporter file name                    |
+| `"fileName"`   | false    | string | define reporter file name                    |
 
 ---
 
