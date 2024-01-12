@@ -1,7 +1,7 @@
 import { describe, test, expect } from '../src/core.mjs'
 
 describe('Unit tests for assertions', () => {
-  test('Check assertion toBeDefined()', () => {
+  test('Check assertion toBeDefined()', {}, () => {
     const number = 1
     expect(number).toBeDefined()
   })
