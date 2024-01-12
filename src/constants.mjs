@@ -15,3 +15,8 @@ export const EXIT_CODES = {
   ok: 0,
   failures: 1,
 }
+
+export const REPORTER_TYPE = {
+  HTML: 'html',
+  JSON: 'json',
+}

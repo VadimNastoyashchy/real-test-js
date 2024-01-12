@@ -33,11 +33,6 @@ export const getSpecFolder = (args) => {
   return getCustomArgFromArgs(args, customArgPrefix) || ''
 }
 
-export const getSpecPattern = (args) => {
-  const customArgPrefix = '--spec-pattern='
-  return getCustomArgFromArgs(args, customArgPrefix) || ''
-}
-
 export const getConfigFile = (args) => {
   return readConfigJSONFile(args)
 }
