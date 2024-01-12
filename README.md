@@ -35,7 +35,8 @@ yarn add real-test-js --dev
 
 ## Write test:
 
-Use the it function to write test cases and the describe function to group them.
+Use the test function to write test cases and the describe function to group them.
+Let's start with test.js test file creation.
 
 ### `Example↓`
 
@@ -44,8 +45,8 @@ test.js
 ```
 import { describe, test, beforeEach, afterEach, expect} from 'real-test-js'
 
-describe('Second describe', () => {
-  test('First it inside second describe', () => {
+describe('Title for describe block', () => {
+  test('Title for test', () => {
     const arr = [1, 2, 3]
     expect(arr).toHaveLength(3)
   })
