@@ -44,29 +44,7 @@ test.js
 ```
 import { describe, test, beforeEach, afterEach, expect} from 'real-test-js'
 
-describe('First describe', () => {
-  beforeEach(() => {
-    // you're code
-  })
-  afterEach(() => {
-    // you're code
-  })
-  // you're code
-  test('First it inside first describe', () => {
-    const number = 1
-    expect(number).toBeDefined()
-  })
-})
-
-
 describe('Second describe', () => {
-  beforeEach(() => {
-    // you're code
-  })
-  afterEach(() => {
-    // you're code
-  })
-  // you're code
   test('First it inside second describe', () => {
     const arr = [1, 2, 3]
     expect(arr).toHaveLength(3)
