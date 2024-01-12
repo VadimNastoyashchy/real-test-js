@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.6.0 - 2024-01-12
 ### Added
 - New features:
   - reporter support
@@ -19,7 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         folderName: "report",
         fileName: "results",
     },
-  
 
 ### Changed
 - Updated documentation
