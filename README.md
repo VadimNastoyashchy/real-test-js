@@ -125,6 +125,8 @@ To enable, add report configuration inside test config:
 }
 ```
 
+---
+
 | Option Name    | Required | Type   | Description                                  |
 | -------------- | -------- | ------ | -------------------------------------------- |
 | `"type"`       | false    | string | reporter type. Now available: "json", "html" |
