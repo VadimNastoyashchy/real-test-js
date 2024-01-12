@@ -112,7 +112,18 @@ test.config.json
 
 ### `Reporter options`
 
----
+#### By default report is disabled.
+
+To enable, add report configuration inside test config:
+
+```
+{
+    "specFolder": "your_spec_folder",
+      reporter: {
+        type: "html"
+  },
+}
+```
 
 | Option Name    | Required | Type   | Description                                  |
 | -------------- | -------- | ------ | -------------------------------------------- |

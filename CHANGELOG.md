@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New features:
   - reporter support
     - json
+    - html
   
   - new reporter options object in the config
     reporter: {
