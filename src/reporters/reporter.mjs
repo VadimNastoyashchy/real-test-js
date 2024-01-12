@@ -1,7 +1,6 @@
 import { getConfig } from '../config.mjs'
 import { REPORTER_TYPE } from '../constants.mjs'
 import { RunnerError } from '../runnerError.mjs'
-import { prepareHTMLReport } from './htmlReporter.mjs'
 import { prepareJsonReport } from './jsonReporter.mjs'
 
 const config = getConfig()
