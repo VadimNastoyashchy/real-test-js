@@ -1,11 +1,13 @@
 /* eslint-disable indent */
 import path from 'path'
 import { getConfig } from './config.mjs'
-import { applyColor } from './transform.mjs'
+import { applyColor, executeAll, last, withoutLast } from './transform.mjs'
 import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
 import * as assertions from './assertions.mjs'
 import { AssertionError } from './assertionError.mjs'
+import { getMultipleFilePath } from './setup.mjs'
+import { RunnerError } from './runnerError.mjs'
 
 const config = getConfig()
 
@@ -22,11 +24,29 @@ let afterAllStack = []
 // Runner entry point
 export const run = async () => {
   const startTimeStamp = timeStamp()
-  try {
-    await import(path.resolve(process.cwd(), config.specFile))
-  } catch (e) {
-    console.error(e)
+  if (config.specFile) {
+    try {
+      printRunningSpecFile(path.resolve(process.cwd(), config.specFile))
+      await import(path.resolve(process.cwd(), config.specFile))
+    } catch (e) {
+      console.error(e)
+    }
+  } else if (config.specFolder) {
+    const specs = getMultipleFilePath(
+      path.resolve(process.cwd(), config.specFolder)
+    )
+    for (const spec of specs) {
+      try {
+        printRunningSpecFile(path.resolve(process.cwd(), spec))
+        await import(spec)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  } else {
+    throw new RunnerError("Spec file/'s or spec folder should be provided")
   }
+
   const endTimeStamp = timeStamp()
   printFailuresMsg()
   printTestResult()
@@ -46,10 +66,6 @@ const createTest = (name) => ({
   describeStack,
 })
 
-const last = (arr) => arr[arr.length - 1]
-
-const withoutLast = (arr) => arr.slice(0, -1)
-
 const currentDescribe = () => last(describeStack)
 
 const updateDescribe = (newProps) => {
@@ -59,8 +75,6 @@ const updateDescribe = (newProps) => {
   }
   describeStack = [...withoutLast(describeStack), newDescribe]
 }
-
-const executeAll = (fnArray) => fnArray.forEach((fn) => fn())
 
 export const beforeEach = (body) =>
   updateDescribe({
@@ -104,19 +118,32 @@ const invokeAfterAll = () => {
   }
 }
 
-export const describe = (name, body) => {
+export const describe = (name, optionsOrBody, body) => {
+  const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
+  const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
+  if (options.skip) {
+    printSkippedMsg(name)
+    return
+  }
+  console.log(indent(name))
   describeStack = [...describeStack, createDescribe(name)]
-  body()
+  actualBody()
   invokeAfterAll()
   describeStack = withoutLast(describeStack)
 }
 
-export const test = (name, body) => {
+export const test = (name, optionsOrBody, body) => {
+  const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
+  const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
+  if (options.skip) {
+    printSkippedMsg(name)
+    return
+  }
   currentTest = createTest(name)
   try {
     invokeBeforeAll()
     invokeBeforeEach()
-    body()
+    actualBody()
   } catch (e) {
     currentTest.errors.push(e)
   }
@@ -135,6 +162,13 @@ export const test = (name, body) => {
 }
 
 const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
+
+const printSkippedMsg = (name) =>
+  console.log(applyColor(`<cyan>Skipped test:</cyan> ${name}`))
+
+const printRunningSpecFile = (specFile) => {
+  console.log(`Running spec file: ${specFile}`)
+}
 
 const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))

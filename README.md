@@ -42,7 +42,7 @@ Use the it function to write test cases and the describe function to group them.
 test.js
 
 ```
-import { describe, test, beforeEach, afterEach, expect} from '../src/core.mjs'
+import { describe, test, beforeEach, afterEach, expect} from 'real-test-js'
 
 describe('First describe', () => {
   beforeEach(() => {
@@ -112,15 +112,17 @@ test.config.json
 
 ```
 {
-    "specFile": "your_folder/your_file.js"
+    "specFile": "your_folder/your_file.js", //this has higher prior
+    "specFolder": "your_spec_folder"        // this will be skipped
 }
 ```
 
 ---
 
-| Option Name  | Required | Type   | Description           |
-| ------------ | -------- | ------ | --------------------- |
-| `"specFile"` | true     | string | path to the test file |
+| Option Name    | Required | Type   | Description             |
+| -------------- | -------- | ------ | ----------------------- |
+| `"specFile"`   | true     | string | path to the test file   |
+| `"specFolder"` | true     | string | path to the test folder |
 
 ---
 
@@ -160,5 +162,37 @@ Use `expect(actual_value)` with assertions:
 | `.toBeTruthy()`   | Check actual value to be true                                                                  |
 | `.toEqual()`      | Check actual and expected value the same (using ===) `expect(value).toEqual(value)`            |
 | `.notToEqual()`   | Check actual and expected value are not the same (using ===) `expect(value).notToEqual(value)` |
+
+---
+
+## `Context options`
+
+Use `{}` as the second param for describe and tests func.
+
+### `Example↓`
+
+```
+test('description', {}, () => {})
+```
+
+or
+
+```
+describe('description', {}, () => {})
+```
+
+### `Example↓`
+
+```
+  describe('description', { skip: true }, () => {})
+  //or
+  test('description', { skip: true }, () => {})
+```
+
+---
+
+| Option Name      | Description                                             |
+| ---------------- | ------------------------------------------------------- |
+| `{ skip: true }` | Option for skipping describe/test where it was provided |
 
 ---
