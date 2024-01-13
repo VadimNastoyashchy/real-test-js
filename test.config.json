@@ -1,3 +1,6 @@
 {
-  "specFile": "test/test.js"
+  "specFolder": "test",
+  "reporter": {
+    "type": "html"
+  }
 }
