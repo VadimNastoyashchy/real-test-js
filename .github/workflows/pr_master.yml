@@ -21,6 +21,8 @@ jobs:
         run: npm run prettier
       - name: Test
         run: npm test
+      - name: List files in the repository
+        run: ls ${{ github.workspace }}
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
