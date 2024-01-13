@@ -7,11 +7,19 @@
 </p>
 
 <p align="center">
-  <a href="./CHANGELOG.md">Changelog</a> 
+  <a href="./CHANGELOG.md">Release Notes / History / Changes</a> 
+</p>
+<p align="center">
+  <a href="./CONTRIBUTING.md">Contributing</a> 
+</p>
+<p align="center">
+  <a href="https://github.com/VadimNastoyashchy/real-test-js/issues">Issue Tracker</a> 
 </p>
 <p align="center" style="font-size:120%;">
   Fast, easy and reliable testing for anything that runs in JS.
 </p>
+
+#### RealTestJS is a JavaScript test framework running on Node.js making testing simple and fun. 
 
 ## Getting started
 
@@ -83,7 +91,7 @@ yarn real-test-js --config="your_config_name.config.json"
 
 ## `Configuration via config file`
 
-- `your_config_name.config.json` - config for Real Test JS (works as an engine)
+- `test.config.json` - config for Real Test JS (works as an engine)
 
 ### `Example↓`
 
@@ -93,10 +101,10 @@ test.config.json
 {
     "specFile": "our_spec_folder/your_file.js",
     "specFolder": "your_spec_folder",
-      reporter: {
-        type: "json",
-        folderName: "report",
-        fileName: "results",
+    "reporter": {
+      "type": "json",
+      "folderName": "report",
+      "fileName": "results",
   },
 }
 ```
@@ -119,8 +127,8 @@ To enable, add report configuration inside test config:
 ```
 {
     "specFolder": "your_spec_folder",
-      reporter: {
-        type: "html"
+    "reporter": {
+      "type": "html"
   },
 }
 ```
