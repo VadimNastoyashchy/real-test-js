@@ -27,4 +27,3 @@ jobs:
           name: html-report
           path: results.html
           retention-days: 5
-    
