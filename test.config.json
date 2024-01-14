@@ -1,3 +1,3 @@
 {
-  "specFile": "test/test.js"
+  "testDir": "test"
 }

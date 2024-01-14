@@ -1,13 +1,13 @@
-import { getSpecName, getConfigFile, getSpecFolder } from './setup.mjs'
+import { getTestNameFromArgs, getConfigFileFromArgs, getTestFolderFromArgs } from './setup.mjs'
 
 const args = process.argv // get arguments from command line
-const specName = getSpecName(args)
-const specFolder = getSpecFolder(args)
-const configFile = getConfigFile(args)
+const testName = getTestNameFromArgs(args)
+const testDir = getTestFolderFromArgs(args)
+const configFile = getConfigFileFromArgs(args)
 
 const baseConfig = {
-  specFile: configFile?.specFile || specName,
-  specFolder: configFile?.specFolder || specFolder,
+  testFile: configFile?.testFile || testName,
+  testDir: configFile?.testDir || testDir,
   reporter: {
     type: configFile?.reporter?.type,
     folderName: configFile?.reporter?.folderName,
