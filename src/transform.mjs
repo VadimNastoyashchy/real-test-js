@@ -91,7 +91,7 @@ const highlightedSource = ({ fileName, lineNumber, column }) => {
   ]
 }
 
-const indentLine = (line) => `  ${line}`
+export const indentLine = (line) => `  ${line}`
 
 export const transformStackTrace = (error, stack) => {
   const failureLocation = getFailureLocation(stack)

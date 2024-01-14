@@ -184,6 +184,7 @@ const printRunningTestFile = (testFile) => {
 
 const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))
+  console.error('')
   failure.errors.forEach((error) => {
     console.error(error.message)
     console.error(error.stack)
@@ -204,7 +205,8 @@ const printTestResult = () => {
   console.log(
     applyColor(
       `Tests: <green>${successes} passed</green>, ` +
-        `<red>${failures.length} failed</red>.`
+        `<red>${failures.length} failed</red>, ` +
+        `${successes + failures.length} total`
     )
   )
 }
