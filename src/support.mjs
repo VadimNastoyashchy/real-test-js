@@ -4,7 +4,7 @@ import fs from 'fs'
 export const timeStamp = () => Date.now()
 
 export const printExecutionTime = (start, end) => {
-  console.log(`Execution time: ${end - start} ms`)
+  console.log(`Time:  ${end - start} ms`)
 }
 
 export const createFolder = (folderPath) => {

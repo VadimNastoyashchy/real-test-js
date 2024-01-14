@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- New features:
+  - new stack trace format
+
 ### Fixed
 - Fixed multiple nested folders:
   https://github.com/VadimNastoyashchy/real-test-js/issues/59.

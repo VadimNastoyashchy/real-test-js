@@ -10,7 +10,7 @@
     ".": "./src/core.mjs"
   },
   "scripts": {
-    "test": "src/cli.mjs --spec-folder=\"test\"",
+    "test": "src/cli.mjs --config=\"test.config.json\"",
     "lint": "eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/",
     "prettier": "prettier . --check"
   },

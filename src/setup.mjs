@@ -23,21 +23,21 @@ const getConfigName = (args) => {
   return getCustomArgFromArgs(args, customArgPrefix) || ''
 }
 
-export const getSpecName = (args) => {
-  const customArgPrefix = '--spec='
+export const getTestNameFromArgs = (args) => {
+  const customArgPrefix = '--test='
   return getCustomArgFromArgs(args, customArgPrefix) || ''
 }
 
-export const getSpecFolder = (args) => {
-  const customArgPrefix = '--spec-folder='
+export const getTestFolderFromArgs = (args) => {
+  const customArgPrefix = '--test-folder='
   return getCustomArgFromArgs(args, customArgPrefix) || ''
 }
 
-export const getConfigFile = (args) => {
+export const getConfigFileFromArgs = (args) => {
   return readConfigJSONFile(args)
 }
 
-const getAllFilePaths = function (dir) {
+const getAllFilePaths = (dir) => {
   const fileNames = fs.readdirSync(dir)
   let filePaths = []
   fileNames.forEach((fileName) => {

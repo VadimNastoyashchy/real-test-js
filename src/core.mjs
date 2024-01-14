@@ -1,7 +1,13 @@
 /* eslint-disable indent */
 import path from 'path'
 import { getConfig } from './config.mjs'
-import { applyColor, executeAll, last, withoutLast } from './transform.mjs'
+import {
+  applyColor,
+  executeAll,
+  last,
+  withoutLast,
+  transformStackTrace,
+} from './transform.mjs'
 import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
 import * as assertions from './assertions.mjs'
@@ -9,6 +15,8 @@ import { AssertionError } from './assertionError.mjs'
 import { getMultipleFilePath } from './setup.mjs'
 import { RunnerError } from './runnerError.mjs'
 import { createReport } from './reporters/reporter.mjs'
+
+Error.prepareStackTrace = transformStackTrace
 
 const config = getConfig()
 
@@ -26,27 +34,27 @@ let afterAllStack = []
 // Runner entry point
 export const run = async () => {
   const startTimeStamp = timeStamp()
-  if (config.specFile) {
+  if (config.testFile) {
     try {
-      printRunningSpecFile(path.resolve(process.cwd(), config.specFile))
-      await import(path.resolve(process.cwd(), config.specFile))
+      printRunningTestFile(path.resolve(process.cwd(), config.testFile))
+      await import(path.resolve(process.cwd(), config.testFile))
     } catch (e) {
       console.error(e)
     }
-  } else if (config.specFolder) {
-    const specs = getMultipleFilePath(
-      path.resolve(process.cwd(), config.specFolder)
+  } else if (config.testDir) {
+    const tests = getMultipleFilePath(
+      path.resolve(process.cwd(), config.testDir)
     )
-    for (const spec of specs) {
+    for (const test of tests) {
       try {
-        printRunningSpecFile(path.resolve(process.cwd(), spec))
-        await import(spec)
+        printRunningTestFile(path.resolve(process.cwd(), test))
+        await import(test)
       } catch (e) {
         console.error(e)
       }
     }
   } else {
-    throw new RunnerError("Spec file/'s or spec folder should be provided")
+    throw new RunnerError("Test file/'s or test folder should be provided")
   }
 
   const endTimeStamp = timeStamp()
@@ -170,14 +178,16 @@ const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
 const printSkippedMsg = (name) =>
   console.log(applyColor(`<cyan>Skipped test:</cyan> ${name}`))
 
-const printRunningSpecFile = (specFile) => {
-  console.log(`Running spec file: ${specFile}`)
+const printRunningTestFile = (testFile) => {
+  console.log(`Running test file: ${testFile}`)
 }
 
 const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))
+  console.error('')
   failure.errors.forEach((error) => {
-    console.error(error)
+    console.error(error.message)
+    console.error(error.stack)
   })
   console.error('')
 }
@@ -195,7 +205,8 @@ const printTestResult = () => {
   console.log(
     applyColor(
       `Tests: <green>${successes} passed</green>, ` +
-        `<red>${failures.length} failed</red>.`
+        `<red>${failures.length} failed</red>, ` +
+        `${successes + failures.length} total`
     )
   )
 }

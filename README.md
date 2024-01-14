@@ -19,7 +19,7 @@
   Fast, easy and reliable testing for anything that runs in JS.
 </p>
 
-#### RealTestJS is a JavaScript test framework running on Node.js making testing simple and fun. 
+#### RealTestJS is a JavaScript test framework running on Node.js making testing simple and fun.
 
 ## Getting started
 
@@ -64,16 +64,16 @@ describe('Title for describe block', () => {
 ## Run test:
 
 ```bash
-npx real-test-js --spec="test.js"
+npx real-test-js --test="test.js"
 ```
 
 or
 
 ```bash
-yarn real-test-js --spec="test.js"
+yarn real-test-js --test="test.js"
 ```
 
-Where **--spec=** your test file path
+Where **--test=** your test file path
 
 ## `Available CLI Options`
 
@@ -99,8 +99,8 @@ test.config.json
 
 ```
 {
-    "specFile": "our_spec_folder/your_file.js",
-    "specFolder": "your_spec_folder",
+    "testFile": "test_folder/your_file.js",
+    "testDir": "test_folder",
     "reporter": {
       "type": "json",
       "folderName": "report",
@@ -111,10 +111,10 @@ test.config.json
 
 ---
 
-| Option Name    | Required | Type   | Description             |
-| -------------- | -------- | ------ | ----------------------- |
-| `"specFile"`   | false    | string | path to the test file   |
-| `"specFolder"` | true     | string | path to the test folder |
+| Option Name  | Required | Type   | Description             |
+| ------------ | -------- | ------ | ----------------------- |
+| `"testFile"` | false    | string | path to the test file   |
+| `"testDir"`  | true     | string | path to the test folder |
 
 ---
 
@@ -126,7 +126,7 @@ To enable, add report configuration inside test config:
 
 ```
 {
-    "specFolder": "your_spec_folder",
+    "testDir": "your_test_folder",
     "reporter": {
       "type": "html"
   },
@@ -138,7 +138,7 @@ To enable, add report configuration inside test config:
 | Option Name    | Required | Type   | Description                                  |
 | -------------- | -------- | ------ | -------------------------------------------- |
 | `"type"`       | false    | string | reporter type. Now available: "json", "html" |
-| `"folderName"` | false    | string | define reporter file name                    |
+| `"folderName"` | false    | string | define reporter folder name                  |
 | `"fileName"`   | false    | string | define reporter file name                    |
 
 ---
