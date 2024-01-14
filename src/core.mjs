@@ -6,7 +6,7 @@ import {
   executeAll,
   last,
   withoutLast,
-  formatStackTrace,
+  transformStackTrace,
 } from './transform.mjs'
 import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
@@ -16,7 +16,7 @@ import { getMultipleFilePath } from './setup.mjs'
 import { RunnerError } from './runnerError.mjs'
 import { createReport } from './reporters/reporter.mjs'
 
-Error.prepareStackTrace = formatStackTrace
+Error.prepareStackTrace = transformStackTrace
 
 const config = getConfig()
 
