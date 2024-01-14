@@ -7,8 +7,8 @@ describe('Unit tests for assertions', () => {
   })
 
   test('Check assertion toHaveLength()', () => {
-    const arr = [1, 2, 3]
-    expect(1).toHaveLength(3)
+    const arr = 1
+    expect(arr).toHaveLength(3)
   })
 
   test('Check assertion toBeFalsy()', () => {
