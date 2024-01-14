@@ -7,7 +7,7 @@ describe('Unit tests for assertions', () => {
   })
 
   test('Check assertion toHaveLength()', () => {
-    const arr = 1
+    const arr = [1, 2, 3]
     expect(arr).toHaveLength(3)
   })
 
