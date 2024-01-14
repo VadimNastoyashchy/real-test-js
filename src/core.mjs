@@ -1,7 +1,13 @@
 /* eslint-disable indent */
 import path from 'path'
 import { getConfig } from './config.mjs'
-import { applyColor, executeAll, last, withoutLast } from './transform.mjs'
+import {
+  applyColor,
+  executeAll,
+  last,
+  withoutLast,
+  formatStackTrace,
+} from './transform.mjs'
 import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
 import * as assertions from './assertions.mjs'
@@ -9,6 +15,8 @@ import { AssertionError } from './assertionError.mjs'
 import { getMultipleFilePath } from './setup.mjs'
 import { RunnerError } from './runnerError.mjs'
 import { createReport } from './reporters/reporter.mjs'
+
+Error.prepareStackTrace = formatStackTrace
 
 const config = getConfig()
 
@@ -177,7 +185,8 @@ const printRunningSpecFile = (specFile) => {
 const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))
   failure.errors.forEach((error) => {
-    console.error(error)
+    console.error(error.message)
+    console.error(error.stack)
   })
   console.error('')
 }
