@@ -3,6 +3,8 @@ import { ANSI_COLORS, ANSI_RESET } from './constants.mjs'
 import path from 'path'
 import fs from 'fs'
 import { EOL } from 'os'
+import { AssertionError } from './assertionError.mjs'
+import { RunnerError } from './runnerError.mjs'
 
 export const applyColor = (message) =>
   Object.keys(ANSI_COLORS).reduce(
@@ -94,8 +96,12 @@ const indentLine = (line) => `  ${line}`
 export const transformStackTrace = (error, stack) => {
   const failureLocation = getFailureLocation(stack)
   if (!failureLocation) return
-  const { fileName } = failureLocation
-  const introLine = `in <bold>${fileName}</bold>:`
-  const allLines = ['', introLine, '', ...highlightedSource(failureLocation)]
-  return applyColor(allLines.map(indentLine).join(EOL))
+  if (error instanceof AssertionError || error instanceof RunnerError) {
+    const { fileName } = failureLocation
+    const introLine = `in <bold>${fileName}</bold>:`
+    const allLines = ['', introLine, '', ...highlightedSource(failureLocation)]
+    return applyColor(allLines.map(indentLine).join(EOL))
+  } else {
+    return error.stack
+  }
 }
