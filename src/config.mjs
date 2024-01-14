@@ -1,4 +1,8 @@
-import { getTestNameFromArgs, getConfigFileFromArgs, getTestFolderFromArgs } from './setup.mjs'
+import {
+  getTestNameFromArgs,
+  getConfigFileFromArgs,
+  getTestFolderFromArgs,
+} from './setup.mjs'
 
 const args = process.argv // get arguments from command line
 const testName = getTestNameFromArgs(args)
