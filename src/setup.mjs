@@ -37,11 +37,21 @@ export const getConfigFile = (args) => {
   return readConfigJSONFile(args)
 }
 
-const getAllFileNames = function (dir) {
-  return fs.readdirSync(dir).filter((fn) => fn.endsWith('.js'))
+const getAllFilePaths = function (dir) {
+  const fileNames = fs.readdirSync(dir)
+  let filePaths = []
+  fileNames.forEach((fileName) => {
+    const filePath = path.join(dir, fileName)
+    const stat = fs.statSync(filePath)
+    if (stat.isDirectory()) {
+      filePaths = filePaths.concat(getAllFilePaths(filePath))
+    } else if (fileName.endsWith('.js')) {
+      filePaths.push(filePath)
+    }
+  })
+  return filePaths
 }
 
 export const getMultipleFilePath = (fileDir) => {
-  const fileNames = getAllFileNames(fileDir)
-  return fileNames.map((fileName) => path.join(fileDir, fileName))
+  return getAllFilePaths(fileDir)
 }
