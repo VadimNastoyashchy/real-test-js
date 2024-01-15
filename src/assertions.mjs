@@ -1,6 +1,8 @@
+/* eslint-disable curly */
 import { AssertionError } from './assertionError.mjs'
 import { RunnerError } from './runnerError.mjs'
 import { indentLine } from './transform.mjs'
+import { EOL } from 'os'
 
 export const toBeDefined = (actual) => {
   if (actual === undefined) {
@@ -19,7 +21,9 @@ export const toHaveLength = (actual, expected) => {
   }
   if (actual.length !== expected) {
     throw new AssertionError(
-      indentLine('Expected: <expected>\n') + indentLine('Received: <actual>'),
+      indentLine('Expected: <expected>') +
+        EOL +
+        indentLine('Received: <actual>'),
       {
         actual: actual.length,
         expected,
@@ -57,7 +61,9 @@ export const toBeTruthy = (actual) => {
 export const toEqual = (actual, expected) => {
   if (actual !== expected) {
     throw new AssertionError(
-      indentLine('Expected: <expected>\n') + indentLine('Received: <actual>'),
+      indentLine('Expected: <expected>') +
+        EOL +
+        indentLine('Received: <actual>'),
       {
         actual,
         expected,
@@ -69,7 +75,9 @@ export const toEqual = (actual, expected) => {
 export const notToEqual = (actual, expected) => {
   if (actual === expected) {
     throw new AssertionError(
-      indentLine('Expected: <expected>\n') + indentLine('Received: <actual>'),
+      indentLine('Expected: <expected>') +
+        EOL +
+        indentLine('Received: <actual>'),
       {
         actual,
         expected,

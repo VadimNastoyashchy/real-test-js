@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Fixed EOL for assertions
+
 ## 1.7.0 - 2024-01-14
 ### Added
 - New features:
