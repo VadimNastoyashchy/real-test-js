@@ -18,4 +18,13 @@ const matcherHandler = (actual) => ({
     },
 })
 
+/**
+ * Expect gives you access to a number of "matchers" that let you validate different things.
+ *
+ * ```js
+ *  expect(number).toBeDefined()
+ * ```
+ *
+ * @param expected Expected value to check.
+ */
 export const expect = (actual) => new Proxy({}, matcherHandler(actual))

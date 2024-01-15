@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { run } from './core2.mjs'
+import { run } from './core.mjs'
 
 run()

@@ -1,252 +1,64 @@
-/* eslint-disable indent */
 import path from 'path'
+import fs from 'fs'
+import { applyColor, transformStackTrace } from './transform.mjs'
+import { runParsedBlocks } from './context.mjs'
 import { getConfig } from './config.mjs'
-import {
-  applyColor,
-  executeAll,
-  last,
-  withoutLast,
-  transformStackTrace,
-} from './transform.mjs'
-import { TICK, CROSS, EXIT_CODES } from './constants.mjs'
-import { timeStamp, printExecutionTime } from './support.mjs'
-import * as assertions from './assertions.mjs'
-import { AssertionError } from './assertionError.mjs'
 import { getMultipleFilePath } from './setup.mjs'
-import { RunnerError } from './runnerError.mjs'
+import { timeStamp, printExecutionTime } from './support.mjs'
 import { createReport } from './reporters/reporter.mjs'
-
-Error.prepareStackTrace = transformStackTrace
 
 const config = getConfig()
 
-let currentTest
-let successes = 0
-const failures = []
-let describeStack = []
-const report = []
+Error.prepareStackTrace = transformStackTrace
 
-let hasBeforeAll = false
-let hasAfterAll = false
-let beforeAllStack = []
-let afterAllStack = []
+const isSingleFileMode = () => config.testFile
 
-// Runner entry point
+const getSingleFilePath = async () => {
+  try {
+    const fullPath = path.resolve(process.cwd(), config.testFile)
+    await fs.promises.access(fullPath)
+    return [fullPath]
+  } catch {
+    console.error(`File ${config.testFile} could not be accessed.`)
+    process.exit(0)
+  }
+}
+
+const discoverTestFiles = async () => {
+  return getMultipleFilePath(path.resolve(process.cwd(), config.testDir))
+}
+
+const chooseTestFiles = () =>
+  isSingleFileMode() ? getSingleFilePath() : discoverTestFiles()
+
 export const run = async () => {
   const startTimeStamp = timeStamp()
-  if (config.testFile) {
-    try {
-      printRunningTestFile(path.resolve(process.cwd(), config.testFile))
-      await import(path.resolve(process.cwd(), config.testFile))
-    } catch (e) {
-      console.error(e)
-    }
-  } else if (config.testDir) {
-    const tests = getMultipleFilePath(
-      path.resolve(process.cwd(), config.testDir)
+  try {
+    const testFilePaths = await chooseTestFiles()
+    await Promise.all(
+      testFilePaths.map(async (testFilePath) => {
+        printRunningTestFile(path.resolve(process.cwd(), testFilePath))
+        await import(testFilePath)
+      })
     )
-    for (const test of tests) {
-      try {
-        printRunningTestFile(path.resolve(process.cwd(), test))
-        await import(test)
-      } catch (e) {
-        console.error(e)
-      }
-    }
-  } else {
-    throw new RunnerError("Test file/'s or test folder should be provided")
-  }
-
-  const endTimeStamp = timeStamp()
-  printFailuresMsg()
-  printTestResult()
-  printExecutionTime(startTimeStamp, endTimeStamp)
-  createReport(report)
-  process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
-}
-
-const createDescribe = (name) => ({
-  name,
-  beforeEach: [],
-  afterEach: [],
-})
-
-const createTest = (name) => ({
-  name,
-  errors: [],
-  describeStack,
-})
-
-const currentDescribe = () => last(describeStack)
-
-const updateDescribe = (newProps) => {
-  const newDescribe = {
-    ...currentDescribe(),
-    ...newProps,
-  }
-  describeStack = [...withoutLast(describeStack), newDescribe]
-}
-
-/**
- * Execute before each test case.
- *
- * ```js
- * beforeEach(() => {
- *  const number = 1
- * });
- * ```
- */
-export const beforeEach = (body) =>
-  updateDescribe({
-    beforeEach: [...currentDescribe().beforeEach, body],
-  })
-
-/**
- * Execute after each test case.
- *
- * ```js
- * afterEach(() => {
- *  const number = 1
- * });
- * ```
- */
-export const afterEach = (body) =>
-  updateDescribe({
-    afterEach: [...currentDescribe().afterEach, body],
-  })
-
-/**
- * Execute before all test cases.
- *
- * ```js
- * beforeAll(() => {
- *  const number = 1
- * });
- * ```
- */
-export const beforeAll = (body) => {
-  beforeAllStack.push(body)
-  hasBeforeAll = true
-}
-
-/**
- * Execute after all test cases.
- *
- * ```js
- * afterAll(() => {
- *  const number = 1
- * });
- * ```
- */
-export const afterAll = (body) => {
-  afterAllStack.push(body)
-  hasAfterAll = true
-}
-
-const invokeBeforeEach = () =>
-  executeAll(describeStack.flatMap((describe) => describe.beforeEach))
-
-const invokeAfterEach = () =>
-  executeAll(describeStack.flatMap((describe) => describe.afterEach))
-
-const invokeBeforeAll = () => {
-  if (hasBeforeAll) {
-    executeAll(beforeAllStack)
-    hasBeforeAll = false
-    beforeAllStack = []
-  }
-}
-
-const invokeAfterAll = () => {
-  if (hasAfterAll) {
-    executeAll(afterAllStack)
-    hasAfterAll = false
-    afterAllStack = []
-  }
-}
-
-/**
- * Describe a "suite" with the given title and callback fn containing nested suites.
- *
- * ```js
- * describe('Unit tests for assertions', { skip: true } () => {
- *  test('Check assertion toBeDefined()', () => {
- *    const number = 1
- *    expect(number).toBeDefined()
- *  })
- * })
- * ```
- *
- * @param name Group title.
- * @param optionsOrBody (Optional) Object with options
- * @param callback A callback that is run immediately when calling describe(name, optionsOrBody, callback)
- */
-export const describe = (name, optionsOrBody, body) => {
-  const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
-  const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
-  if (options.skip) {
-    printSkippedMsg(name)
-    return
-  }
-  console.log(indent(name))
-  describeStack = [...describeStack, createDescribe(name)]
-  actualBody()
-  invokeAfterAll()
-  describeStack = withoutLast(describeStack)
-}
-
-/**
- * Test a specification or test-case with the given title, test options and callback fn.
- *
- * ```js
- * test('Check assertion toBeDefined()', { skip: true } () => {
- *    const number = 1
- *    expect(number).toBeDefined()
- * })
- * ```
- *
- * @param name Test title.
- * @param optionsOrBody (Optional) Object with options
- * @param callback A callback that is run immediately when calling test(name, optionsOrBody, callback)
- */
-export const test = (name, optionsOrBody, body) => {
-  const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
-  const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
-  if (options.skip) {
-    printSkippedMsg(name)
-    return
-  }
-  currentTest = createTest(name)
-  try {
-    invokeBeforeAll()
-    invokeBeforeEach()
-    actualBody()
+    const { failures, successes } = await runParsedBlocks()
+    printFailuresMsg(failures)
+    printTestResult(failures, successes)
+    const endTimeStamp = timeStamp()
+    printExecutionTime(startTimeStamp, endTimeStamp)
+    // createReport(report)
+    process.exit(failures.length > 0 ? 0 : 1)
   } catch (e) {
-    currentTest.errors.push(e)
+    console.error(e.message)
+    console.error(e.stack)
+    process.exit(3)
   }
-  if (currentTest.errors.length > 0) {
-    console.log(indent(applyColor(`  <red>${CROSS}</red> ${name}`)))
-    failures.push(currentTest)
-  } else {
-    successes++
-    console.log(indent(applyColor(`  <green>${TICK}</green> ${name}`)))
-  }
-  try {
-    invokeAfterEach()
-  } catch (e) {
-    console.error(e)
-  }
-  report.push(currentTest)
 }
 
-const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
-
-const printSkippedMsg = (name) =>
-  console.log(applyColor(`<cyan>Skipped test:</cyan> ${name}`))
-
-const printRunningTestFile = (testFile) => {
-  console.log(`Running test file: ${testFile}`)
-}
+const fullTestDescription = ({ name, describeStack }) =>
+  [...describeStack, { name }]
+    .map(({ name }) => `<bold>${name}</bold>`)
+    .join(' → ')
 
 const printFailureMsg = (failure) => {
   console.error(applyColor(fullTestDescription(failure)))
@@ -258,7 +70,7 @@ const printFailureMsg = (failure) => {
   console.error('')
 }
 
-const printFailuresMsg = () => {
+const printFailuresMsg = (failures) => {
   if (failures.length > 0) {
     console.error('')
     console.error('Failures:')
@@ -267,7 +79,11 @@ const printFailuresMsg = () => {
   failures.forEach(printFailureMsg)
 }
 
-const printTestResult = () => {
+const printRunningTestFile = (testFile) => {
+  console.log(`Running test file: ${testFile}`)
+}
+
+const printTestResult = (failures, successes) => {
   console.log(
     applyColor(
       `Tests: <green>${successes} passed</green>, ` +
@@ -276,35 +92,3 @@ const printTestResult = () => {
     )
   )
 }
-
-const fullTestDescription = ({ name, describeStack }) =>
-  [...describeStack, { name }]
-    .map(({ name }) => `<bold>${name}</bold>`)
-    .join(' → ')
-
-const assertionsHandler = (actual) => ({
-  get:
-    (_, name) =>
-    (...args) => {
-      try {
-        assertions[name](actual, ...args)
-      } catch (e) {
-        if (e instanceof AssertionError) {
-          currentTest.errors.push(e)
-        } else {
-          throw e
-        }
-      }
-    },
-})
-
-/**
- * Expect gives you access to a number of "matchers" that let you validate different things.
- *
- * ```js
- *  expect(number).toBeDefined()
- * ```
- *
- * @param expected Expected value to check.
- */
-export const expect = (actual) => new Proxy({}, assertionsHandler(actual))

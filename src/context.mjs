@@ -1,69 +1,151 @@
 import { TestTimeoutError } from './TestTimeoutError.mjs'
 import { focusedOnly } from './focus.mjs'
-import { applyColor } from './transform.mjs'
+import { applyColor, executeAll } from './transform.mjs'
 export { expect } from './expect.mjs'
 
 let currentDescribe
 let successes = 0
 let failures = []
+let hasBeforeAll = false
+let hasAfterAll = false
+let beforeAllStack = []
+let afterAllStack = []
 global.report = []
 
 const makeDescribe = (name, options) => ({
   ...options,
   name,
-  befores: [],
-  afters: [],
+  beforeEach: [],
+  afterEach: [],
   children: [],
 })
 
 currentDescribe = makeDescribe('root')
 
-const describeWithOpts = (name, body, options = {}) => {
+/**
+ * Describe a "suite" with the given title and callback fn containing nested suites.
+ *
+ * ```js
+ * describe('Unit tests for assertions', { skip: true } () => {
+ *  test('Check assertion toBeDefined()', () => {
+ *    const number = 1
+ *    expect(number).toBeDefined()
+ *  })
+ * })
+ * ```
+ *
+ * @param name Group title.
+ * @param optionsOrBody (Optional) Object with options
+ * @param callback A callback that is run immediately when calling describe(name, optionsOrBody, callback)
+ */
+export const describe = (name, optionsOrBody, body) => {
+  const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
+  const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
+  if (options.skip) {
+    printSkippedMsg(name)
+    return
+  }
   const parentDescribe = currentDescribe
   currentDescribe = makeDescribe(name, options)
-  body()
+  actualBody()
   currentDescribe = {
     ...parentDescribe,
     children: [...parentDescribe.children, currentDescribe],
   }
 }
 
-export const describe = (name, body) => describeWithOpts(name, body, {})
-
 const makeTest = (name, body, options) => ({
   name,
   body,
-  ...options,
   errors: [],
   timeoutError: new TestTimeoutError(5000),
 })
 
-const itWithOpts = (name, body, options) => {
+/**
+ * Test a specification or test-case with the given title, test options and callback fn.
+ *
+ * ```js
+ * test('Check assertion toBeDefined()', { skip: true } () => {
+ *    const number = 1
+ *    expect(number).toBeDefined()
+ * })
+ * ```
+ *
+ * @param name Test title.
+ * @param optionsOrBody (Optional) Object with options
+ * @param callback A callback that is run immediately when calling test(name, optionsOrBody, callback)
+ */
+export const test = (name, optionsOrBody, body) => {
+  const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
+  const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
+  if (options.skip) {
+    printSkippedMsg(name)
+    return
+  }
   currentDescribe = {
     ...currentDescribe,
-    children: [...currentDescribe.children, makeTest(name, body, options)],
+    children: [...currentDescribe.children, makeTest(name, actualBody)],
   }
 }
 
-export const test = (name, body) => itWithOpts(name, body, {})
-
-const addModifier = (object, property, fn, options) =>
-  Object.defineProperty(object, property, {
-    value: (...args) => fn(...args, options),
-  })
-
+/**
+ * Execute before each test case.
+ *
+ * ```js
+ * beforeEach(() => {
+ *  const number = 1
+ * });
+ * ```
+ */
 export const beforeEach = (body) => {
   currentDescribe = {
     ...currentDescribe,
-    befores: [...currentDescribe.befores, body],
+    beforeEach: [...currentDescribe.beforeEach, body],
   }
 }
 
+/**
+ * Execute after each test case.
+ *
+ * ```js
+ * afterEach(() => {
+ *  const number = 1
+ * });
+ * ```
+ */
 export const afterEach = (body) => {
   currentDescribe = {
     ...currentDescribe,
-    afters: [...currentDescribe.afters, body],
+    afterEach: [...currentDescribe.afterEach, body],
   }
+}
+
+/**
+ * Execute before all test cases.
+ *
+ * ```js
+ * beforeAll(() => {
+ *  const number = 1
+ * });
+ * ```
+ */
+export const beforeAll = (body) => {
+  beforeAllStack.push(body)
+  hasBeforeAll = true
+}
+
+/**
+ * Execute after all test cases.
+ *
+ * ```js
+ * afterAll(() => {
+ *  const number = 1
+ * });
+ * ```
+ */
+export const afterAll = (body) => {
+  afterAllStack.push(body)
+  hasAfterAll = true
 }
 
 const isTest = (testObject) => testObject.hasOwnProperty('body')
@@ -80,6 +162,7 @@ const runDescribe = async (describe) => {
   for (let i = 0; i < describe.children.length; ++i) {
     await runBlock(describe.children[i])
   }
+  invokeAfterAll()
   describeStack = withoutLast(describeStack)
 }
 
@@ -96,10 +179,10 @@ const runTest = async (test) => {
   global.currentTest = test
   currentTest.describeStack = [...describeStack]
   try {
-    invokeBefores(currentTest)
+    invokeBeforeAll()
+    invokeBeforeEach(currentTest)
     await runBodyAndWait(currentTest.body)
     currentTest.body()
-    invokeAfters(currentTest)
   } catch (e) {
     currentTest.errors.push(e)
   }
@@ -110,26 +193,38 @@ const runTest = async (test) => {
     successes++
     console.log(indent(applyColor(`<green>✓</green> ${currentTest.name}`)))
   }
+  try {
+    invokeAfterEach(currentTest)
+  } catch (e) {
+    console.error(e)
+  }
   // global.report.push(currentTest)
   global.currentTest = null
 }
 
-const appendTimeout = (timeout) => {
-  currentTest = {
-    ...currentTest,
-    timeoutError: new TestTimeoutError(timeout),
+const invokeAll = (fnArray) => fnArray.forEach((fn) => fn())
+
+const invokeBeforeEach = () =>
+  invokeAll(describeStack.flatMap((describe) => describe.beforeEach))
+
+const invokeAfterEach = () =>
+  invokeAll(describeStack.flatMap((describe) => describe.afterEach))
+
+const invokeBeforeAll = () => {
+  if (hasBeforeAll) {
+    executeAll(beforeAllStack)
+    hasBeforeAll = false
+    beforeAllStack = []
   }
 }
 
-addModifier(test, 'timesOutAfter', appendTimeout, {})
-
-const invokeAll = (fnArray) => fnArray.forEach((fn) => fn())
-
-const invokeBefores = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.befores))
-
-const invokeAfters = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.afters))
+const invokeAfterAll = () => {
+  if (hasAfterAll) {
+    executeAll(afterAllStack)
+    hasAfterAll = false
+    afterAllStack = []
+  }
+}
 
 const runBlock = (block) =>
   isTest(block) ? runTest(block) : runDescribe(block)
@@ -141,3 +236,6 @@ export const runParsedBlocks = async () => {
   }
   return { successes, failures }
 }
+
+const printSkippedMsg = (name) =>
+  console.log(applyColor(`<cyan>Skipped test:</cyan> ${name}`))
