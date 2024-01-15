@@ -87,21 +87,57 @@ const updateDescribe = (newProps) => {
   describeStack = [...withoutLast(describeStack), newDescribe]
 }
 
+/**
+ * Execute before each test case.
+ *
+ * ```js
+ * beforeEach(() => {
+ *  const number = 1
+ * });
+ * ```
+ */
 export const beforeEach = (body) =>
   updateDescribe({
     beforeEach: [...currentDescribe().beforeEach, body],
   })
 
+/**
+ * Execute after each test case.
+ *
+ * ```js
+ * afterEach(() => {
+ *  const number = 1
+ * });
+ * ```
+ */
 export const afterEach = (body) =>
   updateDescribe({
     afterEach: [...currentDescribe().afterEach, body],
   })
 
+/**
+ * Execute before all test cases.
+ *
+ * ```js
+ * beforeAll(() => {
+ *  const number = 1
+ * });
+ * ```
+ */
 export const beforeAll = (body) => {
   beforeAllStack.push(body)
   hasBeforeAll = true
 }
 
+/**
+ * Execute after all test cases.
+ *
+ * ```js
+ * afterAll(() => {
+ *  const number = 1
+ * });
+ * ```
+ */
 export const afterAll = (body) => {
   afterAllStack.push(body)
   hasAfterAll = true
@@ -129,6 +165,22 @@ const invokeAfterAll = () => {
   }
 }
 
+/**
+ * Describe a "suite" with the given title and callback fn containing nested suites.
+ *
+ * ```js
+ * describe('Unit tests for assertions', { skip: true } () => {
+ *  test('Check assertion toBeDefined()', () => {
+ *    const number = 1
+ *    expect(number).toBeDefined()
+ *  })
+ * })
+ * ```
+ *
+ * @param name Group title.
+ * @param optionsOrBody (Optional) Object with options
+ * @param callback A callback that is run immediately when calling describe(name, optionsOrBody, callback)
+ */
 export const describe = (name, optionsOrBody, body) => {
   const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
   const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
@@ -143,6 +195,20 @@ export const describe = (name, optionsOrBody, body) => {
   describeStack = withoutLast(describeStack)
 }
 
+/**
+ * Test a specification or test-case with the given title, test options and callback fn.
+ *
+ * ```js
+ * test('Check assertion toBeDefined()', { skip: true } () => {
+ *    const number = 1
+ *    expect(number).toBeDefined()
+ * })
+ * ```
+ *
+ * @param name Test title.
+ * @param optionsOrBody (Optional) Object with options
+ * @param callback A callback that is run immediately when calling test(name, optionsOrBody, callback)
+ */
 export const test = (name, optionsOrBody, body) => {
   const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
   const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
@@ -232,4 +298,13 @@ const assertionsHandler = (actual) => ({
     },
 })
 
+/**
+ * Expect gives you access to a number of "matchers" that let you validate different things.
+ *
+ * ```js
+ *  expect(number).toBeDefined()
+ * ```
+ *
+ * @param expected Expected value to check.
+ */
 export const expect = (actual) => new Proxy({}, assertionsHandler(actual))
