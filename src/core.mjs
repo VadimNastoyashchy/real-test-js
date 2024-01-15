@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { applyColor, transformStackTrace } from './transform.mjs'
-import { runParsedBlocks } from './context.mjs'
+import { runParsedBlocks, report } from './context.mjs'
 import { getConfig } from './config.mjs'
 import { getMultipleFilePath } from './setup.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
@@ -46,7 +46,7 @@ export const run = async () => {
     printTestResult(failures, successes)
     const endTimeStamp = timeStamp()
     printExecutionTime(startTimeStamp, endTimeStamp)
-    // createReport(report)
+    createReport(report)
     process.exit(failures.length > 0 ? 0 : 1)
   } catch (e) {
     console.error(e.message)

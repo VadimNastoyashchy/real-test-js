@@ -1,16 +1,17 @@
 import { TestTimeoutError } from './TestTimeoutError.mjs'
 import { focusedOnly } from './focus.mjs'
-import { applyColor, executeAll } from './transform.mjs'
+import { applyColor, executeAll, withoutLast } from './transform.mjs'
 export { expect } from './expect.mjs'
 
-let currentDescribe
+export const report = []
+const failures = []
 let successes = 0
-let failures = []
+let describeStack = []
+let currentDescribe
 let hasBeforeAll = false
 let hasAfterAll = false
 let beforeAllStack = []
 let afterAllStack = []
-global.report = []
 
 const makeDescribe = (name, options) => ({
   ...options,
@@ -150,11 +151,7 @@ export const afterAll = (body) => {
 
 const isTest = (testObject) => testObject.hasOwnProperty('body')
 
-let describeStack = []
-
 const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
-
-const withoutLast = (arr) => arr.slice(0, -1)
 
 const runDescribe = async (describe) => {
   console.log(indent(describe.name))
@@ -182,7 +179,6 @@ const runTest = async (test) => {
     invokeBeforeAll()
     invokeBeforeEach(currentTest)
     await runBodyAndWait(currentTest.body)
-    currentTest.body()
   } catch (e) {
     currentTest.errors.push(e)
   }
@@ -198,17 +194,15 @@ const runTest = async (test) => {
   } catch (e) {
     console.error(e)
   }
-  // global.report.push(currentTest)
+  report.push(currentTest)
   global.currentTest = null
 }
 
-const invokeAll = (fnArray) => fnArray.forEach((fn) => fn())
-
 const invokeBeforeEach = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.beforeEach))
+  executeAll(describeStack.flatMap((describe) => describe.beforeEach))
 
 const invokeAfterEach = () =>
-  invokeAll(describeStack.flatMap((describe) => describe.afterEach))
+  executeAll(describeStack.flatMap((describe) => describe.afterEach))
 
 const invokeBeforeAll = () => {
   if (hasBeforeAll) {
