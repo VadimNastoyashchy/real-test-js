@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable indent */
 import { AssertionError } from './errors/assertion.mjs'
 import * as assertions from './assertions.mjs'
