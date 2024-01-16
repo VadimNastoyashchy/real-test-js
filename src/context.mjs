@@ -23,6 +23,13 @@ const makeDescribe = (name, options) => ({
   children: [],
 })
 
+const makeTest = (name, body) => ({
+  name,
+  body,
+  errors: [],
+  timeoutError: new TimeoutError(5000),
+})
+
 currentDescribe = makeDescribe('root')
 
 /**
@@ -56,13 +63,6 @@ export const describe = (name, optionsOrBody, body) => {
     children: [...parentDescribe.children, currentDescribe],
   }
 }
-
-const makeTest = (name, body) => ({
-  name,
-  body,
-  errors: [],
-  timeoutError: new TimeoutError(5000),
-})
 
 /**
  * Test a specification or test-case with the given title, test options and callback fn.
