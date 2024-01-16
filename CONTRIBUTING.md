@@ -7,9 +7,6 @@ Before submitting a pull request, please make sure the following is done >>>
 - Wait CI checks (tests, lint, prettier)
 - Merge
 
-### Contributing
-So you want to contribute to the project? How lovely! Here are a few things to keep in mind when working with the project:
-
 ### Code Quality
 The format of the code is handled by the use of Prettier and EsLint. When coding, make sure that your IDE has access to use Prettier and EsLint to format the code before committing the code to the repository.
 
