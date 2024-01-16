@@ -208,8 +208,28 @@ describe('description', {}, () => {})
 
 ---
 
-| Option Name      | Description                                             |
-| ---------------- | ------------------------------------------------------- |
-| `{ skip: true }` | Option for skipping describe/test where it was provided |
+| Option Name         | Description                                                             |
+| ------------------- | ----------------------------------------------------------------------- |
+| `{ skip: true }`    | Option for skipping describe/test where it was provided                 |
+| `{ timeout: 2000 }` | Option timeout (in ms) for specifying how long to wait before aborting. |
+|                     | The default timeout is 5 seconds.                                       |
 
 ---
+
+## `Async/Await support`
+
+RealTestJS also supports async/await approach.
+To use it just add `async` keyword before function callback inside `test` block
+
+### `Example↓`
+
+```
+describe('Unit test for async', () => {
+  test('Wait 1 sec and check', async () => {
+    const number = await new Promise((resolve) =>
+      setTimeout(() => resolve(1), 1_000)
+    )
+    expect(number).toBeDefined()
+  })
+})
+```
