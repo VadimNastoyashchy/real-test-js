@@ -11,7 +11,7 @@ const config = getConfig()
 
 Error.prepareStackTrace = transformStackTrace
 
-const isSingleFileMode = () => config.testFile
+const hasSingleFile = () => config.testFile
 
 const getSingleFilePath = async () => {
   try {
@@ -24,12 +24,12 @@ const getSingleFilePath = async () => {
   }
 }
 
-const discoverTestFiles = async () => {
+const getTestFiles = async () => {
   return getMultipleFilePath(path.resolve(process.cwd(), config.testDir))
 }
 
 const chooseTestFiles = () =>
-  isSingleFileMode() ? getSingleFilePath() : discoverTestFiles()
+  hasSingleFile() ? getSingleFilePath() : getTestFiles()
 
 export const run = async () => {
   const startTimeStamp = timeStamp()
@@ -55,16 +55,16 @@ export const run = async () => {
   }
 }
 
-const fullTestDescription = ({ name, describeStack }) =>
+const createFullDescription = ({ name, describeStack }) =>
   [...describeStack, { name }]
     .map(({ name }) => `<bold>${name}</bold>`)
     .join(' → ')
 
 const printFailureMsg = (failure) => {
-  console.error(applyColor(fullTestDescription(failure)))
+  console.error(applyColor(createFullDescription(failure)))
   console.error('')
   failure.errors.forEach((error) => {
-    console.error(error.message)
+    if (!error.message.includes('timeout')) console.error(error.message)
     console.error(error.stack)
   })
   console.error('')

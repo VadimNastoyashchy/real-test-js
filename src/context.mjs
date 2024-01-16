@@ -1,4 +1,6 @@
-import { TestTimeoutError } from './TestTimeoutError.mjs'
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-undef */
+import { TimeoutError } from './errors/timeout.mjs'
 import { focusedOnly } from './focus.mjs'
 import { applyColor, executeAll, withoutLast } from './transform.mjs'
 export { expect } from './expect.mjs'
@@ -55,11 +57,11 @@ export const describe = (name, optionsOrBody, body) => {
   }
 }
 
-const makeTest = (name, body, options) => ({
+const makeTest = (name, body) => ({
   name,
   body,
   errors: [],
-  timeoutError: new TestTimeoutError(5000),
+  timeoutError: new TimeoutError(5000),
 })
 
 /**
@@ -149,7 +151,7 @@ export const afterAll = (body) => {
   hasAfterAll = true
 }
 
-const isTest = (testObject) => testObject.hasOwnProperty('body')
+const isTestBlock = (testObject) => testObject.hasOwnProperty('body')
 
 const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
 
@@ -221,7 +223,7 @@ const invokeAfterAll = () => {
 }
 
 const runBlock = (block) =>
-  isTest(block) ? runTest(block) : runDescribe(block)
+  isTestBlock(block) ? runTest(block) : runDescribe(block)
 
 export const runParsedBlocks = async () => {
   const withFocus = focusedOnly(currentDescribe)

@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { AssertionError } from './assertionError.mjs'
+import { AssertionError } from './errors/assertion.mjs'
 import * as assertions from './assertions.mjs'
 
 const matcherHandler = (actual) => ({

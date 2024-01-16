@@ -3,8 +3,8 @@ import { ANSI_COLORS, ANSI_RESET } from './constants.mjs'
 import path from 'path'
 import fs from 'fs'
 import { EOL } from 'os'
-import { AssertionError } from './assertionError.mjs'
-import { RunnerError } from './runnerError.mjs'
+import { AssertionError } from './errors/assertion.mjs'
+import { RunnerError } from './errors/runner.mjs'
 
 export const applyColor = (message) =>
   Object.keys(ANSI_COLORS).reduce(

@@ -1,6 +1,6 @@
 /* eslint-disable curly */
-import { AssertionError } from './assertionError.mjs'
-import { RunnerError } from './runnerError.mjs'
+import { AssertionError } from './errors/assertion.mjs'
+import { RunnerError } from './errors/runner.mjs'
 import { indentLine } from './transform.mjs'
 import { EOL } from 'os'
 

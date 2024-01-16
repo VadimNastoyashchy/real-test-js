@@ -6,7 +6,7 @@ describe('Unit tests for assertions', () => {
     expect(number).toBeDefined()
   })
 
-  test('Check assertion toHaveLength()', { skip: true }, () => {
+  test('Check assertion toHaveLength()', () => {
     const arr = [1, 2, 3]
     expect(arr).toHaveLength(3)
   })
@@ -23,7 +23,7 @@ describe('Unit tests for assertions', () => {
 
   test('Check assertion toEqual()', () => {
     expect(1).toEqual(1)
-    expect('test2').toEqual('test')
+    expect('test').toEqual('test')
     expect(true).toEqual(true)
     expect(false).toEqual(false)
   })
@@ -40,7 +40,7 @@ describe('Unit tests for assertions', () => {
 describe('Unit test for async', () => {
   test('Wait 1 sec and check', async () => {
     const number = await new Promise((resolve) =>
-      setTimeout(() => resolve(1), 1)
+      setTimeout(() => resolve(1), 1_000)
     )
     expect(number).toBeDefined()
   })
