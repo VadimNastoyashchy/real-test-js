@@ -6,6 +6,7 @@ import { getConfig } from './config.mjs'
 import { getMultipleFilePath } from './setup.mjs'
 import { timeStamp, printExecutionTime } from './support.mjs'
 import { createReport } from './reporters/reporter.mjs'
+import { EXIT_CODES } from './constants.mjs'
 
 const config = getConfig()
 
@@ -47,11 +48,11 @@ export const run = async () => {
     const endTimeStamp = timeStamp()
     printExecutionTime(startTimeStamp, endTimeStamp)
     createReport(report)
-    process.exit(failures.length > 0 ? 0 : 1)
+    process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
   } catch (e) {
     console.error(e.message)
     console.error(e.stack)
-    process.exit(3)
+    process.exit(EXIT_CODES.failures)
   }
 }
 
