@@ -12,7 +12,7 @@ import { expect as coreExpect } from './expect.mjs'
  * Describe a "suite" with the given title and callback fn containing nested suites.
  *
  * ```js
- * describe('Unit tests for assertions', { skip: true } () => {
+ * describe('Unit tests for assertions', () => {
  *  test('Check assertion toBeDefined()', () => {
  *    const number = 1
  *    expect(number).toBeDefined()
@@ -31,7 +31,7 @@ export const describe = (name, optionsOrBody, body) =>
  * Test a specification or test-case with the given title, test options and callback fn.
  *
  * ```js
- * test('Check assertion toBeDefined()', { skip: true } () => {
+ * test('Check assertion toBeDefined()', () => {
  *    const number = 1
  *    expect(number).toBeDefined()
  * })
