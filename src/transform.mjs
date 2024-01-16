@@ -5,6 +5,7 @@ import fs from 'fs'
 import { EOL } from 'os'
 import { AssertionError } from './errors/assertion.mjs'
 import { RunnerError } from './errors/runner.mjs'
+import { TimeoutError } from './errors/timeout.mjs'
 
 export const applyColor = (message) =>
   Object.keys(ANSI_COLORS).reduce(
@@ -96,7 +97,11 @@ export const indentLine = (line) => `  ${line}`
 export const transformStackTrace = (error, stack) => {
   const failureLocation = getFailureLocation(stack)
   if (!failureLocation) return
-  if (error instanceof AssertionError || error instanceof RunnerError) {
+  if (
+    error instanceof AssertionError ||
+    error instanceof RunnerError ||
+    error instanceof TimeoutError
+  ) {
     const { fileName } = failureLocation
     const introLine = `in <bold>${fileName}</bold>:`
     const allLines = ['', introLine, '', ...highlightedSource(failureLocation)]
