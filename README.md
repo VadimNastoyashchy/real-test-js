@@ -171,14 +171,20 @@ Use `expect(actual_value)` with assertions:
 
 ---
 
-| Assert Name       | Description                                                                                    |
-| ----------------- | ---------------------------------------------------------------------------------------------- |
-| `.toBeDefined()`  | Check actual value to be not undefined `expect(1).toBeDefined()`                               |
-| `.toHaveLength()` | Check actual array length to have expected value `expect(arr).toHaveLength(number)`            |
-| `.toBeFalsy()`    | Check actual value to be false                                                                 |
-| `.toBeTruthy()`   | Check actual value to be true                                                                  |
-| `.toEqual()`      | Check actual and expected value the same (using ===) `expect(value).toEqual(value)`            |
-| `.notToEqual()`   | Check actual and expected value are not the same (using ===) `expect(value).notToEqual(value)` |
+| Assert Name          | Description                                                                                     |
+| -------------------- | ----------------------------------------------------------------------------------------------- |
+| `.toBeDefined()`     | Check actual value to be not undefined `expect(1).toBeDefined()`                                |
+| `.toHaveLength()`    | Check actual array length to have expected value `expect(arr).toHaveLength(number)`             |
+| `.toBeFalsy()`       | Check actual value to be false                                                                  |
+| `.toBeTruthy()`      | Check actual value to be true                                                                   |
+| `.toEqual()`         | Check actual and expected values are the same (using ===) `expect(value).toEqual(value)`        |
+| `.notToEqual()`      | Check actual and expected values are not the same (using ===) `expect(value).notToEqual(value)` |
+| `.toBeNull()`        | Check actual value to be null                                                                   |
+| `.notToBeNull()`     | Check actual value to be not null                                                               |
+| `.toBeUndefined()`   | Check actual value to be undefined                                                              |
+| `.toBeNaN()`         | Check actual value to be NaN                                                                    |
+| `.toBeGreaterThan()` | Check actual value to be greater than expected value                                            |
+| `.toBeLessThan()`    | Check actual value to be less than expected value                                               |
 
 ---
 

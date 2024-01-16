@@ -12,23 +12,27 @@ export const toBeDefined = (actual) => {
   }
 }
 
-export const toHaveLength = (actual, expected) => {
-  if (!Array.isArray(actual)) {
-    throw new RunnerError(indentLine(`Received: ${actual} is not an array`))
+export const toBeUndefined = (actual) => {
+  if (actual !== undefined) {
+    throw new AssertionError(indentLine('Recieved: <actual> to be undefined'), {
+      actual,
+    })
   }
-  if (typeof expected !== 'number') {
-    throw new RunnerError(indentLine(`Expected: ${expected} is not a number`))
+}
+
+export const toBeNull = (actual) => {
+  if (actual !== null) {
+    throw new AssertionError(indentLine('Recieved: <actual> to be null'), {
+      actual,
+    })
   }
-  if (actual.length !== expected) {
-    throw new AssertionError(
-      indentLine('Expected: <expected>') +
-        EOL +
-        indentLine('Received: <actual>'),
-      {
-        actual: actual.length,
-        expected,
-      }
-    )
+}
+
+export const notToBeNull = (actual) => {
+  if (actual === null) {
+    throw new AssertionError(indentLine('Recieved: <actual> to be not null'), {
+      actual,
+    })
   }
 }
 
@@ -58,6 +62,26 @@ export const toBeTruthy = (actual) => {
   }
 }
 
+export const toHaveLength = (actual, expected) => {
+  if (!Array.isArray(actual)) {
+    throw new RunnerError(indentLine(`Received: ${actual} is not an array`))
+  }
+  if (typeof expected !== 'number') {
+    throw new RunnerError(indentLine(`Expected: ${expected} is not a number`))
+  }
+  if (actual.length !== expected) {
+    throw new AssertionError(
+      indentLine('Expected: <expected>') +
+        EOL +
+        indentLine('Received: <actual>'),
+      {
+        actual: actual.length,
+        expected,
+      }
+    )
+  }
+}
+
 export const toEqual = (actual, expected) => {
   if (actual !== expected) {
     throw new AssertionError(
@@ -83,5 +107,57 @@ export const notToEqual = (actual, expected) => {
         expected,
       }
     )
+  }
+}
+
+export const toBeGreaterThan = (actual, expected) => {
+  if (typeof actual !== 'number') {
+    throw new RunnerError(indentLine(`Expected: ${actual} is not a number`))
+  }
+  if (typeof expected !== 'number') {
+    throw new RunnerError(indentLine(`Recieved: ${expected} is not a number`))
+  }
+  if (actual < expected) {
+    throw new AssertionError(
+      indentLine('Expected: <actual>') +
+        EOL +
+        indentLine('to be greater than') +
+        EOL +
+        indentLine('Received: <expected>'),
+      {
+        actual,
+        expected,
+      }
+    )
+  }
+}
+
+export const toBeLessThan = (actual, expected) => {
+  if (typeof actual !== 'number') {
+    throw new RunnerError(indentLine(`Expected: ${actual} is not a number`))
+  }
+  if (typeof expected !== 'number') {
+    throw new RunnerError(indentLine(`Recieved: ${expected} is not a number`))
+  }
+  if (actual > expected) {
+    throw new AssertionError(
+      indentLine('Expected: <actual>') +
+        EOL +
+        indentLine('to be less than') +
+        EOL +
+        indentLine('Received: <expected>'),
+      {
+        actual,
+        expected,
+      }
+    )
+  }
+}
+
+export const toBeNaN = (actual) => {
+  if (!isNaN(actual)) {
+    throw new AssertionError(indentLine('Received: <actual> to be NaN'), {
+      actual,
+    })
   }
 }

@@ -42,4 +42,28 @@ describe('Unit tests for assertions', () => {
     )
     expect(number).toBeDefined()
   })
+
+  test('Check assertion toBeNull()', () => {
+    expect(null).toBeNull()
+  })
+
+  test('Check assertion notToBeNull()', () => {
+    expect(1).notToBeNull()
+  })
+
+  test('Check assertion toBeUndefined()', () => {
+    expect(undefined).toBeUndefined()
+  })
+
+  test('Check assertion toBeGreaterThan()', () => {
+    expect(5).toBeGreaterThan(4)
+  })
+
+  test('Check assertion toBeLessThan()', () => {
+    expect([]).toBeLessThan(4)
+  })
+
+  test('Check assertion toBeNaN()', () => {
+    expect('10F').toBeNaN()
+  })
 })
