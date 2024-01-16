@@ -35,10 +35,8 @@ describe('Unit tests for assertions', () => {
     expect({}).notToEqual({})
     expect([]).notToEqual([])
   })
-})
 
-describe('Unit test for async', () => {
-  test('Wait 1 sec and check', { timeout: 2000 }, async () => {
+  test('Wait 1 sec and check (async)', { timeout: 2000 }, async () => {
     const number = await new Promise((resolve) =>
       setTimeout(() => resolve(1), 1_000)
     )
