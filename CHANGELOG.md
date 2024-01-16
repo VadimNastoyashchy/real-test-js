@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - `.toBeGreaterThan()`
    - `.toBeLessThan()`
 
+- Error handling for `expect` assertions
 
 ### Fixed
 - Fixed EOL for assertions

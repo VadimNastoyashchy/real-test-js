@@ -1,7 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable indent */
+import { EOL } from 'os'
 import { AssertionError } from './errors/assertion.mjs'
 import * as assertions from './assertions.mjs'
+import { RunnerError } from './errors/runner.mjs'
+import { indentLine } from './transform.mjs'
 
 const matcherHandler = (actual) => ({
   get:
@@ -13,7 +16,17 @@ const matcherHandler = (actual) => ({
         if (e instanceof AssertionError) {
           currentTest.errors.push(e)
         } else {
-          throw e
+          throw new RunnerError(
+            indentLine(`Unknown assertion: .${name}()`) +
+              EOL +
+              indentLine('List of available assertions:') +
+              EOL +
+              '' +
+              EOL +
+              `${Object.keys(assertions)
+                .map((assertion) => indentLine(`.${assertion}()`))
+                .join(EOL)}`
+          )
         }
       }
     },
