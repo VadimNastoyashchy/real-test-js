@@ -60,7 +60,7 @@ describe('Unit tests for assertions', () => {
   })
 
   test('Check assertion toBeLessThan()', () => {
-    expect([]).toBeLessThan(4)
+    expect(3).toBeLessThan(4)
   })
 
   test('Check assertion toBeNaN()', () => {
