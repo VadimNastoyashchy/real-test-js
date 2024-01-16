@@ -224,12 +224,10 @@ To use it just add `async` keyword before function callback inside `test` block
 ### `Example↓`
 
 ```
-describe('Unit test for async', () => {
-  test('Wait 1 sec and check', async () => {
-    const number = await new Promise((resolve) =>
-      setTimeout(() => resolve(1), 1_000)
-    )
-    expect(number).toBeDefined()
-  })
+test('Wait 1 sec and check', async () => {
+  const number = await new Promise((resolve) =>
+    setTimeout(() => resolve(1), 1_000)
+  )
+  expect(number).toBeDefined()
 })
 ```

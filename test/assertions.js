@@ -1,4 +1,4 @@
-import { describe, test, expect } from '../src/context.mjs'
+import { describe, test, expect } from '../src/index.mjs'
 
 describe('Unit tests for assertions', () => {
   test('Check assertion toBeDefined()', () => {

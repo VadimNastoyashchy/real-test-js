@@ -65,7 +65,7 @@ const printFailureMsg = (failure) => {
   console.error(applyColor(createFullDescription(failure)))
   console.error('')
   failure.errors.forEach((error) => {
-    if (!error.message.includes('timeout')) console.error(error.message)
+    console.error(error.message)
     console.error(error.stack)
   })
   console.error('')

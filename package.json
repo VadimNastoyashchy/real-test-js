@@ -7,7 +7,7 @@
     "real-test-js": "src/cli.mjs"
   },
   "exports": {
-    ".": "./src/context.mjs"
+    ".": "./src/index.mjs"
   },
   "scripts": {
     "test": "src/cli.mjs --config=\"test.config.json\"",

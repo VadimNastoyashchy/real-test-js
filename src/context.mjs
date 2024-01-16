@@ -3,7 +3,6 @@
 import { TimeoutError } from './errors/timeout.mjs'
 import { focusedOnly } from './focus.mjs'
 import { applyColor, executeAll, withoutLast } from './transform.mjs'
-export { expect } from './expect.mjs'
 
 export const report = []
 const failures = []
@@ -33,22 +32,6 @@ const makeTest = (name, body) => ({
 
 currentDescribe = makeDescribe('root')
 
-/**
- * Describe a "suite" with the given title and callback fn containing nested suites.
- *
- * ```js
- * describe('Unit tests for assertions', { skip: true } () => {
- *  test('Check assertion toBeDefined()', () => {
- *    const number = 1
- *    expect(number).toBeDefined()
- *  })
- * })
- * ```
- *
- * @param name Group title.
- * @param optionsOrBody (Optional) Object with options
- * @param callback A callback that is run immediately when calling describe(name, optionsOrBody, callback)
- */
 export const describe = (name, optionsOrBody, body) => {
   const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
   const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
@@ -65,20 +48,6 @@ export const describe = (name, optionsOrBody, body) => {
   }
 }
 
-/**
- * Test a specification or test-case with the given title, test options and callback fn.
- *
- * ```js
- * test('Check assertion toBeDefined()', { skip: true } () => {
- *    const number = 1
- *    expect(number).toBeDefined()
- * })
- * ```
- *
- * @param name Test title.
- * @param optionsOrBody (Optional) Object with options
- * @param callback A callback that is run immediately when calling test(name, optionsOrBody, callback)
- */
 export const test = (name, optionsOrBody, body) => {
   const options = typeof optionsOrBody === 'object' ? optionsOrBody : {}
   const actualBody = typeof optionsOrBody === 'function' ? optionsOrBody : body
@@ -95,15 +64,6 @@ export const test = (name, optionsOrBody, body) => {
   }
 }
 
-/**
- * Execute before each test case.
- *
- * ```js
- * beforeEach(() => {
- *  const number = 1
- * });
- * ```
- */
 export const beforeEach = (body) => {
   currentDescribe = {
     ...currentDescribe,
@@ -111,15 +71,6 @@ export const beforeEach = (body) => {
   }
 }
 
-/**
- * Execute after each test case.
- *
- * ```js
- * afterEach(() => {
- *  const number = 1
- * });
- * ```
- */
 export const afterEach = (body) => {
   currentDescribe = {
     ...currentDescribe,
@@ -127,29 +78,11 @@ export const afterEach = (body) => {
   }
 }
 
-/**
- * Execute before all test cases.
- *
- * ```js
- * beforeAll(() => {
- *  const number = 1
- * });
- * ```
- */
 export const beforeAll = (body) => {
   beforeAllStack.push(body)
   hasBeforeAll = true
 }
 
-/**
- * Execute after all test cases.
- *
- * ```js
- * afterAll(() => {
- *  const number = 1
- * });
- * ```
- */
 export const afterAll = (body) => {
   afterAllStack.push(body)
   hasAfterAll = true
