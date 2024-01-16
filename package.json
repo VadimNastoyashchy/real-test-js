@@ -12,7 +12,8 @@
   "scripts": {
     "test": "src/cli.mjs --config=\"test.config.json\"",
     "lint": "eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/",
-    "prettier": "prettier . --check"
+    "prettier": "prettier . --check",
+    "fix-formatting": "npx prettier --write ."
   },
   "author": "Vadym Nastoiashchyi",
   "keywords": [
