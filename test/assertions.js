@@ -1,4 +1,4 @@
-import { describe, test, expect } from '../src/core.mjs'
+import { describe, test, expect } from '../src/context.mjs'
 
 describe('Unit tests for assertions', () => {
   test('Check assertion toBeDefined()', () => {
@@ -34,5 +34,12 @@ describe('Unit tests for assertions', () => {
     expect(false).notToEqual(true)
     expect({}).notToEqual({})
     expect([]).notToEqual([])
+  })
+
+  test('Wait 1 sec and check (async)', { timeout: 2000 }, async () => {
+    const number = await new Promise((resolve) =>
+      setTimeout(() => resolve(1), 1_000)
+    )
+    expect(number).toBeDefined()
   })
 })
