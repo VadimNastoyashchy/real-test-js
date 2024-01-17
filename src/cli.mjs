@@ -34,7 +34,7 @@ const printError = (arg) => {
   console.error(
     applyColor(`<red>Error: unknown option: ${arg.replace(/=.*$/, '=')}</red>`)
   )
-  console.error('Usage: npx real-test-js --config="test.config.json"' + EOL)
+  console.error('Usage: npx real-test-js <option>' + EOL)
   printHelp()
 }
 
