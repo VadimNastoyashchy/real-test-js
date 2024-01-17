@@ -1,7 +1,7 @@
 {
   "name": "real-test-js",
   "version": "1.8.0",
-  "description": "RealTestJS - another test js runner",
+  "description": "RealTestJS - Fast and trustworthy testing for everything JS!",
   "type": "module",
   "bin": {
     "real-test-js": "src/runner.mjs"
