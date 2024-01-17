@@ -1,13 +1,9 @@
-import {
-  getTestNameFromArgs,
-  getConfigFileFromArgs,
-  getTestFolderFromArgs,
-} from './setup.mjs'
+import { getTestFolderFromArgs, getTestNameFromArgs } from './cli.mjs'
+import { readConfigJSONFile } from './setup.mjs'
 
-const args = process.argv // get arguments from command line
-const testName = getTestNameFromArgs(args)
-const testDir = getTestFolderFromArgs(args)
-const configFile = getConfigFileFromArgs(args)
+const testName = getTestNameFromArgs()
+const testDir = getTestFolderFromArgs()
+const configFile = readConfigJSONFile()
 
 const baseConfig = {
   testFile: configFile?.testFile || testName,

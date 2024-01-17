@@ -4,13 +4,13 @@
   "description": "RealTestJS - another test js runner",
   "type": "module",
   "bin": {
-    "real-test-js": "src/cli.mjs"
+    "real-test-js": "src/runner.mjs"
   },
   "exports": {
     ".": "./src/index.mjs"
   },
   "scripts": {
-    "test": "src/cli.mjs --config=\"test.config.json\"",
+    "test": "src/runner.mjs --config=\"test.config.json\"",
     "lint": "eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/",
     "prettier": "prettier . --check",
     "fix-formatting": "npx prettier --write ."

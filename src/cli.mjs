@@ -20,12 +20,20 @@ export const checkCliArgs = () => {
       }
     })
   } else {
-    throw new RunnerError('Args should be provided!')
+    throw new RunnerError(
+      applyColor('<red>Args should be provided!</red>') +
+        EOL +
+        `Use ${ARGS.HELP} to see available options` +
+        EOL +
+        ''
+    )
   }
 }
 
 const printError = (arg) => {
-  console.error(applyColor(`<red>Error: unknown option: ${arg}</red>`))
+  console.error(
+    applyColor(`<red>Error: unknown option: ${arg.replace(/=.*$/, '=')}</red>`)
+  )
   console.error('Usage: npx real-test-js --config="test.config.json"' + EOL)
   printHelp()
 }
@@ -49,4 +57,27 @@ const printHelp = () => {
       ''
   )
   process.exit(1)
+}
+
+const getCustomArgFromArgs = (customArgPrefix) => {
+  // pick custom arg that contains custom prefix
+  const customArg = args.find((arg) => arg.includes(customArgPrefix)) ?? ''
+  const parsedCustomArg = customArg.split(customArgPrefix)
+  const customArgValue = parsedCustomArg[1]
+  return customArgValue
+}
+
+export const getConfigName = () => {
+  const customArgPrefix = ARGS.CONFIG
+  return getCustomArgFromArgs(customArgPrefix) || ''
+}
+
+export const getTestNameFromArgs = () => {
+  const customArgPrefix = ARGS.TEST
+  return getCustomArgFromArgs(customArgPrefix) || ''
+}
+
+export const getTestFolderFromArgs = () => {
+  const customArgPrefix = ARGS.TEST_FOLDER
+  return getCustomArgFromArgs(customArgPrefix) || ''
 }
