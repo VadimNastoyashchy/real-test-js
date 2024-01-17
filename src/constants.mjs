@@ -20,3 +20,10 @@ export const REPORTER_TYPE = {
   HTML: 'html',
   JSON: 'json',
 }
+
+export const ARGS = {
+  CONFIG: '--config=',
+  TEST: '--test=',
+  TEST_FOLDER: '--test-folder=',
+  HELP: '--help',
+}
