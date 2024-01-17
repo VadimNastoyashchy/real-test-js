@@ -22,18 +22,18 @@ describe('Unit tests for assertions', () => {
   })
 
   test('Check assertion toEqual()', () => {
-    expect(1).toEqual(1)
-    expect('test').toEqual('test')
-    expect(true).toEqual(true)
-    expect(false).toEqual(false)
+    expect(1).toBeEqual(1)
+    expect('test').toBeEqual('test')
+    expect(true).toBeEqual(true)
+    expect(false).toBeEqual(false)
   })
 
   test('Check assertion notToEqual()', () => {
-    expect(2).notToEqual(1)
-    expect('best').notToEqual('test')
-    expect(false).notToEqual(true)
-    expect({}).notToEqual({})
-    expect([]).notToEqual([])
+    expect(2).toBeNotEqual(1)
+    expect('best').toBeNotEqual('test')
+    expect(false).toBeNotEqual(true)
+    expect({}).toBeNotEqual({})
+    expect([]).toBeNotEqual([])
   })
 
   test('Wait 1 sec and check (async)', { timeout: 2000 }, async () => {
@@ -48,7 +48,7 @@ describe('Unit tests for assertions', () => {
   })
 
   test('Check assertion notToBeNull()', () => {
-    expect(1).notToBeNull()
+    expect(1).toBeNotNull()
   })
 
   test('Check assertion toBeUndefined()', () => {
