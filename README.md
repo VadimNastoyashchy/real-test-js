@@ -16,7 +16,7 @@
   <a href="https://github.com/VadimNastoyashchy/real-test-js/issues">Issue Tracker</a> 
 </p>
 <p align="center" style="font-size:120%;">
-  Fast, easy and reliable testing for anything that runs in JS.
+  Fast and trustworthy testing for everything JS!
 </p>
 
 #### RealTestJS is a JavaScript test framework running on Node.js making testing simple and fun.
