@@ -7,12 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.8.0 - 2024-01-17
 ### Added
 - Js dock
 - Async/Await support
-- Added new `{ timeout: 2000 }` 
+- Added new `{ timeout: 2000 }`
   Option timeout (in ms) for specifying how long to wait before aborting.
-  The default timeout is 5 seconds. 
+  The default timeout is 5 seconds.
     `test('description', { timeout: 2000 }, () => {})`
 - Assertions:
    - `.toBeNull()`
@@ -21,18 +22,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - `.toBeNaN()`
    - `.toBeGreaterThan()`
    - `.toBeLessThan()`
-
 - Error handling for `expect` assertions
 - Split Assertion file into separate Assertion files
-
-### Fixed
-- Fixed EOL for assertions
 
 ### Changed
 - Updated unit tests
 - Updated documentation
 - Optimized code
 - Refactored code
+
+### Fixed
+- Fixed EOL for assertions
 
 ## 1.7.0 - 2024-01-14
 ### Added
