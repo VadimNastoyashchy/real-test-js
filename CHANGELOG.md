@@ -14,7 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Option timeout (in ms) for specifying how long to wait before aborting.
   The default timeout is 5 seconds. 
     `test('description', { timeout: 2000 }, () => {})`
+- Assertions:
+   - `.toBeNull()`
+   - `.notToBeNull()`
+   - `.toBeUndefined()`
+   - `.toBeNaN()`
+   - `.toBeGreaterThan()`
+   - `.toBeLessThan()`
+
 - Error handling for `expect` assertions
+- Split Assertion file into separate Assertion files
 
 ### Fixed
 - Fixed EOL for assertions

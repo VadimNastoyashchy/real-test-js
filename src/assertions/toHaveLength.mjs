@@ -1,0 +1,24 @@
+import { AssertionError } from '../errors/assertion.mjs'
+import { RunnerError } from '../errors/runner.mjs'
+import { indentLine } from '../transform.mjs'
+import { EOL } from 'os'
+
+export const toHaveLength = (actual, expected) => {
+  if (!Array.isArray(actual)) {
+    throw new RunnerError(indentLine(`Received: ${actual} is not an array`))
+  }
+  if (typeof expected !== 'number') {
+    throw new RunnerError(indentLine(`Expected: ${expected} is not a number`))
+  }
+  if (actual.length !== expected) {
+    throw new AssertionError(
+      indentLine('Expected: <expected>') +
+        EOL +
+        indentLine('Received: <actual>'),
+      {
+        actual: actual.length,
+        expected,
+      }
+    )
+  }
+}
