@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Logic for handling and erroring args 
   https://github.com/VadimNastoyashchy/real-test-js/issues/78
+- vs code extension
 
 ### Changed
 - Refactored cli, setup, .mjs
