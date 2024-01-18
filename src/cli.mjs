@@ -19,14 +19,6 @@ export const checkCliArgs = () => {
         }
       }
     })
-  } else {
-    throw new RunnerError(
-      applyColor('<red>Args should be provided!</red>') +
-        EOL +
-        `Use ${ARGS.HELP} to see available options` +
-        EOL +
-        ''
-    )
   }
 }
 
@@ -43,8 +35,6 @@ const printHelp = () => {
     'Options: ' +
       EOL +
       '' +
-      EOL +
-      `${ARGS.CONFIG}      <path>  ${'path to the config file'}` +
       EOL +
       `${ARGS.TEST}        <path>  ${'path to the your file with tests'}` +
       EOL +
@@ -65,11 +55,6 @@ const getCustomArgFromArgs = (customArgPrefix) => {
   const parsedCustomArg = customArg.split(customArgPrefix)
   const customArgValue = parsedCustomArg[1]
   return customArgValue
-}
-
-export const getConfigNameFromArgs = () => {
-  const customArgPrefix = ARGS.CONFIG
-  return getCustomArgFromArgs(customArgPrefix) || ''
 }
 
 export const getTestNameFromArgs = () => {
