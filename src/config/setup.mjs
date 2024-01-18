@@ -1,9 +1,9 @@
 import path from 'path'
 import fs from 'fs'
 import { EOL } from 'os'
-import { applyColor } from './transform.mjs'
-import { RunnerError } from './errors/runner.mjs'
-import { createConfig } from './config/create.mjs'
+import { applyColor } from '../transform.mjs'
+import { RunnerError } from '../errors/runner.mjs'
+import { createConfig } from './create.mjs'
 
 export const readConfigFile = async (configName) => {
   if (checkFileConfigExist(configName)) {
@@ -52,7 +52,7 @@ export const checkFileConfigExist = (configName) => {
     } else {
       console.log(
         applyColor(
-          `Config file <yellow>${configName}</yellow> has been successfully created` +
+          `Config file <yellow>${configName}</yellow> has been successfully created!` +
             EOL +
             'Re run the runner again'
         )
