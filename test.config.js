@@ -9,7 +9,7 @@ const config = {
     // type: 'html'
     // folderName: 'report'
     // fileName: 'result'
-  }
+  },
 }
 
 export default config
