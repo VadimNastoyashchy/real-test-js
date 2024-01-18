@@ -1,6 +1,5 @@
 import { EOL } from 'os'
 import { ARGS } from './constants.mjs'
-import { RunnerError } from './errors/runner.mjs'
 import { applyColor } from './transform.mjs'
 
 const args = process.argv // get arguments from command line
