@@ -10,7 +10,6 @@
     ".": "./src/index.mjs"
   },
   "scripts": {
-    "postinstall": "node postinstall.js",
     "test": "src/runner.mjs --config=\"test.config.json\"",
     "lint": "eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/",
     "prettier": "prettier . --check",

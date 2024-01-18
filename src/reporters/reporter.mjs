@@ -1,4 +1,4 @@
-import { getConfig } from '../config.mjs'
+import { getConfig } from '../config/config.mjs'
 import { REPORTER_TYPE } from '../constants.mjs'
 import { RunnerError } from '../errors/runner.mjs'
 import { prepareHTMLReport } from './htmlReporter.mjs'

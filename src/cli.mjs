@@ -67,7 +67,7 @@ const getCustomArgFromArgs = (customArgPrefix) => {
   return customArgValue
 }
 
-export const getConfigName = () => {
+export const getConfigNameFromArgs = () => {
   const customArgPrefix = ARGS.CONFIG
   return getCustomArgFromArgs(customArgPrefix) || ''
 }
