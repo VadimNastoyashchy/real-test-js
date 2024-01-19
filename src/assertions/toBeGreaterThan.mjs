@@ -1,6 +1,6 @@
 import { AssertionError } from 'assert'
 import { RunnerError } from '../errors/runner.mjs'
-import { indentLine } from '../transform.mjs'
+import { indentLine } from '../utils/transform.mjs'
 import { EOL } from 'os'
 
 export const toBeGreaterThan = (actual, expected) => {

@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { EOL } from 'os'
-import { applyColor } from '../transform.mjs'
+import { applyColor } from '../utils/transform.mjs'
 import { RunnerError } from '../errors/runner.mjs'
 import { createConfig } from './create.mjs'
 

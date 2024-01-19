@@ -4,7 +4,7 @@ import { EOL } from 'os'
 import { AssertionError } from './errors/assertion.mjs'
 import * as assertions from './assertions/assertions.mjs'
 import { RunnerError } from './errors/runner.mjs'
-import { indentLine } from './transform.mjs'
+import { indentLine } from './utils/transform.mjs'
 
 const matcherHandler = (actual) => ({
   get:

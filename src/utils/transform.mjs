@@ -1,11 +1,11 @@
 /* eslint-disable n/handle-callback-err */
-import { ANSI_COLORS, ANSI_RESET } from './constants.mjs'
+import { ANSI_COLORS, ANSI_RESET } from '../constants.mjs'
 import path from 'path'
 import fs from 'fs'
 import { EOL } from 'os'
-import { AssertionError } from './errors/assertion.mjs'
-import { RunnerError } from './errors/runner.mjs'
-import { TimeoutError } from './errors/timeout.mjs'
+import { AssertionError } from '../errors/assertion.mjs'
+import { RunnerError } from '../errors/runner.mjs'
+import { TimeoutError } from '../errors/timeout.mjs'
 
 export const applyColor = (message) =>
   Object.keys(ANSI_COLORS).reduce(

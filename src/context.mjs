@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import { TimeoutError } from './errors/timeout.mjs'
 import { focusedOnly } from './core/focus.mjs'
-import { applyColor, executeAll, withoutLast } from './transform.mjs'
+import { applyColor, executeAll, withoutLast } from './utils/transform.mjs'
 
 export const report = []
 const failures = []

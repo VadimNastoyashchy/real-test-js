@@ -2,7 +2,7 @@
 import { getTestFolderFromArgs, getTestNameFromArgs } from '../core/cli.mjs'
 import { RunnerError } from '../errors/runner.mjs'
 import { readConfigFile } from './setup.mjs'
-import { applyColor } from '../transform.mjs'
+import { applyColor } from '../utils/transform.mjs'
 
 export const configName = 'test.config.js'
 

@@ -1,5 +1,5 @@
 import { AssertionError } from '../errors/assertion.mjs'
-import { indentLine } from '../transform.mjs'
+import { indentLine } from '../utils/transform.mjs'
 
 export const toBeNaN = (actual) => {
   if (!isNaN(actual)) {
