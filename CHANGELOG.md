@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Default config creation
+- Moved config file from .json >>> .js
+- Added error handling
+
+### Changed
+- Refactored project file structure
+- Updated documentation
+
 ## 1.8.1 - 2024-01-19
 ### Added
 - Logic for handling and erroring args

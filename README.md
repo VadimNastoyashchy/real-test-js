@@ -43,7 +43,12 @@ yarn add real-test-js --dev
 
 ## Write test:
 
-Use the test function to write test cases and the describe function to group them.
+Use the test function to write test cases and the describe function to group them. 
+
+More example:
+
+https://github.com/VadimNastoyashchy/real-test-js-boilerplate-project
+
 Let's start with test.js test file creation.
 
 ### `Example↓`
@@ -51,7 +56,7 @@ Let's start with test.js test file creation.
 test.js
 
 ```
-import { describe, test, beforeEach, afterEach, expect} from 'real-test-js'
+import { describe, test, expect} from 'real-test-js'
 
 describe('Title for describe block', () => {
   test('Title for test', () => {
@@ -75,38 +80,27 @@ yarn real-test-js --test="test.js"
 
 Where **--test=** your test file path
 
-## `Available CLI Options`
-
-To run with config file **--config=** CLI arg:
-
-```bash
-npx real-test-js --config="your_config_name.config.json"
-```
-
-or
-
-```bash
-yarn real-test-js --config="your_config_name.config.json"
-```
 
 ## `Configuration via config file`
 
-- `test.config.json` - config for Real Test JS (works as an engine)
+- `test.config.js` - config for Real Test JS (works as an engine)
 
 ### `Example↓`
 
-test.config.json
+test.config.js
 
 ```
-{
-    "testFile": "test_folder/your_file.js",
-    "testDir": "test_folder",
-    "reporter": {
-      "type": "json",
-      "folderName": "report",
-      "fileName": "results",
+const config = {
+  testDir: 'test',
+  // testFile: 'test.js'
+  reporter: {
+    type: 'html',
+    folderName: 'report',
+    fileName: 'result',
   },
 }
+
+export default config
 ```
 
 ---
@@ -126,9 +120,9 @@ To enable, add report configuration inside test config:
 
 ```
 {
-    "testDir": "your_test_folder",
-    "reporter": {
-      "type": "html"
+    testDir: "your_test_folder",
+    reporter: {
+      type: "html"
   },
 }
 ```
