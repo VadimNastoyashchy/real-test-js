@@ -5,7 +5,7 @@ import {
   afterEach as coreAfterEach,
   beforeAll as coreBeforeAll,
   afterAll as coreAfterAll,
-} from './context.mjs'
+} from './core/context.mjs'
 import { expect as coreExpect } from './expect.mjs'
 
 /**

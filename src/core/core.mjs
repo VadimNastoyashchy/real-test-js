@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { applyColor, transformStackTrace } from '../utils/transform.mjs'
-import { runParsedBlocks, report } from '../context.mjs'
+import { runParsedBlocks, report } from '../core/context.mjs'
 import { getConfig } from '../config/config.mjs'
 import { getMultipleFilePath } from '../config/setup.mjs'
 import { timeStamp, printExecutionTime } from '../utils/support.mjs'
