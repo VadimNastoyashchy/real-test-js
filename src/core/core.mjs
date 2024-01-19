@@ -1,12 +1,12 @@
 import path from 'path'
 import fs from 'fs'
-import { applyColor, transformStackTrace } from './transform.mjs'
-import { runParsedBlocks, report } from './context.mjs'
-import { getConfig } from './config/config.mjs'
-import { getMultipleFilePath } from './config/setup.mjs'
-import { timeStamp, printExecutionTime } from './support.mjs'
-import { createReport } from './reporters/reporter.mjs'
-import { EXIT_CODES } from './constants.mjs'
+import { applyColor, transformStackTrace } from '../transform.mjs'
+import { runParsedBlocks, report } from '../context.mjs'
+import { getConfig } from '../config/config.mjs'
+import { getMultipleFilePath } from '../config/setup.mjs'
+import { timeStamp, printExecutionTime } from '../support.mjs'
+import { createReport } from '../reporters/reporter.mjs'
+import { EXIT_CODES } from '../constants.mjs'
 
 const config = getConfig()
 

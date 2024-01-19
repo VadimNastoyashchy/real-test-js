@@ -1,5 +1,5 @@
 /* eslint-disable space-before-function-paren */
-import { getTestFolderFromArgs, getTestNameFromArgs } from '../cli.mjs'
+import { getTestFolderFromArgs, getTestNameFromArgs } from '../core/cli.mjs'
 import { RunnerError } from '../errors/runner.mjs'
 import { readConfigFile } from './setup.mjs'
 import { applyColor } from '../transform.mjs'

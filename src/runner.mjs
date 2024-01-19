@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { checkCliArgs } from './cli.mjs'
-import { run } from './core.mjs'
+import { checkCliArgs } from './core/cli.mjs'
+import { run } from './core/core.mjs'
 
 checkCliArgs()
 run()
