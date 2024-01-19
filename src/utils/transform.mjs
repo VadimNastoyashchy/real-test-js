@@ -1,5 +1,5 @@
 /* eslint-disable n/handle-callback-err */
-import { ANSI_COLORS, ANSI_RESET } from '../constants.mjs'
+import { ANSI_COLORS, ANSI_RESET } from '../core/constants.mjs'
 import path from 'path'
 import fs from 'fs'
 import { EOL } from 'os'

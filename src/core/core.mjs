@@ -6,7 +6,7 @@ import { getConfig } from '../config/config.mjs'
 import { getMultipleFilePath } from '../config/setup.mjs'
 import { timeStamp, printExecutionTime } from '../utils/support.mjs'
 import { createReport } from '../reporters/reporter.mjs'
-import { EXIT_CODES } from '../constants.mjs'
+import { EXIT_CODES } from '../core/constants.mjs'
 
 const config = getConfig()
 

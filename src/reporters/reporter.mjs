@@ -1,5 +1,5 @@
 import { getConfig } from '../config/config.mjs'
-import { REPORTER_TYPE } from '../constants.mjs'
+import { REPORTER_TYPE } from '../core/constants.mjs'
 import { RunnerError } from '../errors/runner.mjs'
 import { prepareHTMLReport } from './htmlReporter.mjs'
 import { prepareJsonReport } from './jsonReporter.mjs'

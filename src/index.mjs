@@ -6,7 +6,7 @@ import {
   beforeAll as coreBeforeAll,
   afterAll as coreAfterAll,
 } from './core/context.mjs'
-import { expect as coreExpect } from './expect.mjs'
+import { expect as coreExpect } from './core/expect.mjs'
 
 /**
  * Describe a "suite" with the given title and callback fn containing nested suites.
