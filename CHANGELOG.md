@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.8.1 - 2024-01-19
 ### Added
-- Logic for handling and erroring args 
+- Logic for handling and erroring args
   https://github.com/VadimNastoyashchy/real-test-js/issues/78
 - vs code extension
 
