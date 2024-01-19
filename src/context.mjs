@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 import { TimeoutError } from './errors/timeout.mjs'
-import { focusedOnly } from './focus.mjs'
+import { focusedOnly } from './core/focus.mjs'
 import { applyColor, executeAll, withoutLast } from './transform.mjs'
 
 export const report = []
