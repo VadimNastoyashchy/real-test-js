@@ -9,6 +9,7 @@
   "exports": {
     ".": "./src/index.mjs"
   },
+  "types": "./src/index.d.ts",
   "scripts": {
     "test": "src/runner.mjs",
     "lint": "eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/",
