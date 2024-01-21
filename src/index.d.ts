@@ -80,10 +80,114 @@ export function afterEach(body: () => void): void
  */
 export function afterAll(body: () => void): void
 
-type ExpectReturnValue = {
-  toHaveLength: (length: number) => void
-  toBeEqual: (value: any) => void
-  toBeNotEqual: (value: any) => void
+type Assertions = {
+  /**
+   * Use .toBeDefined() to check that a variable is not undefined.
+   *
+   * ```js
+   *  expect(1).toBeDefined()
+   * ```
+   */
+  toBeDefined: () => void
+
+  /**
+   * Use .toBeUndefined() to check that a variable is undefined.
+   *
+   * ```js
+   *  expect(undefined).toBeUndefined()
+   * ```
+   */
+  toBeUndefined: () => void
+
+  /**
+   * Use .toBeEqual() to compare values are equal (also known as "deep" equality).
+   *
+   * ```js
+   *  expect('test').toBeEqual('test')
+   * ```
+   */
+  toBeEqual: (expected: any) => void
+
+  /**
+   * Use .toBeNotEqual() to compare values are not equal (also known as "deep" equality).
+   *
+   * ```js
+   *  expect('real').toBeNotEqual('test')
+   * ```
+   */
+  toBeNotEqual: (expected: any) => void
+
+  /**
+   * Use .toBeFalsy() to check that a variable is Falsy.
+   *
+   * ```js
+   *  expect(false).toBeFalsy()
+   * ```
+   */
+  toBeFalsy: () => void
+
+  /**
+   * Use .toBeTruthy() to check that a variable is Truthy.
+   *
+   * ```js
+   *  expect(true).toBeTruthy()
+   * ```
+   */
+  toBeTruthy: () => void
+
+  /**
+   * Use .toBeNull() to check that a variable is Null.
+   *
+   * ```js
+   *  expect(null).toBeNull()
+   * ```
+   */
+  toBeNull: () => void
+
+  /**
+   * Use .toBeNotNull() to check that a variable is not Null.
+   *
+   * ```js
+   *  expect(1).toBeNotNull()
+   * ```
+   */
+  toBeNotNull: () => void
+
+  /**
+   * Use .toHaveLength() to check that an object has a .length property and it is set to a certain numeric value.
+   *
+   * ```js
+   *  expect([1, 2, 3]).toHaveLength(3)
+   * ```
+   */
+  toHaveLength: (expected: number) => void
+
+  /**
+   * Use .toBeNaN() to check that a variable is NaN.
+   *
+   * ```js
+   *  expect('text').toBeNaN()
+   * ```
+   */
+  toBeNaN: () => void
+
+  /**
+   * Use .toBeGreaterThan() to compare received > expected for number or big integer values.
+   *
+   * ```js
+   *  expect(5).toBeGreaterThan(4)
+   * ```
+   */
+  toBeGreaterThan: (expected: number) => void
+
+  /**
+   * Use .toBeLessThan() to compare received < expected for number or big integer values.
+   *
+   * ```js
+   *  expect(3).toBeLessThan(4)
+   * ```
+   */
+  toBeLessThan: (expected: number) => void
 }
 
 /**
@@ -95,4 +199,4 @@ type ExpectReturnValue = {
  *
  * @param expected Expected value to check.
  */
-export function expect(expected: any): ExpectReturnValue
+export function expect(expected: any): Assertions
