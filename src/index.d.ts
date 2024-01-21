@@ -1,6 +1,4 @@
-// Type definitions for log4js
-
-// Type definitions for log4js
+// Type definitions for real-test-js
 
 /**
  * Describe a "suite" with the given title and callback fn containing nested suites.
