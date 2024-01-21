@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Types for assertions, core func.
 
+### Fixed
+- Fixed assertions https://github.com/VadimNastoyashchy/real-test-js/issues/74
+
 ## 1.9.0 - 2024-01-21
 ### Added
 - Default config creation

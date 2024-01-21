@@ -13,7 +13,7 @@ const matcherHandler = (actual) => ({
       try {
         assertions[name](actual, ...args)
       } catch (e) {
-        if (e instanceof AssertionError) {
+        if (e instanceof AssertionError || e instanceof RunnerError) {
           currentTest.errors.push(e)
         } else {
           throw new RunnerError(

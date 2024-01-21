@@ -5,7 +5,7 @@ import { indentLine } from '../utils/transform.mjs'
 export const toBeTruthy = (actual) => {
   if (typeof actual !== 'boolean') {
     throw new RunnerError(
-      indentLine(`Received: ${actual} is not a boolean value`)
+      indentLine(`Received: ${typeof actual}${actual} is not a boolean value`)
     )
   }
   if (actual !== true) {
