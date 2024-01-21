@@ -10,7 +10,7 @@
     ".": "./src/index.mjs"
   },
   "scripts": {
-    "test": "src/runner.mjs --config=\"test.config.json\"",
+    "test": "src/runner.mjs",
     "lint": "eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/",
     "prettier": "prettier . --check",
     "fix-formatting": "npx prettier --write ."

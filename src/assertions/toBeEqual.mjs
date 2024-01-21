@@ -1,5 +1,5 @@
 import { AssertionError } from '../errors/assertion.mjs'
-import { indentLine } from '../transform.mjs'
+import { indentLine } from '../utils/transform.mjs'
 import { EOL } from 'os'
 
 export const toBeEqual = (actual, expected) => {

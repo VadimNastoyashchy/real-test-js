@@ -1,4 +1,4 @@
-import { createFile, prepareSpace } from '../support.mjs'
+import { createFile, prepareSpace } from '../utils/support.mjs'
 
 export const prepareHTMLReport = (report, fileName, folderName) => {
   const filePath = prepareSpace(fileName, folderName)

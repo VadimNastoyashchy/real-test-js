@@ -1,12 +1,5 @@
-import {
-  describe as coreDescribe,
-  test as coreTest,
-  beforeEach as coreBeforeEach,
-  afterEach as coreAfterEach,
-  beforeAll as coreBeforeAll,
-  afterAll as coreAfterAll,
-} from './context.mjs'
-import { expect as coreExpect } from './expect.mjs'
+import * as core from './core/context.mjs'
+import { expect as coreExpect } from './core/expect.mjs'
 
 /**
  * Describe a "suite" with the given title and callback fn containing nested suites.
@@ -25,7 +18,7 @@ import { expect as coreExpect } from './expect.mjs'
  * @param callback A callback that is run immediately when calling describe(name, optionsOrBody, callback)
  */
 export const describe = (name, optionsOrBody, body) =>
-  coreDescribe(name, optionsOrBody, body)
+  core.describe(name, optionsOrBody, body)
 
 /**
  * Test a specification or test-case with the given title, test options and callback fn.
@@ -42,7 +35,7 @@ export const describe = (name, optionsOrBody, body) =>
  * @param callback A callback that is run immediately when calling test(name, optionsOrBody, callback)
  */
 export const test = (name, optionsOrBody, body) =>
-  coreTest(name, optionsOrBody, body)
+  core.test(name, optionsOrBody, body)
 
 /**
  * Execute before each test case.
@@ -53,7 +46,7 @@ export const test = (name, optionsOrBody, body) =>
  * });
  * ```
  */
-export const beforeEach = (body) => coreBeforeEach(body)
+export const beforeEach = (body) => core.beforeEach(body)
 
 /**
  * Execute before all test cases.
@@ -64,7 +57,7 @@ export const beforeEach = (body) => coreBeforeEach(body)
  * });
  * ```
  */
-export const beforeAll = (body) => coreBeforeAll(body)
+export const beforeAll = (body) => core.beforeAll(body)
 
 /**
  * Execute after each test case.
@@ -75,7 +68,7 @@ export const beforeAll = (body) => coreBeforeAll(body)
  * });
  * ```
  */
-export const afterEach = (body) => coreAfterEach(body)
+export const afterEach = (body) => core.afterEach(body)
 
 /**
  * Execute after all test cases.
@@ -86,7 +79,7 @@ export const afterEach = (body) => coreAfterEach(body)
  * });
  * ```
  */
-export const afterAll = (body) => coreAfterAll(body)
+export const afterAll = (body) => core.afterAll(body)
 
 /**
  * Expect gives you access to a number of "matchers" that let you validate different things.

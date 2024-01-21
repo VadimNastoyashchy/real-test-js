@@ -1,4 +1,4 @@
-import { applyColor } from '../transform.mjs'
+import { applyColor } from '../utils/transform.mjs'
 
 export class AssertionError extends Error {
   // eslint-disable-next-line space-before-function-paren

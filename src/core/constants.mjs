@@ -22,7 +22,6 @@ export const REPORTER_TYPE = {
 }
 
 export const ARGS = {
-  CONFIG: '--config=',
   TEST: '--test=',
   TEST_FOLDER: '--test-folder=',
   HELP: '--help',
