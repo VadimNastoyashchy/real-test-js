@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Types for assertions, core func.
+- Added async support for hooks:
+  - `beforeAll( async() => {})`
+  - `afterAll( async() => {})`
+  - `beforeEach( async() => {})`
+  - `afterEach( async() => {})`
 
 ### Fixed
 - Fixed assertions https://github.com/VadimNastoyashchy/real-test-js/issues/74
