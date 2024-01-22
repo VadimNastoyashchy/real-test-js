@@ -1,5 +1,5 @@
 import { EOL } from 'os'
-import { ARGS } from '../core/constants.mjs'
+import { ARGS } from './constants.mjs'
 import { applyColor } from '../utils/transform.mjs'
 
 const args = process.argv // get arguments from command line
