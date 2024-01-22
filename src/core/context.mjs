@@ -2,7 +2,11 @@
 /* eslint-disable no-undef */
 import { TimeoutError } from '../errors/timeout.mjs'
 import { focusedOnly } from './focus.mjs'
-import { applyColor, executeAll, withoutLast } from '../utils/transform.mjs'
+import {
+  applyColor,
+  executeAllAndWait,
+  withoutLast,
+} from '../utils/transform.mjs'
 
 export const report = []
 const failures = []
@@ -95,10 +99,11 @@ const indent = (message) => `${' '.repeat(describeStack.length * 2)}${message}`
 const runDescribe = async (describe) => {
   console.log(indent(describe.name))
   describeStack = [...describeStack, describe]
+  await invokeBeforeAll()
   for (let i = 0; i < describe.children.length; ++i) {
     await runBlock(describe.children[i])
   }
-  invokeAfterAll()
+  await invokeAfterAll()
   describeStack = withoutLast(describeStack)
 }
 
@@ -115,8 +120,7 @@ const runTest = async (test) => {
   global.currentTest = test
   currentTest.describeStack = [...describeStack]
   try {
-    invokeBeforeAll()
-    invokeBeforeEach(currentTest)
+    await invokeBeforeEach(currentTest)
     await runBodyAndWait(currentTest.body)
   } catch (e) {
     currentTest.errors.push(e)
@@ -129,7 +133,7 @@ const runTest = async (test) => {
     console.log(indent(applyColor(`<green>✓</green> ${currentTest.name}`)))
   }
   try {
-    invokeAfterEach(currentTest)
+    await invokeAfterEach(currentTest)
   } catch (e) {
     console.error(e)
   }
@@ -137,23 +141,23 @@ const runTest = async (test) => {
   global.currentTest = null
 }
 
-const invokeBeforeEach = () =>
-  executeAll(describeStack.flatMap((describe) => describe.beforeEach))
+const invokeBeforeEach = async () =>
+  executeAllAndWait(describeStack.flatMap((describe) => describe.beforeEach))
 
-const invokeAfterEach = () =>
-  executeAll(describeStack.flatMap((describe) => describe.afterEach))
+const invokeAfterEach = async () =>
+  executeAllAndWait(describeStack.flatMap((describe) => describe.afterEach))
 
-const invokeBeforeAll = () => {
+const invokeBeforeAll = async () => {
   if (hasBeforeAll) {
-    executeAll(beforeAllStack)
+    await executeAllAndWait(beforeAllStack)
     hasBeforeAll = false
     beforeAllStack = []
   }
 }
 
-const invokeAfterAll = () => {
+const invokeAfterAll = async () => {
   if (hasAfterAll) {
-    executeAll(afterAllStack)
+    await executeAllAndWait(afterAllStack)
     hasAfterAll = false
     afterAllStack = []
   }
