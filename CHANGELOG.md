@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Types for assertions, core func.
+
 ### Fixed
 - Fixed assertions https://github.com/VadimNastoyashchy/real-test-js/issues/74
 
