@@ -15,6 +15,9 @@
 <p align="center">
   <a href="https://github.com/VadimNastoyashchy/real-test-js/issues">Issue Tracker</a> 
 </p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/real-test-js">Link to NPM repository > real-test-js</a> 
+</p>
 <p align="center" style="font-size:120%;">
   Fast and trustworthy testing for everything JS!
 </p>
