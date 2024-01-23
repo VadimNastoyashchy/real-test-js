@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Added async support for hooks:
+  - `beforeAll( async() => {})`
+  - `afterAll( async() => {})`
+  - `beforeEach( async() => {})`
+  - `afterEach( async() => {})`
+
 ## 1.9.1 - 2024-01-23
 ### Added
 - Types for assertions, core func.
