@@ -183,6 +183,7 @@ Use `expect(actual_value)` with assertions:
 | `.toBeGreaterThan()` | Check actual value to be greater than expected value                                            |
 | `.toBeLessThan()`    | Check actual value to be less than expected value                                               |
 | `.toContain()`       | Use when you want to check that an item is in an array or a string.                             |
+| `.toMatch()`         | Use .toMatch() to check that a string matches a regular expression.                             |
 
 ---
 

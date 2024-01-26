@@ -72,4 +72,9 @@ describe('Unit tests for assertions', () => {
     expect(arr).toContain('test')
     expect(arr[0]).toContain('al')
   })
+
+  test('Check assertion toMatch()', () => {
+    expect('test').toMatch('test')
+    expect('test').toMatch(/test/i)
+  })
 })

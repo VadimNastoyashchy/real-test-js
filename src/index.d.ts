@@ -188,7 +188,7 @@ type Assertions = {
   toBeLessThan: (expected: number) => void
 
   /**
-   * Use .toContain when you want to check that an item is in an array or a string.
+   * Use .toContain() when you want to check that an item is in an array or a string.
    *
    * ```js
    *  expect('test').toContain('st')
@@ -197,6 +197,17 @@ type Assertions = {
    * ```
    */
   toContain: (expected: any) => void
+
+  /**
+   * Use .toMatch() to check that a string matches a regular expression.
+   *
+   * ```js
+   *  expect('test').toMatch('st')
+   *  expect(['test', 'real']).toMatch('real')
+   *
+   * ```
+   */
+  toMatch: (expected: any) => void
 }
 
 /**
