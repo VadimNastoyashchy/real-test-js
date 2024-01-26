@@ -66,4 +66,10 @@ describe('Unit tests for assertions', () => {
   test('Check assertion toBeNaN()', () => {
     expect('10F').toBeNaN()
   })
+
+  test('Check assertion toContain()', () => {
+    const arr = ['real', 'test']
+    expect(arr).toContain('test')
+    expect(arr[0]).toContain('al')
+  })
 })

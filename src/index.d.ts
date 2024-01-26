@@ -186,6 +186,17 @@ type Assertions = {
    * ```
    */
   toBeLessThan: (expected: number) => void
+
+  /**
+   * Use .toContain when you want to check that an item is in an array or a string.
+   *
+   * ```js
+   *  expect('test').toContain('st')
+   *  expect(['test', 'real']).toContain('real')
+   *
+   * ```
+   */
+  toContain: (expected: any) => void
 }
 
 /**
