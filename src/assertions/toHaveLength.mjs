@@ -6,12 +6,12 @@ import { EOL } from 'os'
 export const toHaveLength = (actual, expected) => {
   if (!Array.isArray(actual)) {
     throw new RunnerError(
-      indentLine(`Received: ${typeof actual}${actual} is not an array`)
+      indentLine(`Received: ${typeof actual} ${actual} is not an array`)
     )
   }
   if (typeof expected !== 'number') {
     throw new RunnerError(
-      indentLine(`Expected: ${typeof expected}${expected} is not a number`)
+      indentLine(`Expected: ${typeof expected} ${expected} is not a number`)
     )
   }
   if (actual.length !== expected) {
