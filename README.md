@@ -22,11 +22,11 @@
   Fast and trustworthy testing for everything JS!
 </p>
 
-#### RealTestJS is a JavaScript test framework running on Node.js making testing simple and fun.
+#### RealTestJS is a JavaScript testing framework running on Node.js that makes testing easy and fun.
 
 ## Getting started
 
-> Before you follow the steps below, make sure you have the
+> Before you follow the steps below, make sure that you have installed the
 
 [Node.js](https://nodejs.org/en/download/) installed _globally_ only your system
 
@@ -70,6 +70,7 @@ describe('Title for describe block', () => {
 ```
 
 ## Run test:
+Specify the **--file=** argument as the path to your test file
 
 ```bash
 npx real-test-js --file="test.js"
@@ -81,11 +82,18 @@ or
 yarn real-test-js --file="test.js"
 ```
 
-Where **--file=** is your test file path
+### or
+Specify the **--folder=** argument as the path to your test(s) folder
+
+```bash
+npx real-test-js --folder="tests"
+```
 
 or
 
-Where **--folder=** is your test folder path
+```bash
+yarn real-test-js --folder="tests"
+```
 
 
 
