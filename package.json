@@ -1,7 +1,7 @@
 {
   "name": "real-test-js",
   "version": "1.9.3",
-  "description": "RealTestJS - Fast and trustworthy testing for everything JS!",
+  "description": "RealTestJS - Fast and reliable testing for JavaScript!",
   "type": "module",
   "bin": {
     "real-test-js": "src/runner.mjs"
@@ -22,7 +22,8 @@
     "test-runner",
     "testing",
     "automation",
-    "js"
+    "js",
+    "JavaScript"
   ],
   "license": "MIT",
   "repository": {
