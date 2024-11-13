@@ -1,6 +1,6 @@
 {
   "name": "real-test-js",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "description": "RealTestJS - Fast and reliable testing for JavaScript!",
   "type": "module",
   "bin": {

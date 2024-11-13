@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.9.4 - 2024-11-13
 ### Added
 - Configuration validation
 
@@ -14,9 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HTML reporter
 - JSON reporter
 - Config file creation
-
- ### Changed
- - Readme file
+  
+   ### Changed
+   - Readme file
 
 ## 1.9.3 - 2024-01-29
 ### Added
