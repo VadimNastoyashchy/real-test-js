@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configuration validation
 
 ### Removed
-To become more simple >>> 
 - HTML reporter
 - JSON reporter
 - Config file creation
