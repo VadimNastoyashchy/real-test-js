@@ -16,13 +16,8 @@ export const EXIT_CODES = {
   failures: 1,
 }
 
-export const REPORTER_TYPE = {
-  HTML: 'html',
-  JSON: 'json',
-}
-
 export const ARGS = {
-  TEST: '--test=',
-  TEST_FOLDER: '--test-folder=',
+  FILE: '--file=',
+  FOLDER: '--folder=',
   HELP: '--help',
 }

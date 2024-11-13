@@ -11,7 +11,7 @@
   },
   "types": "./src/index.d.ts",
   "scripts": {
-    "test": "src/runner.mjs",
+    "test": "src/runner.mjs --folder=test",
     "lint": "eslint \"**/*.{js,mjs}\" --ignore-pattern node_modules/",
     "prettier": "prettier . --check",
     "fix-formatting": "npx prettier --write ."

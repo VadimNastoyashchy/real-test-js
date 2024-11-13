@@ -1,32 +1,31 @@
 import path from 'path'
 import fs from 'fs'
 import { applyColor, transformStackTrace } from '../utils/transform.mjs'
-import { runParsedBlocks, report } from '../core/context.mjs'
+import { runParsedBlocks } from '../core/context.mjs'
 import { getConfig } from '../config/config.mjs'
 import { getMultipleFilePath } from '../config/setup.mjs'
 import { timeStamp, printExecutionTime } from '../utils/support.mjs'
-import { createReport } from '../reporters/reporter.mjs'
 import { EXIT_CODES } from '../core/constants.mjs'
 
 const config = getConfig()
 
 Error.prepareStackTrace = transformStackTrace
 
-const hasSingleFile = () => config.testFile
+const hasSingleFile = () => config.file
 
 const getSingleFilePath = async () => {
   try {
-    const fullPath = path.resolve(process.cwd(), config.testFile)
+    const fullPath = path.resolve(process.cwd(), config.file)
     await fs.promises.access(fullPath)
     return [fullPath]
   } catch {
-    console.error(`File ${config.testFile} could not be accessed.`)
+    console.error(`File ${config.file} could not be accessed.`)
     process.exit(0)
   }
 }
 
 const getTestFiles = async () => {
-  return getMultipleFilePath(path.resolve(process.cwd(), config.testDir))
+  return getMultipleFilePath(path.resolve(process.cwd(), config.folder))
 }
 
 const chooseTestFiles = () =>
@@ -47,7 +46,6 @@ export const run = async () => {
     printTestResult(failures, successes)
     const endTimeStamp = timeStamp()
     printExecutionTime(startTimeStamp, endTimeStamp)
-    createReport(report)
     process.exit(failures.length > 0 ? EXIT_CODES.failures : EXIT_CODES.ok)
   } catch (e) {
     console.error(e.message)

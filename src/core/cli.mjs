@@ -29,19 +29,19 @@ const printError = (arg) => {
   printHelp()
 }
 
-const printHelp = () => {
+export const printHelp = () => {
   console.log(
-    'Options: ' +
+    'Available options: ' +
       EOL +
       '' +
       EOL +
-      `${ARGS.TEST}        <path>  ${'path to the your file with tests'}` +
+      `${ARGS.FILE}        <path>  ${'Path to your test file'}` +
       EOL +
-      `${ARGS.TEST_FOLDER} <path>  ${'path to the your folder with tests'}` +
+      `${ARGS.FOLDER}      <path>  ${'Path to your tests folder'}` +
       EOL +
       '' +
       EOL +
-      `${ARGS.HELP}                 ${'display help for command'}` +
+      `${ARGS.HELP}                 ${'Display help for command'}` +
       EOL +
       ''
   )
@@ -57,11 +57,11 @@ const getCustomArgFromArgs = (customArgPrefix) => {
 }
 
 export const getTestNameFromArgs = () => {
-  const customArgPrefix = ARGS.TEST
+  const customArgPrefix = ARGS.FILE
   return getCustomArgFromArgs(customArgPrefix) || ''
 }
 
 export const getTestFolderFromArgs = () => {
-  const customArgPrefix = ARGS.TEST_FOLDER
+  const customArgPrefix = ARGS.FOLDER
   return getCustomArgFromArgs(customArgPrefix) || ''
 }

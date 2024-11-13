@@ -44,15 +44,15 @@ or
 yarn add real-test-js --dev
 ```
 
-## Write test:
+## Write your first test:
 
-Use the test function to write test cases and the describe function to group them. 
+Use the `test` function to write test cases and the `describe` function to group them. 
 
 More example:
 
 https://github.com/VadimNastoyashchy/real-test-js-boilerplate-project
 
-Let's start with test.js test file creation.
+Let's start by creating the `test.js` test file.
 
 ### `Example↓`
 
@@ -72,73 +72,22 @@ describe('Title for describe block', () => {
 ## Run test:
 
 ```bash
-npx real-test-js --test="test.js"
+npx real-test-js --file="test.js"
 ```
 
 or
 
 ```bash
-yarn real-test-js --test="test.js"
+yarn real-test-js --file="test.js"
 ```
 
-Where **--test=** your test file path
+Where **--file=** is your test file path
+
+or
+
+Where **--folder=** is your test folder path
 
 
-## `Configuration via config file`
-
-- `test.config.js` - config for Real Test JS (works as an engine)
-
-### `Example↓`
-
-test.config.js
-
-```
-const config = {
-  testDir: 'test',
-  // testFile: 'test.js'
-  reporter: {
-    type: 'html',
-    folderName: 'report',
-    fileName: 'result',
-  },
-}
-
-export default config
-```
-
----
-
-| Option Name  | Required | Type   | Description             |
-| ------------ | -------- | ------ | ----------------------- |
-| `"testFile"` | false    | string | path to the test file   |
-| `"testDir"`  | true     | string | path to the test folder |
-
----
-
-### `Reporter options`
-
-#### By default report is disabled.
-
-To enable, add report configuration inside test config:
-
-```
-{
-    testDir: "your_test_folder",
-    reporter: {
-      type: "html"
-  },
-}
-```
-
----
-
-| Option Name    | Required | Type   | Description                                  |
-| -------------- | -------- | ------ | -------------------------------------------- |
-| `"type"`       | false    | string | reporter type. Now available: "json", "html" |
-| `"folderName"` | false    | string | define reporter folder name                  |
-| `"fileName"`   | false    | string | define reporter file name                    |
-
----
 
 ## `Test runner API`
 
