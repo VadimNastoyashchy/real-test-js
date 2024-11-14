@@ -78,7 +78,7 @@ export function afterEach(body: () => void): void
  */
 export function afterAll(body: () => void): void
 
-type Assertions = {
+export type Assertions = {
   /**
    * Use .toBeDefined() to check that a variable is not undefined.
    *

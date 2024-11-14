@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import * as core from './core/context.mjs'
 import { expect as coreExpect } from './core/expect.mjs'
+import { Assertions } from '..//src/index'
 
 /**
  * Describe a "suite" with the given title and callback fn containing nested suites.
@@ -88,6 +90,7 @@ export const afterAll = (body) => core.afterAll(body)
  *  expect(number).toBeDefined()
  * ```
  *
- * @param expected Expected value to check.
+ * @param {any} value - the value to be tested.
+ * @returns {Assertions} test functions that let you validate different things
  */
 export const expect = (expected) => coreExpect(expected)
