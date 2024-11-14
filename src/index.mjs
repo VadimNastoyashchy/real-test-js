@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import * as core from './core/context.mjs'
 import { expect as coreExpect } from './core/expect.mjs'
-import { Assertions } from '..//src/index'
 
 /**
  * Describe a "suite" with the given title and callback fn containing nested suites.
@@ -82,6 +80,24 @@ export const afterEach = (body) => core.afterEach(body)
  * ```
  */
 export const afterAll = (body) => core.afterAll(body)
+
+/**
+ * @typedef {Object} Assertions
+ * @property {Function} toBeDefined - Check that a variable is not undefined.
+ * @property {Function} toBeUndefined - Check that a variable is undefined.
+ * @property {Function} toBeEqual - Compare values for deep equality.
+ * @property {Function} toBeNotEqual - Compare values for deep inequality.
+ * @property {Function} toBeFalsy - Check that a variable is Falsy.
+ * @property {Function} toBeTruthy - Check that a variable is Truthy.
+ * @property {Function} toBeNull - Check that a variable is Null.
+ * @property {Function} toBeNotNull - Check that a variable is not Null.
+ * @property {Function} toHaveLength - Check that an object has a .length property and it matches a number.
+ * @property {Function} toBeNaN - Check that a variable is NaN.
+ * @property {Function} toBeGreaterThan - Compare two numbers (received > expected).
+ * @property {Function} toBeLessThan - Compare two numbers (received < expected).
+ * @property {Function} toContain - Check that an item is in an array or a string contains a substring.
+ * @property {Function} toMatch - Check that a string matches a regular expression.
+ */
 
 /**
  * Expect gives you access to a number of "matchers" that let you validate different things.
