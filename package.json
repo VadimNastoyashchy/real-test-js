@@ -18,12 +18,23 @@
   },
   "author": "Vadym Nastoiashchyi",
   "keywords": [
+    "runner",
+    "mocha",
     "test",
-    "test-runner",
+    "bdd",
+    "tdd",
+    "tap",
     "testing",
-    "automation",
-    "js",
-    "JavaScript"
+    "chai",
+    "assertion",
+    "ava",
+    "jest",
+    "tape",
+    "jasmine",
+    "karma",
+    "expect",
+    "easy",
+    "fast"
   ],
   "license": "MIT",
   "repository": {
