@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Fixed JS doc for expect chining assertions
+
 ## 1.9.4 - 2024-11-13
 ### Added
 - Configuration validation
