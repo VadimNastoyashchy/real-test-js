@@ -55,6 +55,7 @@ https://github.com/VadimNastoyashchy/real-test-js-boilerplate-project
 Let's start by creating the `test.js` test file.
 
 > Runner has JavaScript support only
+
 > Runner has ESM support only
 
 ### `Example↓`
