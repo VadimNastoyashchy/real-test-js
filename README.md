@@ -26,7 +26,7 @@
 
 ## Getting started
 
-> Before you follow the steps below, make sure that you have installed the
+> Before you follow the steps below, make sure that you have:
 
 [Node.js](https://nodejs.org/en/download/) installed _globally_ only your system
 
@@ -53,6 +53,9 @@ More example:
 https://github.com/VadimNastoyashchy/real-test-js-boilerplate-project
 
 Let's start by creating the `test.js` test file.
+
+> Runner has JavaScript support only
+> Runner has ESM support only
 
 ### `Example↓`
 
